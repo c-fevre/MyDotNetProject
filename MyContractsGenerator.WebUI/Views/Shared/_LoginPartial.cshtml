@@ -1,0 +1,24 @@
+@using Microsoft.AspNet.Identity
+@using (Html.BeginForm("Logout", "Identity", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+{
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav" id="userMenu">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                @User.Identity.GetUserName()
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <!-- TODO CFE-->
+                    <!--<a href="Url.Action("Edit", "Administrator", new {id=User.Identity.GetUserId()})">@Resources.LoginPartial_MyProfil</a>-->
+                </li>
+                <li>
+                    <a href="javascript://" role="button" data-toggle="modal" data-target="#modalLogout">@Resources.LoginPartial_Logout</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+}

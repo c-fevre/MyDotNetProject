@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MyContractsGeneratorModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="administrator">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="active" Type="bool" Nullable="false" />
+        </EntityType>
+        <EntityType Name="collaborator">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="lastname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="active" Type="bool" Nullable="false" />
+        </EntityType>
+        <EntityType Name="collaborator_has_role">
+          <Key>
+            <PropertyRef Name="id_collaborator" />
+            <PropertyRef Name="id_role" />
+          </Key>
+          <Property Name="id_collaborator" Type="int" Nullable="false" />
+          <Property Name="id_role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="form">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="label" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="form_has_question">
+          <Key>
+            <PropertyRef Name="id_form" />
+            <PropertyRef Name="id_question" />
+          </Key>
+          <Property Name="id_form" Type="int" Nullable="false" />
+          <Property Name="id_question" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="question">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type_id" Type="int" Nullable="false" />
+          <Property Name="label" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="question_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="label" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="label" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="active" Type="bool" Nullable="false" />
+        </EntityType>
+        <EntityType Name="role_has_form">
+          <Key>
+            <PropertyRef Name="id_role" />
+            <PropertyRef Name="id_form" />
+          </Key>
+          <Property Name="id_role" Type="int" Nullable="false" />
+          <Property Name="id_form" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="collaborator_has_role_ibfk_1">
+          <End Role="collaborator" Type="Self.collaborator" Multiplicity="1" />
+          <End Role="collaborator_has_role" Type="Self.collaborator_has_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="collaborator">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="collaborator_has_role">
+              <PropertyRef Name="id_collaborator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="collaborator_has_role_ibfk_2">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="collaborator_has_role" Type="Self.collaborator_has_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="collaborator_has_role">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="form_has_question_ibfk_1">
+          <End Role="form" Type="Self.form" Multiplicity="1" />
+          <End Role="form_has_question" Type="Self.form_has_question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="form">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="form_has_question">
+              <PropertyRef Name="id_form" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="form_has_question_ibfk_2">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="form_has_question" Type="Self.form_has_question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="form_has_question">
+              <PropertyRef Name="id_question" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="question_ibfk_1">
+          <End Role="question_type" Type="Self.question_type" Multiplicity="1" />
+          <End Role="question" Type="Self.question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="question">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="role_has_form_ibfk_1">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="role_has_form" Type="Self.role_has_form" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="role_has_form">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="role_has_form_ibfk_2">
+          <End Role="form" Type="Self.form" Multiplicity="1" />
+          <End Role="role_has_form" Type="Self.role_has_form" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="form">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="role_has_form">
+              <PropertyRef Name="id_form" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyContractsGeneratorModelStoreContainer">
+          <EntitySet Name="administrator" EntityType="Self.administrator" Schema="my_contracts_generator" store:Type="Tables" />
+          <EntitySet Name="collaborator" EntityType="Self.collaborator" Schema="my_contracts_generator" store:Type="Tables" />
+          <EntitySet Name="collaborator_has_role" EntityType="Self.collaborator_has_role" Schema="my_contracts_generator" store:Type="Tables" />
+          <EntitySet Name="form" EntityType="Self.form" Schema="my_contracts_generator" store:Type="Tables" />
+          <EntitySet Name="form_has_question" EntityType="Self.form_has_question" Schema="my_contracts_generator" store:Type="Tables" />
+          <EntitySet Name="question" EntityType="Self.question" Schema="my_contracts_generator" store:Type="Tables" />
+          <EntitySet Name="question_type" EntityType="Self.question_type" Schema="my_contracts_generator" store:Type="Tables" />
+          <EntitySet Name="role" EntityType="Self.role" Schema="my_contracts_generator" store:Type="Tables" />
+          <EntitySet Name="role_has_form" EntityType="Self.role_has_form" Schema="my_contracts_generator" store:Type="Tables" />
+          <AssociationSet Name="collaborator_has_role_ibfk_1" Association="Self.collaborator_has_role_ibfk_1">
+            <End Role="collaborator" EntitySet="collaborator" />
+            <End Role="collaborator_has_role" EntitySet="collaborator_has_role" />
+          </AssociationSet>
+          <AssociationSet Name="collaborator_has_role_ibfk_2" Association="Self.collaborator_has_role_ibfk_2">
+            <End Role="role" EntitySet="role" />
+            <End Role="collaborator_has_role" EntitySet="collaborator_has_role" />
+          </AssociationSet>
+          <AssociationSet Name="form_has_question_ibfk_1" Association="Self.form_has_question_ibfk_1">
+            <End Role="form" EntitySet="form" />
+            <End Role="form_has_question" EntitySet="form_has_question" />
+          </AssociationSet>
+          <AssociationSet Name="form_has_question_ibfk_2" Association="Self.form_has_question_ibfk_2">
+            <End Role="question" EntitySet="question" />
+            <End Role="form_has_question" EntitySet="form_has_question" />
+          </AssociationSet>
+          <AssociationSet Name="question_ibfk_1" Association="Self.question_ibfk_1">
+            <End Role="question_type" EntitySet="question_type" />
+            <End Role="question" EntitySet="question" />
+          </AssociationSet>
+          <AssociationSet Name="role_has_form_ibfk_1" Association="Self.role_has_form_ibfk_1">
+            <End Role="role" EntitySet="role" />
+            <End Role="role_has_form" EntitySet="role_has_form" />
+          </AssociationSet>
+          <AssociationSet Name="role_has_form_ibfk_2" Association="Self.role_has_form_ibfk_2">
+            <End Role="form" EntitySet="form" />
+            <End Role="role_has_form" EntitySet="role_has_form" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyContractsGeneratorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="administrator">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="collaborator">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="roles" Relationship="Self.collaborator_has_role" FromRole="collaborator" ToRole="role" />
+        </EntityType>
+        <EntityType Name="form">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="label" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="questions" Relationship="Self.form_has_question" FromRole="form" ToRole="question" />
+          <NavigationProperty Name="roles" Relationship="Self.role_has_form" FromRole="form" ToRole="role" />
+        </EntityType>
+        <EntityType Name="question">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type_id" Type="Int32" Nullable="false" />
+          <Property Name="label" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="question_type" Relationship="Self.question_ibfk_1" FromRole="question" ToRole="question_type" />
+          <NavigationProperty Name="forms" Relationship="Self.form_has_question" FromRole="question" ToRole="form" />
+        </EntityType>
+        <EntityType Name="question_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="label" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="questions" Relationship="Self.question_ibfk_1" FromRole="question_type" ToRole="question" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="label" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="collaborators" Relationship="Self.collaborator_has_role" FromRole="role" ToRole="collaborator" />
+          <NavigationProperty Name="forms" Relationship="Self.role_has_form" FromRole="role" ToRole="form" />
+        </EntityType>
+        <Association Name="question_ibfk_1">
+          <End Role="question_type" Type="Self.question_type" Multiplicity="1" />
+          <End Role="question" Type="Self.question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="question">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="collaborator_has_role">
+          <End Role="collaborator" Type="Self.collaborator" Multiplicity="*" />
+          <End Role="role" Type="Self.role" Multiplicity="*" />
+        </Association>
+        <Association Name="form_has_question">
+          <End Role="form" Type="Self.form" Multiplicity="*" />
+          <End Role="question" Type="Self.question" Multiplicity="*" />
+        </Association>
+        <Association Name="role_has_form">
+          <End Role="role" Type="Self.role" Multiplicity="*" />
+          <End Role="form" Type="Self.form" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="MyContractsGeneratorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="administrators" EntityType="Self.administrator" />
+          <EntitySet Name="collaborators" EntityType="Self.collaborator" />
+          <EntitySet Name="forms" EntityType="Self.form" />
+          <EntitySet Name="questions" EntityType="Self.question" />
+          <EntitySet Name="question_type" EntityType="Self.question_type" />
+          <EntitySet Name="roles" EntityType="Self.role" />
+          <AssociationSet Name="question_ibfk_1" Association="Self.question_ibfk_1">
+            <End Role="question_type" EntitySet="question_type" />
+            <End Role="question" EntitySet="questions" />
+          </AssociationSet>
+          <AssociationSet Name="collaborator_has_role" Association="Self.collaborator_has_role">
+            <End Role="collaborator" EntitySet="collaborators" />
+            <End Role="role" EntitySet="roles" />
+          </AssociationSet>
+          <AssociationSet Name="form_has_question" Association="Self.form_has_question">
+            <End Role="form" EntitySet="forms" />
+            <End Role="question" EntitySet="questions" />
+          </AssociationSet>
+          <AssociationSet Name="role_has_form" Association="Self.role_has_form">
+            <End Role="role" EntitySet="roles" />
+            <End Role="form" EntitySet="forms" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyContractsGeneratorModelStoreContainer" CdmEntityContainer="MyContractsGeneratorEntities">
+          <EntitySetMapping Name="administrators">
+            <EntityTypeMapping TypeName="MyContractsGeneratorModel.administrator">
+              <MappingFragment StoreEntitySet="administrator">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="collaborators">
+            <EntityTypeMapping TypeName="MyContractsGeneratorModel.collaborator">
+              <MappingFragment StoreEntitySet="collaborator">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="forms">
+            <EntityTypeMapping TypeName="MyContractsGeneratorModel.form">
+              <MappingFragment StoreEntitySet="form">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="label" ColumnName="label" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="questions">
+            <EntityTypeMapping TypeName="MyContractsGeneratorModel.question">
+              <MappingFragment StoreEntitySet="question">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="label" ColumnName="label" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="question_type">
+            <EntityTypeMapping TypeName="MyContractsGeneratorModel.question_type">
+              <MappingFragment StoreEntitySet="question_type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="label" ColumnName="label" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="MyContractsGeneratorModel.role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="label" ColumnName="label" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="collaborator_has_role" TypeName="MyContractsGeneratorModel.collaborator_has_role" StoreEntitySet="collaborator_has_role">
+            <EndProperty Name="collaborator">
+              <ScalarProperty Name="id" ColumnName="id_collaborator" />
+            </EndProperty>
+            <EndProperty Name="role">
+              <ScalarProperty Name="id" ColumnName="id_role" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="form_has_question" TypeName="MyContractsGeneratorModel.form_has_question" StoreEntitySet="form_has_question">
+            <EndProperty Name="form">
+              <ScalarProperty Name="id" ColumnName="id_form" />
+            </EndProperty>
+            <EndProperty Name="question">
+              <ScalarProperty Name="id" ColumnName="id_question" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="role_has_form" TypeName="MyContractsGeneratorModel.role_has_form" StoreEntitySet="role_has_form">
+            <EndProperty Name="role">
+              <ScalarProperty Name="id" ColumnName="id_role" />
+            </EndProperty>
+            <EndProperty Name="form">
+              <ScalarProperty Name="id" ColumnName="id_form" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

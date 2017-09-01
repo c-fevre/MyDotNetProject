@@ -1,0 +1,22 @@
+@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = Resources.Error404_Title;
+
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    }
+}
+
+<h1 class="text-danger">@Resources.Error404_Title</h1>
+<h2 class="text-danger">@Resources.Error404_Message</h2>
+
+@if (ViewBag.ReferrerUrl != null)
+{
+    <p>Go back to the <a href="@ViewBag.ReferrerUrl">previous page</a>.</p>
+}

@@ -1,0 +1,90 @@
+﻿@model MyContractsGenerator.WebUI.Models.administratorModels.AdministratorLoginModel
+
+@{
+    ViewBag.Title = Resources.Login_PageTitle;
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("Login", "Identity", FormMethod.Post, new { id = "login-form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12 mb50">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="center">
+                    <img src='@Url.Content("~/Content/images/MCG_logo.jpg")' class="login-logo" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+                <div class="form-group">
+                    <div>@Html.LabelFor(m => m.Login, new { @class = "control-label" })</div>
+                    <div>@Html.TextBoxFor(m => m.Login, new { @class = "form-control" })</div>
+                    <div>@Html.ValidationMessageFor(m => m.Login, "", new { @class = "text-danger" })</div>
+                </div>
+                <div class="form-group">
+                    <div>@Html.LabelFor(m => m.Password, new { @class = "control-label" })</div>
+                    <div>@Html.PasswordFor(m => m.Password, new { @class = "form-control" })</div>
+                    <div>@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })</div>
+
+                </div>
+                <div class="form-group">
+                    <div>
+                        <input id="login" type="submit" value="@Resources.Login_ConnexionButton" class="btn btn-info" />
+                    </div>
+                    <!-- TODO
+                        <div class="text-center forget-password">
+                        <a data-toggle="modal" href="#confirmModal" data-target="#confirmModal">Resources.Login_PasswordForgotten</a>
+                    </div>-->
+                </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+
+    <!-- Reset confirmation Modal -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="@Resources.Button_Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">@Resources.User_ResetPasswordConfirmationTitle</h4>
+                </div>
+                <div class="modal-body modal-body-line-break">
+                    @Resources.User_ResetPasswordConfirmationMessage
+                </div>
+                <div class="modal-footer">
+                    <button id="confirmation-denied" type="button" class="btn btn-default" data-dismiss="modal">@Resources.Shared_Button_No</button>
+                    <button id="confirmation-accepted" class="btn btn-primary">@Resources.Shared_Button_Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection {
+    <script type="text/javascript">
+        $("#login").click(function () {
+            //var form = $("form#login-form");
+            //form.attr("action", "@Url.Action("Login", "Identity")");
+            document.getElementById("login-form").action = "@Url.Action("Login", "Identity")";
+            //form.submit();
+        });
+
+        $("#confirmation-accepted").click(function () {
+            //var form = $("form#login-form");
+            //form.attr("action", "@Url.Action("ForgotPassword", "Identity")");
+            document.getElementById("login-form").action = "@Url.Action("ForgotPassword", "Identity")";
+            //form.submit();
+            $("#confirmModal").modal("hide");
+        });
+    </script>
+}

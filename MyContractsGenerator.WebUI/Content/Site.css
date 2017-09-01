@@ -1,0 +1,380 @@
+﻿body {
+    padding-top: 120px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 40px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+
+/* Custom */
+/** /////////////////////////////////////////////////// */
+
+/** HORIZONTAL NAVBAR */
+
+/** /////////////////////////////////////////////////// */
+
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+.auth-logo {
+    width: 300px;
+    height: auto;
+}
+
+.navbar {
+    background-color: #3A539B;
+    border-bottom: none;
+}
+
+.navbar-container {
+    margin-left: 0;
+    margin-right: 0;
+    padding-right: 30px;
+    width: 100% !important;
+    max-width: initial !important;
+}
+
+.navbar-toggle {
+    margin: 9px 0;
+}
+
+.navbar #navBarMenu li {
+    text-transform: uppercase;
+    margin-top: 35px;
+}
+
+.nav > li {
+    display: inline-block;
+}
+
+#navBarMenu a {
+    color: #F2F1EF;
+}
+
+#navBarMenu .active {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: white;
+}
+
+#navBarMenu .active a {
+    background-color: inherit;
+    color: white;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.top-logo {
+    width: 300px;
+    height: auto;
+    margin-right: 40px;
+}
+
+.navbar-right {
+    margin-right: 5px;
+    margin-top: 35px;
+}
+
+#userMenu .dropdown-toggle {
+    color: white;
+    text-transform: capitalize;
+}
+
+#userMenu .dropdown-toggle .glyphicon {
+    margin-right: 5px;
+}
+
+.navbar-inverse .navbar-nav > .open > a {
+    background-color: #3A539B !important;
+}
+
+/* Login */
+.login-logo {
+    width: 400px;
+}
+
+
+/* Margin & alignements*/
+.custom-notifier-offset {
+    top: 130px !important;
+}
+
+.mb50 {
+    margin-bottom: 50px;
+}
+
+.center {
+    text-align: center;
+}
+
+/* General */
+
+.pointer {
+    cursor: pointer;
+}
+
+/** /////////////////////////////////////////////////// */
+
+/** LEFT MENU */
+
+/** /////////////////////////////////////////////////// */
+
+/* All the "leftMenu-" prefixes are needed because of bootstrap's global pollution. */
+
+/* Global layout */
+
+#wrapper {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+
+#sidebar-wrapper {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+
+.leftMenu {
+    position: fixed;
+    top: 120px;
+    bottom: 0px;
+    left: 0px;
+    width: 250px;
+    background-color: #F2F3F3;
+    background-image: url("images/pixel_gray.png");
+    background-repeat: repeat-y;
+    background-position: right top;
+    z-index: 1000;
+}
+
+/* Global styles */
+
+.leftMenu-table {
+    display: table;
+    width: 100%;
+}
+
+.leftMenu-row {
+    display: table-row;
+}
+
+.leftMenu-cell {
+    display: table-cell;
+}
+
+.leftMenu a {
+    display: block;
+}
+
+.leftMenu .glyphicon {
+    top: 0px !important; /* Override glyphicon top:1px */
+}
+
+.leftMenu .leftMenu-active .leftMenu-icon {
+    color: #1F3A93 !important;
+}
+
+/* Top container style */
+
+.leftMenu-topContainer {
+    margin-bottom: 5px;
+}
+
+.leftMenu-topContainer .leftMenu-item a {
+    background-color: #1F3A93;
+    color: white !important;
+    font-weight: bold;
+}
+
+.leftMenu-topContainer .leftMenu-item a:hover {
+    background-color: #1F3A93;
+}
+
+.leftMenu-topContainer .leftMenu-iconMain {
+    padding-left: 4px;
+}
+
+/* Container for the rest of the items */
+
+.leftMenu-itemsContainer {
+    overflow: auto;
+    padding-right: 1px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-top: 8px;
+}
+
+/*  When the topContainer is present, we must move down the top of the items container.
+    We can't make the height of the itemsContainer dynamic (in all the browsers, including IE8).
+    So we resorted to absolute positioning.
+*/
+
+.leftMenu-itemsContainer.leftMenu-withTopContainer {
+    top: 40px;
+}
+
+/* Item style */
+
+.leftMenu-item a {
+    text-decoration: none;
+    color: #6D6E70;
+    padding: 10px 10px 10px 17px;
+}
+
+.leftMenu-item a:hover {
+    background-color: #F8F8F8;
+}
+
+.leftMenu-item .leftMenu-icon,
+.leftMenu-item .leftMenu-icon span {
+    vertical-align: middle;
+}
+
+.leftMenu-item .leftMenu-iconMain {
+    vertical-align: middle;
+    min-width: 28px !important;
+    width: 28px !important;
+    background-repeat: no-repeat;
+    background-position: left center;
+    height: 20px;
+    min-height: 20px;
+}
+
+.leftMenu-item .leftMenu-label {
+    width: 100%;
+    line-height: normal;
+    vertical-align: middle;
+}
+
+.leftMenu-item .leftMenu-icon.leftMenu-iconAction {
+    text-align: center;
+    background-position: right center;
+    width: 25px;
+    min-width: 25px;
+    padding-bottom: 2px;
+}
+
+/* Active item style */
+
+.leftMenu-itemsContainer .leftMenu-item.leftMenu-active {
+    background-color: white;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border-left: 1px solid #BFBFC1;
+    border-top: 1px solid #BFBFC1;
+    border-bottom: 1px solid #BFBFC1;
+    margin-left: 6px;
+    position: relative;
+    left: 1px;
+}
+
+.leftMenu-itemsContainer .leftMenu-item.leftMenu-active a {
+    text-decoration: none;
+    color: #6D6E70;
+    padding: 9px 10px 9px 9px;
+}
+
+.leftMenu-itemsContainer .leftMenu-item.leftMenu-active a:hover {
+    background-color: transparent;
+}
+
+/* Sub items */
+
+.leftMenu-subItemsContainer {
+    padding: 5px 0px;
+}
+
+.leftMenu-subItemsContainer .leftMenu-subItem a {
+    text-decoration: none;
+    color: #6D6E70 !important;
+    padding: 7px 0 7px 37px !important;
+}
+
+.leftMenu-subItemsContainer .leftMenu-subItem .leftMenu-icon.leftMenu-iconAction {
+    vertical-align: middle;
+}
+
+.leftMenu-subItemsContainer .leftMenu-subItem a {
+    vertical-align: middle;
+}
+
+.leftMenu-subItemsContainer .leftMenu-subItem.leftMenu-active {
+    background-color: #D5E5F0;
+}
+
+.leftMenu-subItem.leftMenu-active a {
+}
+
+.leftMenu-subItem.leftMenu-active a {
+    text-decoration: none;
+    color: #6D6E70;
+}
+
+.leftMenu-subItem.leftMenu-active a:hover {
+    background-color: transparent;
+}
+
+/* Footer */
+
+.leftMenu-footer {
+    padding: 8px 10px 10px 10px;
+}
+
+.leftMenu-footer .leftMenu-table {
+    width: auto;
+    margin: 0 auto;
+}
+
+.leftMenu-footer .leftMenu-label {
+    width: auto;
+}
+
+.leftMenu-footer a,
+.leftMenu-footer a:hover {
+    border-radius: 30px;
+    background-color: #1F3A93 !important;
+    color: white !important;
+    padding: 7px 25px 8px 13px !important;
+    text-align: left !important;
+    font-weight: bold;
+}
+
+.leftMenu .leftMenu-active .leftMenu-footer .leftMenu-icon {
+    padding-right: 7px;
+    color: white !important;
+}
+
+.page-content-wrapper {
+    padding: 0 0 0 0;
+}
+
+/* BOOTSTRAP OVER LOAD*/
+.btn-info {
+    color: #fff;
+    background-color: #3A539B;
+    border-color: #3A539B;
+}
+
+.btn-info:active, .btn-info:hover {
+    color: #3A539B;
+    background-color: #fff;
+    border-color: #3A539B;
+}

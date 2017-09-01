@@ -1,0 +1,88 @@
+﻿@model MyContractsGenerator.WebUI.Models.RoleModels.RoleMainModel
+
+@{
+    ViewBag.Title = Resources.Role_New;
+    Layout = "~/Views/Role/_LayoutRole.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <h2>@Resources.Role_New</h2>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EditedRole.Label, new { @class = "control-label" })
+                @Html.EditorFor(model => model.EditedRole.Label, new { htmlAttributes = new { @class = "form-control small-medium-input" } })
+                @Html.ValidationMessageFor(model => model.EditedRole.Label, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+        <footer id="footerMenu">
+            <a role="button" class="btn btn-default " href="#" data-toggle="modal" data-target="#cancelModal">@Resources.Role_CancelButton</a>
+            <a id="validateAdd" role="button" class="btn btn-primary" href="#" data-toggle="modal" data-target="#userModal">@Resources.Role_ValidateButton</a>
+        </footer>
+
+    <!-- Add user confirmation Modal -->
+        <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="cancelModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">@Resources.Role_Modal_Header</h4>
+                    </div>
+                    <div class="modal-body" id="message">
+                        @Resources.Role_AddConfirmationMessage
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">@Resources.Shared_Button_No</button>
+                        <button type="submit" class="btn btn-primary">@Resources.Role_AddValidateButton</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+}
+
+<!-- Cancel confirmation Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="@Resources.Button_Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">@Resources.Role_Modal_Header</h4>
+            </div>
+            <div class="modal-body">
+                @Resources.Role_CancelModal_Message
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@Resources.Shared_Button_No</button>
+                <a id="leavePage" class="btn btn-primary" href="@Url.Action("Index", "Role")">
+                    @Resources.Shared_Button_Yes
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section PageChangeChecker{
+    <script>
+        var aspnet = {
+            messages: {
+                beforeLeaveMessage: @Html.Raw(Json.Encode(Resources.Shared_BeforeLeave_Message))
+                }
+        };
+
+        $( document ).ready(function() {
+            var inputsToExclude = [];
+            MyContractsGenerator.changesManager.init(aspnet.messages.beforeLeaveMessage, ":submit", "#leavePage", "form", inputsToExclude);
+        });
+    </script>
+}

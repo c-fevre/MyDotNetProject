@@ -1,0 +1,82 @@
+﻿@using Microsoft.AspNet.Identity
+
+@helper LeftMenu(
+    string menuCss,
+    IEnumerable<object> items,
+    Func<object, bool> itemIsActive,
+    Func<object, string> itemActionUrl,
+    Func<object, object> itemDisplay,
+    Func<object, string> itemIconCss = null,
+    string newItemUrl = null,
+    string newItemText = null,
+    Func<int, object, bool> userCanDeleteItem = null,
+    string deleteTooltipText = null
+    )
+{
+    <div class="leftMenu @menuCss">
+        @if (!string.IsNullOrEmpty(newItemUrl))
+        {
+            <div class="leftMenu-topContainer">
+                <div class="leftMenu-item">
+                    <a href="@newItemUrl">
+                        <div class="leftMenu-table">
+                            <div class="leftMenu-row">
+                                <div class="leftMenu-icon leftMenu-iconMain glyphicon glyphicon-plus leftMenu-cell"></div>
+                                <div class="leftMenu-label leftMenu-cell">@newItemText</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+        <div class="leftMenu-itemsContainer @(!string.IsNullOrEmpty(newItemUrl) ? "leftMenu-withTopContainer" : "")">
+            @foreach (var item in items)
+            {
+                if (!itemIsActive(item))
+                {
+                    // Normal menu item
+
+                    <div class="leftMenu-item">
+                        <a href="@itemActionUrl(item)">
+                            <div class="leftMenu-table">
+                                <div class="leftMenu-row">
+                                    <div class="leftMenu-icon leftMenu-iconMain leftMenu-cell @(itemIconCss != null ? itemIconCss(item) : "")"></div>
+                                    <div class="leftMenu-label leftMenu-cell">@itemDisplay(item)</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    // Active menu item
+
+                    bool itemCanBeDeleted =
+                        (userCanDeleteItem != null) &&
+                        userCanDeleteItem(int.Parse(User.Identity.GetUserId()), item);
+
+                    <div class="leftMenu-item leftMenu-active">
+                        <div class="leftMenu-table">
+                            <div class="leftMenu-row">
+                                <a href="@itemActionUrl(item)" class="leftMenu-cell">
+                                    <div class="leftMenu-table">
+                                        <div class="leftMenu-row">
+                                            <div class="leftMenu-icon leftMenu-iconMain leftMenu-cell @(itemIconCss != null ? itemIconCss(item) : "")"></div>
+                                            <div class="leftMenu-label leftMenu-cell">@itemDisplay(item)</div>
+                                        </div>
+                                    </div>
+                                </a>
+                                @if (itemCanBeDeleted)
+                                {
+                                    <div class="leftMenu-icon leftMenu-iconAction leftMenu-cell" data-toggle="tooltip" data-placement="top" title="@deleteTooltipText">
+                                        <span class="glyphicon icon-trash pointer" data-toggle="modal" data-target="#suppressionModal"></span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+}

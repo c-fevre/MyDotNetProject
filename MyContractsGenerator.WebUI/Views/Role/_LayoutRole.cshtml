@@ -1,0 +1,36 @@
+﻿@using MyContractsGenerator.WebUI.Models.RoleModels
+@model MyContractsGenerator.WebUI.Models.RoleModels.RoleMainModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="contentSideBarSection">
+    @RenderBody()
+</div>
+
+
+@section LeftMenuSection {
+    @Helpers.LeftMenu(
+        menuCss: "roleLeftMenu",
+        itemIconCss: x => "glyphicon glyphicon-user",
+        items: Model.Roles,
+        itemIsActive: x => (Model.EditedRole != null) && ((x as RoleModel).Id == Model.EditedRole.Id),
+        itemActionUrl: x => Url.Action("Edit", "Role", new { Id = (x as RoleModel).Id }),
+        itemDisplay:
+        @<div>
+            <span class="text-uppercase">@((item as RoleModel).Label)</span>
+        </div>,
+        newItemUrl: Url.Action("Create", "Role"),
+        newItemText: @Resources.Role_NewRole,
+        userCanDeleteItem: (currentUserId, item) => true,
+        deleteTooltipText: Resources.Roler_Tooltip_RemoveRole
+        )
+}
+
+@section ScriptSection {
+    <script>
+    </script>
+
+    @RenderSection("PageChangeChecker", false)
+}

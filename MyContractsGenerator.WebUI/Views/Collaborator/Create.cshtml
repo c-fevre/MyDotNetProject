@@ -1,0 +1,115 @@
+﻿@model MyContractsGenerator.WebUI.Models.CollaboratorModels.CollaboratorMainModel
+
+@{
+    ViewBag.Title = Resources.Collaborator_New;
+    Layout = "~/Views/Collaborator/_LayoutCollaborator.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <h2>@Resources.Collaborator_New</h2>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EditedCollaborator.LastName, new { @class = "control-label" })
+                @Html.EditorFor(model => model.EditedCollaborator.LastName, new { htmlAttributes = new { @class = "form-control small-medium-input" } })
+                @Html.ValidationMessageFor(model => model.EditedCollaborator.LastName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EditedCollaborator.FirstName, new { @class = "control-label" })
+                @Html.EditorFor(model => model.EditedCollaborator.FirstName, new { htmlAttributes = new { @class = "form-control small-medium-input" } })
+                @Html.ValidationMessageFor(model => model.EditedCollaborator.FirstName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EditedCollaborator.Email, new { @class = "control-label" })
+                @Html.EditorFor(model => model.EditedCollaborator.Email, new { htmlAttributes = new { @class = "form-control small-medium-input" } })
+                @Html.ValidationMessageFor(model => model.EditedCollaborator.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EditedCollaborator.LinkedRolesIds, new { @class = "control-label" })
+                @Html.ListBoxFor(m => m.EditedCollaborator.LinkedRolesIds, Model.AvailableRoles, new { @class = "" })
+                @Html.ValidationMessageFor(model => model.EditedCollaborator.LinkedRolesIds, "", new { @class = "text-danger" })
+            </div>
+
+
+            <!-- TODO Multilanguage -->
+            <!--<div class="form-group display-none" id="selectApplicationLangageDiv">
+                Html.LabelFor(model => model.EditedCollaborator.ApplicationLangageId, new { class = "control-label" })
+                Html.DropDownListFor(model => model.EditedCollaborator.ApplicationLangageId, Model.AvailableApplicationLangage, new { class = "form-control extra-small-input" })
+                Html.ValidationMessageFor(model => model.EditedCollaborator.ApplicationLangageId, "", new { class = "text-danger" })
+            </div>-->
+
+        </div>
+    </div>
+
+        <footer id="footerMenu">
+            <a role="button" class="btn btn-default " href="#" data-toggle="modal" data-target="#cancelModal">@Resources.Collaborator_CancelButton</a>
+            <a id="validateAdd" role="button" class="btn btn-primary" href="#" data-toggle="modal" data-target="#userModal">@Resources.Collaborator_ValidateButton</a>
+        </footer>
+
+    <!-- Add user confirmation Modal -->
+        <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="cancelModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">@Resources.Collaborator_Modal_Header</h4>
+                    </div>
+                    <div class="modal-body" id="message">
+                        @Resources.Collaborator_AddConfirmationMessage
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">@Resources.Shared_Button_No</button>
+                        <button type="submit" class="btn btn-primary">@Resources.Collaborator_AddValidateButton</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+}
+
+<!-- Cancel confirmation Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="@Resources.Button_Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">@Resources.Collaborator_Modal_Header</h4>
+            </div>
+            <div class="modal-body">
+                @Resources.Collaborator_CancelModal_Message
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@Resources.Shared_Button_No</button>
+                <a id="leavePage" class="btn btn-primary" href="@Url.Action("Index", "Collaborator")">
+                    @Resources.Shared_Button_Yes
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section PageChangeChecker{
+    <script>
+        var aspnet = {
+            messages: {
+                beforeLeaveMessage: @Html.Raw(Json.Encode(Resources.Shared_BeforeLeave_Message))
+                }
+        };
+
+        $( document ).ready(function() {
+            var inputsToExclude = [];
+            MyContractsGenerator.changesManager.init(aspnet.messages.beforeLeaveMessage, ":submit", "#leavePage", "form", inputsToExclude);
+        });
+    </script>
+}

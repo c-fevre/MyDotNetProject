@@ -1,0 +1,39 @@
+﻿.btn-group {
+    display: block !important;
+}
+
+.btn-group > .btn {
+    float: none !important;
+}
+
+.btn-primary {
+	background-color: #E26E29 !important;
+	border-color: #d5611d !important;
+}
+
+.btn-default {
+	background-color: #6D6E70 !important;
+	border-color: #606163 !important;
+	color: white !important;
+}
+
+.btn-info {
+	background-color: #1A3154 !important;
+	border-color: #142641 !important;
+	color: white !important;
+}
+
+.btn-light {
+	background-color: white !important;
+	border-color: #cccdcf !important;
+	color: rgb(51, 51, 51) !important;
+}
+
+
+.container-fluid {
+    padding-right: 50px !important;
+}
+
+#footerMenu {
+    min-height: auto !important;
+}
