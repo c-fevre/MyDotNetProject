@@ -78,7 +78,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                     new Claim(ClaimTypes.NameIdentifier, connectedUser.id.ToString()),
                     new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
                               "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"),
-                    new Claim(ClaimTypes.Name, connectedUser.login)
+                    new Claim(ClaimTypes.Name, connectedUser.login),
                 };
 
             var ident = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);

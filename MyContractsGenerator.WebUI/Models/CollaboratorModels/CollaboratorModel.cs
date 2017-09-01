@@ -72,5 +72,13 @@ namespace MyContractsGenerator.WebUI.Models.CollaboratorModels
         [Display(Name = "Collaborator_Role", ResourceType = typeof(Resources))]
         public IEnumerable<int> LinkedRolesIds { get; set; }
 
+        /// <summary>
+        /// Gets or sets the form URL.
+        /// </summary>
+        /// <value>
+        /// The form URL.
+        /// </value>
+        public string FormUrl { get; set; }
+
     }
 }

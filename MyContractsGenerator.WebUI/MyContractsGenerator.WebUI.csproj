@@ -181,6 +181,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Common\AppSession.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CollaboratorFormController.cs" />
+    <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\CollaboratorController.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
@@ -192,8 +194,11 @@
     <Compile Include="Models\AdministratorModels\AdministratorEditPasswordModel.cs" />
     <Compile Include="Models\AdministratorModels\AdministratorLoginModel.cs" />
     <Compile Include="Models\BaseModels\BaseModel.cs" />
+    <Compile Include="Models\CollaboratorFormModels\CollaboratorFormMainModel.cs" />
     <Compile Include="Models\CollaboratorModels\CollaboratorMainModel.cs" />
     <Compile Include="Models\CollaboratorModels\CollaboratorModel.cs" />
+    <Compile Include="Models\FormModels\FormMailingModel.cs" />
+    <Compile Include="Models\FormModels\FormMainModel.cs" />
     <Compile Include="Models\NotificationModels\NotificationModel.cs" />
     <Compile Include="Models\NotificationModels\UserNotificationModel.cs" />
     <Compile Include="Models\RoleModels\RoleMainModel.cs" />
@@ -320,6 +325,11 @@
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Form\Index.cshtml" />
+    <Content Include="Views\CollaboratorForm\WhoAreYou.cshtml" />
+    <Content Include="Views\Form\_LayoutMailing.cshtml" />
+    <Content Include="Views\CollaboratorForm\_LayoutCollaboratorForm.cshtml" />
+    <Content Include="Views\CollaboratorForm\_AnonymousLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Web;
+using MyContractsGenerator.Common.PasswordHelper;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.WebUI.Models.CollaboratorModels;
 

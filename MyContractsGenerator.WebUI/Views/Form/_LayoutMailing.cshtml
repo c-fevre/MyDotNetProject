@@ -1,0 +1,27 @@
+﻿@using MyContractsGenerator.Common
+@using MyContractsGenerator.WebUI.Models.FormModels
+@model MyContractsGenerator.WebUI.Models.FormModels.FormMainModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="contentSideBarSection">
+    @RenderBody()
+</div>
+
+
+@section ScriptSection {
+    <script>
+        $(document).ready(function () {
+            var aspnet = {
+                messages: {
+                    beforeLeave: @Html.Raw(Json.Encode(Resources.Shared_BeforeLeave_Message)),
+                    nonSelectedText: @Html.Raw(Json.Encode(Resources.Role_MultiSelect_NonSelectedText))
+                }
+            };
+            
+    </script>
+
+    @RenderSection("PageChangeChecker", false)
+}

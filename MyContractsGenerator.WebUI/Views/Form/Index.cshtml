@@ -1,0 +1,61 @@
+﻿@using MyContractsGenerator.Common
+@model MyContractsGenerator.WebUI.Models.FormModels.FormMainModel
+
+@{
+    ViewBag.Title = Resources.Mailing_PageTitle;
+    Layout = "~/Views/Form/_LayoutMailing.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+
+        <div class="row">
+            <h2>@Resources.Form_Mailing_Title</h2>
+        </div>
+
+        <div class="row">
+            @{
+                if (Model.RolesWithCollaborators.Any())
+                {
+                    foreach (var role in Model.RolesWithCollaborators)
+                    {
+                        <h3>@role.Role.Label</h3>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped sortable">
+                                <thead>
+                                <tr>
+                                    <th>@Resources.Collaborator_label</th>
+                                    <th>@Resources.Collaborator_Email</th>
+                                    <th>@String.Empty</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var collaborator in role.Collaborators)
+                                {
+                                    <tr>
+                                        <td>@($"{collaborator.FirstName} {collaborator.LastName}")</td>
+                                        <td>@collaborator.Email</td>
+                                        <td>
+                                            @{
+                                                string url = $"{GlobalAppSettings.ApplicationBaseUrl}{Url.Action("Send", "Form", new { collaboratorId = collaborator.Id, formUrl = collaborator.FormUrl })}";
+                                            }
+                                            <a role="button" class="btn btn-info" href="@url">@Resources.Form_SendMail</a>
+                                        </td>
+                                    </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @Resources.Form_NoRoleWithCollaborator
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

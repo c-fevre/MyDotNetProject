@@ -20,6 +20,11 @@ namespace MyContractsGenerator.Common
             get { return Get<string>("ApplicationVersion"); }
         }
 
+        public static string ApplicationBaseUrl
+        {
+            get { return Get<string>("ApplicationBaseUrl"); }
+        }
+
         #region Get
 
         private static T Get<T>(string name)

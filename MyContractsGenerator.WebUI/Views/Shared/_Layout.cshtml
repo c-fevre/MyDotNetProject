@@ -43,7 +43,7 @@
                 <ul class="nav navbar-nav" id="navBarMenu">
                     <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Role" ? "active" : "")">@Html.ActionLink(Resources.Role_label, "Index", "Role", null, null)</li>
                     <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Collaborator" ? "active" : "")">@Html.ActionLink(Resources.Collaborator_label, "Index", "Collaborator", null, null)</li>
-                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Form" ? "active" : "")">@Html.ActionLink(Resources.Form_label, "Index", "Form", null, null)</li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Maling" ? "active" : "")">@Html.ActionLink(Resources.FormMailing_label, "Index", "Form", null, null)</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

@@ -24,5 +24,13 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         /// <param name="user">password owner</param>
         /// <param name="clearPassword">unhashed user password</param>
         void SendResetPasswordEmail(administrator user, string clearPassword);
+
+        /// <summary>
+        /// Sends the form to collaborator.
+        /// </summary>
+        /// <param name="collaborator">The collaborator.</param>
+        /// <param name="formUrl">The form URL.</param>
+        /// <param name="adminId">The admin identifier.</param>
+        void SendFormToCollaborator(collaborator collaborator, string formUrl, int adminId);
     }
 }

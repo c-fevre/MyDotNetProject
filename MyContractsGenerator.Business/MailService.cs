@@ -11,6 +11,7 @@ using SendGrid;
 using MyContractsGenerator.Common.I18N;
 using MyContractsGenerator.Common.Validation;
 using MyContractsGenerator.Domain;
+using MyContractsGenerator.Interfaces.InterfacesRepo;
 using MyContractsGenerator.Interfaces.InterfacesServices;
 
 namespace MyContractsGenerator.Business
@@ -18,10 +19,16 @@ namespace MyContractsGenerator.Business
     public class MailService : IMailService
     {
         /// <summary>
+        /// The administrator repository
+        /// </summary>
+        private IAdministratorRepository administratorRepository;
+
+        /// <summary>
         ///     Constructor
         /// </summary>     
-        public MailService()
+        public MailService(IAdministratorRepository administratorRepository)
         {
+            this.administratorRepository = administratorRepository;
         }
 
         /// <summary>
@@ -87,6 +94,30 @@ namespace MyContractsGenerator.Business
             Thread.CurrentThread.CurrentCulture = currentCulture;
         }
 
+        public void SendFormToCollaborator(collaborator collaborator, string formUrl, int adminId)
+        {
+            Requires.ArgumentNotNull(collaborator, "collaborator");
+            Requires.StringArgumentNotNullOrEmptyOrWhiteSpace(formUrl, "formUrl");
+            Requires.StringArgumentNotNullOrEmptyOrWhiteSpace(collaborator.email, "collaborator.emailAdress");
+
+            //change temporarily the cultureInfo to send the mail in the default application web language
+            CultureInfo currentUICulture = Thread.CurrentThread.CurrentUICulture;
+            CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(WebConfigurationManager.AppSettings["MailCulture"]);
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(WebConfigurationManager.AppSettings["MailCulture"]);
+
+            administrator currentAdministrator = this.administratorRepository.GetById(adminId);
+
+            this.SendEmail(
+                new List<string> { collaborator.email },
+                Resources.Form_CollaboratorMailSubject,
+                string.Format(Resources.Form_CollaboratorMailBody, currentAdministrator.email, formUrl)
+            );
+
+            //Restore previous values
+            Thread.CurrentThread.CurrentUICulture = currentUICulture;
+            Thread.CurrentThread.CurrentCulture = currentCulture;
+        }
 
         /// <summary>
         ///     Sends generic mail

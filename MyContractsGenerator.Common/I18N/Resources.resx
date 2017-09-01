@@ -408,4 +408,38 @@ A new password will automatically be generated and sent by e-mail.</value>
     <value>Warning ! 
 You haven't created any jobs, please create some job to be able to bind them to a collaborator</value>
   </data>
+  <data name="FormMailing_label" xml:space="preserve">
+    <value>Mailing</value>
+  </data>
+  <data name="Form_CollaboratorMailBody" xml:space="preserve">
+    <value>Hello,&lt;br/&gt;&lt;br/&gt;
+{0} created a form for you, we need this information to complete the contract.&lt;br/&gt;
+Please fill this form : {1}&lt;br/&gt;
+&lt;br/&gt;&lt;br/&gt;
+Kind regards,</value>
+  </data>
+  <data name="Form_CollaboratorMailSubject" xml:space="preserve">
+    <value>MyContractsGenerator - We need some information, please fill this form </value>
+  </data>
+  <data name="Form_MailedSentToCollaborator" xml:space="preserve">
+    <value>An email has been send to {0} {1}.</value>
+  </data>
+  <data name="Form_Mailing_Title" xml:space="preserve">
+    <value>Mail your collaborators</value>
+  </data>
+  <data name="Form_NoRoleWithCollaborator" xml:space="preserve">
+    <value>Please create jobs, binded collaborator in order to be able to send emails.</value>
+  </data>
+  <data name="Form_SendMail" xml:space="preserve">
+    <value>Send form</value>
+  </data>
+  <data name="Mailing_PageTitle" xml:space="preserve">
+    <value>Mailing</value>
+  </data>
+  <data name="CollaboratorForm_Step1_Title" xml:space="preserve">
+    <value>MyContractsGenerator - Who are you ?</value>
+  </data>
+  <data name="CollaboratorForm_UnknownEmail" xml:space="preserve">
+    <value>Unknown email, please contact your administrator or try again.</value>
+  </data>
 </root>

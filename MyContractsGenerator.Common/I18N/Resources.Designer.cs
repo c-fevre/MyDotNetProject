@@ -395,6 +395,24 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à MyContractsGenerator - Who are you ?.
+        /// </summary>
+        public static string CollaboratorForm_Step1_Title {
+            get {
+                return ResourceManager.GetString("CollaboratorForm_Step1_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Unknown email, please contact your administrator or try again..
+        /// </summary>
+        public static string CollaboratorForm_UnknownEmail {
+            get {
+                return ResourceManager.GetString("CollaboratorForm_UnknownEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à An error occured, the current page is not found..
         /// </summary>
         public static string Error404_Message {
@@ -422,11 +440,78 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Hello,&lt;br/&gt;&lt;br/&gt;
+        ///{0} created a form for you, we need this information to complete the contract.&lt;br/&gt;
+        ///Please fill this form : {1}&lt;br/&gt;
+        ///&lt;br/&gt;&lt;br/&gt;
+        ///Kind regards,.
+        /// </summary>
+        public static string Form_CollaboratorMailBody {
+            get {
+                return ResourceManager.GetString("Form_CollaboratorMailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à MyContractsGenerator - We need some information, please fill this form .
+        /// </summary>
+        public static string Form_CollaboratorMailSubject {
+            get {
+                return ResourceManager.GetString("Form_CollaboratorMailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Forms.
         /// </summary>
         public static string Form_label {
             get {
                 return ResourceManager.GetString("Form_label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à An email has been send to {0} {1}..
+        /// </summary>
+        public static string Form_MailedSentToCollaborator {
+            get {
+                return ResourceManager.GetString("Form_MailedSentToCollaborator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mail your collaborators.
+        /// </summary>
+        public static string Form_Mailing_Title {
+            get {
+                return ResourceManager.GetString("Form_Mailing_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Please create jobs, binded collaborator in order to be able to send emails..
+        /// </summary>
+        public static string Form_NoRoleWithCollaborator {
+            get {
+                return ResourceManager.GetString("Form_NoRoleWithCollaborator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Send form.
+        /// </summary>
+        public static string Form_SendMail {
+            get {
+                return ResourceManager.GetString("Form_SendMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mailing.
+        /// </summary>
+        public static string FormMailing_label {
+            get {
+                return ResourceManager.GetString("FormMailing_label", resourceCulture);
             }
         }
         
@@ -544,6 +629,15 @@ namespace MyContractsGenerator.Common.I18N {
         public static string LoginPartial_MyProfil {
             get {
                 return ResourceManager.GetString("LoginPartial_MyProfil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mailing.
+        /// </summary>
+        public static string Mailing_PageTitle {
+            get {
+                return ResourceManager.GetString("Mailing_PageTitle", resourceCulture);
             }
         }
         

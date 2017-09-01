@@ -82,7 +82,6 @@ namespace MyContractsGenerator.WebUI.Controllers
             this.PopulateCollaboratorMainModel(model);
 
             collaborator collaborator = this.collaboratorService.GetById(id);
-
             model.EditedCollaborator = CollaboratorMap.MapItem(collaborator);
 
             //display a notification if an administrator has been deleted
