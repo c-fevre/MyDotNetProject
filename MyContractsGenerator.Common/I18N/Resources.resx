@@ -297,7 +297,7 @@ A new password will automatically be generated and sent by e-mail.</value>
     <value>Are you sure ?</value>
   </data>
   <data name="Collaborator_SuppressionModal_Message" xml:space="preserve">
-    <value>Are you sure you want to delete the collaborateur "{0} {1}" ?</value>
+    <value>Are you sure you want to delete the collaborateur "{0} {1}" ? All linked roles will be unbind.</value>
   </data>
   <data name="Collaborator_ValidateButton" xml:space="preserve">
     <value>Validate</value>
@@ -372,7 +372,7 @@ A new password will automatically be generated and sent by e-mail.</value>
     <value>Are you sure ?</value>
   </data>
   <data name="Role_SuppressionModal_Message" xml:space="preserve">
-    <value>Are you sure you want to delete the job "{0}" ?</value>
+    <value>Are you sure you want to delete the job "{0}" ? All linked collaborators will be unbind.</value>
   </data>
   <data name="Role_ValidateButton" xml:space="preserve">
     <value>Validate</value>
@@ -399,9 +399,13 @@ A new password will automatically be generated and sent by e-mail.</value>
     <value>Job label :</value>
   </data>
   <data name="Role_MultiSelect_NonSelectedText" xml:space="preserve">
-    <value>Please select at least a job</value>
+    <value>No job selected</value>
   </data>
   <data name="Role_NewRole" xml:space="preserve">
     <value>New job</value>
+  </data>
+  <data name="Collaborator_No_Job_Message" xml:space="preserve">
+    <value>Warning ! 
+You haven't created any jobs, please create some job to be able to bind them to a collaborator</value>
   </data>
 </root>

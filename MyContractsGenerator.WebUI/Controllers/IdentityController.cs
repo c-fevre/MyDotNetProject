@@ -91,7 +91,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 .Authentication.SignIn(new AuthenticationProperties { IsPersistent = false }, ident);
             
 
-            return this.RedirectToAction("Index", "Collaborator");
+            return this.RedirectToAction("Index", "Role");
         }
 
         /// <summary>

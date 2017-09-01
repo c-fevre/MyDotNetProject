@@ -69,7 +69,6 @@ namespace MyContractsGenerator.WebUI.Models.CollaboratorModels
         /// <value>
         /// The linked roles.
         /// </value>
-        [Required(ErrorMessageResourceName = "Shared_RequiredField", ErrorMessageResourceType = typeof(Resources))]
         [Display(Name = "Collaborator_Role", ResourceType = typeof(Resources))]
         public IEnumerable<int> LinkedRolesIds { get; set; }
 

@@ -14,6 +14,17 @@
                 <h2>@Resources.Collaborator_New</h2>
             </div>
 
+            <div class="row">
+                <div class="col-sm-12">
+                    @if (!Model.AvailableRoles.Any())
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @Resources.Collaborator_No_Job_Message
+                        </div>
+                    }
+                </div>
+            </div>
+
             <div class="form-group">
                 @Html.LabelFor(model => model.EditedCollaborator.LastName, new { @class = "control-label" })
                 @Html.EditorFor(model => model.EditedCollaborator.LastName, new { htmlAttributes = new { @class = "form-control small-medium-input" } })
@@ -49,10 +60,10 @@
         </div>
     </div>
 
-        <footer id="footerMenu">
-            <a role="button" class="btn btn-default " href="#" data-toggle="modal" data-target="#cancelModal">@Resources.Collaborator_CancelButton</a>
-            <a id="validateAdd" role="button" class="btn btn-primary" href="#" data-toggle="modal" data-target="#userModal">@Resources.Collaborator_ValidateButton</a>
-        </footer>
+    <footer id="footerMenu">
+        <a role="button" class="btn btn-default " href="#" data-toggle="modal" data-target="#cancelModal">@Resources.Collaborator_CancelButton</a>
+        <a id="validateAdd" role="button" class="btn btn-primary" href="#" data-toggle="modal" data-target="#userModal">@Resources.Collaborator_ValidateButton</a>
+    </footer>
 
     <!-- Add user confirmation Modal -->
         <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="cancelModal">

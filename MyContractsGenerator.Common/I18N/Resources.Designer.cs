@@ -331,6 +331,16 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Warning ! 
+        ///You haven&apos;t created any jobs, please create some job to be able to bind them to a collaborator.
+        /// </summary>
+        public static string Collaborator_No_Job_Message {
+            get {
+                return ResourceManager.GetString("Collaborator_No_Job_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Manage your collaborators.
         /// </summary>
         public static string Collaborator_PageTitle {
@@ -367,7 +377,7 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Are you sure you want to delete the collaborateur &quot;{0} {1}&quot; ?.
+        ///   Recherche une chaîne localisée semblable à Are you sure you want to delete the collaborateur &quot;{0} {1}&quot; ? All linked roles will be unbind..
         /// </summary>
         public static string Collaborator_SuppressionModal_Message {
             get {
@@ -664,7 +674,7 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Please select at least a job.
+        ///   Recherche une chaîne localisée semblable à No job selected.
         /// </summary>
         public static string Role_MultiSelect_NonSelectedText {
             get {
@@ -718,7 +728,7 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Are you sure you want to delete the job &quot;{0}&quot; ?.
+        ///   Recherche une chaîne localisée semblable à Are you sure you want to delete the job &quot;{0}&quot; ? All linked collaborators will be unbind..
         /// </summary>
         public static string Role_SuppressionModal_Message {
             get {

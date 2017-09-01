@@ -195,6 +195,7 @@ namespace MyContractsGenerator.WebUI.Controllers
         public ActionResult Remove(int id)
         {
             Requires.ArgumentGreaterThanZero(id, "role id");
+
             this.roleService.DeleteRole(id);
 
             this.TempData["DeleteRoleId"] = id;

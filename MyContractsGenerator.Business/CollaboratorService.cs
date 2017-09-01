@@ -25,14 +25,21 @@ namespace MyContractsGenerator.Business
         private readonly IMailService mailService;
 
         /// <summary>
+        /// The role service
+        /// </summary>
+        private readonly IRoleService roleService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CollaboratorService"/> class.
         /// </summary>
         /// <param name="collaboratorRepository">The collaborator repository.</param>
         /// <param name="mailService">The mail service.</param>
-        public CollaboratorService(ICollaboratorRepository collaboratorRepository, IMailService mailService)
+        /// <param name="roleService">The role service.</param>
+        public CollaboratorService(ICollaboratorRepository collaboratorRepository, IMailService mailService, IRoleService roleService)
         {
             this.collaboratorRepository = collaboratorRepository;
             this.mailService = mailService;
+            this.roleService = roleService;
         }
 
         /// <summary>
@@ -103,6 +110,11 @@ namespace MyContractsGenerator.Business
 
             collaborator dbCollaborator = this.collaboratorRepository.GetById(collaboratorId);
             dbCollaborator.active = false;
+
+            //Desaffect all collaborators
+            IEnumerable<int> emptyRoleList = new List<int>();
+            this.roleService.AffectToRole(emptyRoleList, dbCollaborator.id);
+            
             this.collaboratorRepository.SaveChanges();
         }
 

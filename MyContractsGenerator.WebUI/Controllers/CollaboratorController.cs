@@ -129,8 +129,12 @@ namespace MyContractsGenerator.WebUI.Controllers
             {
                 return this.ErrorOnEdit(model);
             }
-            
 
+            if (model.EditedCollaborator.LinkedRolesIds == null)
+            {
+                model.EditedCollaborator.LinkedRolesIds = new List<int>();
+            }
+            
             existingCollaborator.email = model.EditedCollaborator.Email;
             existingCollaborator.firstname = model.EditedCollaborator.FirstName;
             existingCollaborator.lastname = model.EditedCollaborator.LastName;
@@ -143,7 +147,6 @@ namespace MyContractsGenerator.WebUI.Controllers
 
             this.collaboratorService.UpdateCollaborator(existingCollaborator);
 
-            
             this.roleService.AffectToRole(model.EditedCollaborator.LinkedRolesIds,
                                                                       model.EditedCollaborator.Id);
 

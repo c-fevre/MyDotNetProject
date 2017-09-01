@@ -20,9 +20,10 @@ namespace MyContractsGenerator.DAL.Repositories
         /// <returns>
         /// the entity or null
         /// </returns>
-        role IBaseRepository<role>.GetById(int id)
+        public override role GetById(int id)
         {
             return this.Table
+                .Include(r => r.collaborators)
                 .SingleOrDefault(d => d.id == id);
         }
 
@@ -34,6 +35,7 @@ namespace MyContractsGenerator.DAL.Repositories
         public IEnumerable<role> GetAllActive()
         {
             return this.Table
+                .Include(r => r.collaborators)
                 .Where(d => d.active);
         }
     }

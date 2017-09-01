@@ -13,6 +13,17 @@
             <div class="form-group">
                 <h2>@Resources.Collaborator_Edit</h2>
             </div>
+            
+            <div class="row">
+                <div class="col-sm-12">
+                    @if (!Model.AvailableRoles.Any())
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @Resources.Collaborator_No_Job_Message
+                        </div>
+                    }
+                </div>
+            </div>
 
             @Html.HiddenFor(model => model.EditedCollaborator.Id)
 
