@@ -18,14 +18,18 @@ namespace MyContractsGenerator.Domain
         public question()
         {
             this.forms = new HashSet<form>();
+            this.answers = new HashSet<answer>();
         }
     
         public int id { get; set; }
         public int type_id { get; set; }
         public int label { get; set; }
+        public int order { get; set; }
     
         public virtual question_type question_type { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<form> forms { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<answer> answers { get; set; }
     }
 }

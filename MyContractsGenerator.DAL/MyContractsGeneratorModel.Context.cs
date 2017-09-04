@@ -32,5 +32,7 @@ namespace MyContractsGenerator.DAL
         public virtual DbSet<question> questions { get; set; }
         public virtual DbSet<question_type> question_type { get; set; }
         public virtual DbSet<role> roles { get; set; }
+        public virtual DbSet<form_answer> form_answer { get; set; }
+        public virtual DbSet<answer> answers { get; set; }
     }
 }

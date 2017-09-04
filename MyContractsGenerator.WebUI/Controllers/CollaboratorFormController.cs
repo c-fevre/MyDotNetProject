@@ -64,6 +64,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 // TODO OK : Rediriger vers la page du formulaire, en passant dans le model le collaborateur
                 // Gérer les réponse au formulaire
                 // Afficher les réponses
+                return this.View("WhoAreYou", model);
             }
             else
             {

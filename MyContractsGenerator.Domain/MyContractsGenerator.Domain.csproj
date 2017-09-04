@@ -63,11 +63,17 @@
     <Compile Include="administrator.cs">
       <DependentUpon>MyContractsGeneratorEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="answer.cs">
+      <DependentUpon>MyContractsGeneratorEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseEntity.cs" />
     <Compile Include="collaborator.cs">
       <DependentUpon>MyContractsGeneratorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="form.cs">
+      <DependentUpon>MyContractsGeneratorEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="form_answer.cs">
       <DependentUpon>MyContractsGeneratorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="MyContractsGeneratorEntities.cs">

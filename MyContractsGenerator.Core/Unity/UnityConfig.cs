@@ -64,10 +64,21 @@ namespace MyContractsGenerator.Core.Unity
             container.RegisterType<IAdministratorRepository, AdministratorRepository>();
             container.RegisterType<ICollaboratorRepository, CollaboratorRepository>();
             container.RegisterType<IRoleRepository, RoleRepository>();
+            container.RegisterType<IAnswerRepository, AnswerRepository>();
+            container.RegisterType<IFormAnswerRepository, FormAnswerRepository>();
+            container.RegisterType<IFormRepository, FormRepository>();
+            container.RegisterType<IQuestionRepository, QuestionRepository>();
+            container.RegisterType<IQuestionTypeRepository,IQuestionTypeRepository>();
 
             container.RegisterType<IAdministratorService, AdministratorService>();
             container.RegisterType<ICollaboratorService, CollaboratorService>();
             container.RegisterType<IRoleService, RoleService>();
+            container.RegisterType<IAnswerService, AnswerService>();
+            container.RegisterType<IFormAnswerService, FormAnswerService>();
+            container.RegisterType<IFormService, FormService>();
+            container.RegisterType<IQuestionService, QuestionService>();
+            container.RegisterType<IQuestionTypeService, QuestionTypeService>();
+            
             container.RegisterType<IMailService, MailService>();
 
             if (null == lifetimeManager)
@@ -78,7 +89,6 @@ namespace MyContractsGenerator.Core.Unity
             {
                 container.RegisterType<MyContractsGeneratorEntities>(lifetimeManager);
             }
-            //container.RegisterType<StarterKitNetDbEntities>(new PerRequestLifetimeManager());
 
             DAL.AutoMapping.Configure();
         }
