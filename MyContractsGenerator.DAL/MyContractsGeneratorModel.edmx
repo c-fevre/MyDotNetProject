@@ -58,6 +58,8 @@
           <Property Name="collaborator_id" Type="int" Nullable="false" />
           <Property Name="replied" Type="bool" Nullable="false" />
           <Property Name="last_update" Type="date" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="checked" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="form_has_question">
           <Key>
@@ -320,21 +322,9 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="label" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="questions" Relationship="Self.form_has_question" FromRole="form" ToRole="question" />
           <NavigationProperty Name="roles" Relationship="Self.role_has_form" FromRole="form" ToRole="role" />
           <NavigationProperty Name="form_answer" Relationship="MyContractsGeneratorModel.form_answer_ibfk_1" FromRole="form" ToRole="form_answer" />
-        </EntityType>
-        <EntityType Name="question">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="type_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="question_type" Relationship="Self.question_ibfk_1" FromRole="question" ToRole="question_type" />
-          <NavigationProperty Name="forms" Relationship="Self.form_has_question" FromRole="question" ToRole="form" />
-          <NavigationProperty Name="answers" Relationship="MyContractsGeneratorModel.answer_ibfk_2" FromRole="question" ToRole="answer" />
-          <Property Name="order" Type="Int32" Nullable="false" />
-          <Property Name="label" Type="String" Nullable="false" MaxLength="255" Unicode="true" />
+          <NavigationProperty Name="questions" Relationship="MyContractsGeneratorModel.form_has_question" FromRole="form" ToRole="question" />
         </EntityType>
         <EntityType Name="question_type">
           <Key>
@@ -342,7 +332,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="label" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="questions" Relationship="Self.question_ibfk_1" FromRole="question_type" ToRole="question" />
+          <NavigationProperty Name="questions" Relationship="MyContractsGeneratorModel.question_ibfk_1" FromRole="question_type" ToRole="question" />
         </EntityType>
         <EntityType Name="role">
           <Key>
@@ -354,25 +344,9 @@
           <NavigationProperty Name="collaborators" Relationship="Self.collaborator_has_role" FromRole="role" ToRole="collaborator" />
           <NavigationProperty Name="forms" Relationship="Self.role_has_form" FromRole="role" ToRole="form" />
         </EntityType>
-        <Association Name="question_ibfk_1">
-          <End Role="question_type" Type="Self.question_type" Multiplicity="1" />
-          <End Role="question" Type="Self.question" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="question_type">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="question">
-              <PropertyRef Name="type_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="collaborator_has_role">
           <End Role="collaborator" Type="Self.collaborator" Multiplicity="*" />
           <End Role="role" Type="Self.role" Multiplicity="*" />
-        </Association>
-        <Association Name="form_has_question">
-          <End Role="form" Type="Self.form" Multiplicity="*" />
-          <End Role="question" Type="Self.question" Multiplicity="*" />
         </Association>
         <Association Name="role_has_form">
           <End Role="role" Type="Self.role" Multiplicity="*" />
@@ -382,20 +356,11 @@
           <EntitySet Name="administrators" EntityType="Self.administrator" />
           <EntitySet Name="collaborators" EntityType="Self.collaborator" />
           <EntitySet Name="forms" EntityType="Self.form" />
-          <EntitySet Name="questions" EntityType="Self.question" />
           <EntitySet Name="question_type" EntityType="Self.question_type" />
           <EntitySet Name="roles" EntityType="Self.role" />
-          <AssociationSet Name="question_ibfk_1" Association="Self.question_ibfk_1">
-            <End Role="question_type" EntitySet="question_type" />
-            <End Role="question" EntitySet="questions" />
-          </AssociationSet>
           <AssociationSet Name="collaborator_has_role" Association="Self.collaborator_has_role">
             <End Role="collaborator" EntitySet="collaborators" />
             <End Role="role" EntitySet="roles" />
-          </AssociationSet>
-          <AssociationSet Name="form_has_question" Association="Self.form_has_question">
-            <End Role="form" EntitySet="forms" />
-            <End Role="question" EntitySet="questions" />
           </AssociationSet>
           <AssociationSet Name="role_has_form" Association="Self.role_has_form">
             <End Role="role" EntitySet="roles" />
@@ -415,9 +380,18 @@
             <End Role="form_answer" EntitySet="form_answer" />
             <End Role="answer" EntitySet="answers" />
           </AssociationSet>
+          <EntitySet Name="questions" EntityType="MyContractsGeneratorModel.question" />
           <AssociationSet Name="answer_ibfk_2" Association="MyContractsGeneratorModel.answer_ibfk_2">
             <End Role="question" EntitySet="questions" />
             <End Role="answer" EntitySet="answers" />
+          </AssociationSet>
+          <AssociationSet Name="question_ibfk_1" Association="MyContractsGeneratorModel.question_ibfk_1">
+            <End Role="question_type" EntitySet="question_type" />
+            <End Role="question" EntitySet="questions" />
+          </AssociationSet>
+          <AssociationSet Name="form_has_question" Association="MyContractsGeneratorModel.form_has_question">
+            <End Role="form" EntitySet="forms" />
+            <End Role="question" EntitySet="questions" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="form_answer">
@@ -432,6 +406,8 @@
           <NavigationProperty Name="form" Relationship="MyContractsGeneratorModel.form_answer_ibfk_1" FromRole="form_answer" ToRole="form" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="answers" Relationship="MyContractsGeneratorModel.answer_ibfk_1" FromRole="form_answer" ToRole="answer" />
+          <Property Name="checked" Type="Boolean" Nullable="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="form_answer_ibfk_2">
           <End Type="MyContractsGeneratorModel.collaborator" Role="collaborator" Multiplicity="1" />
@@ -480,6 +456,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="question">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type_id" Type="Int32" Nullable="false" />
+          <Property Name="label" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="answers" Relationship="MyContractsGeneratorModel.answer_ibfk_2" FromRole="question" ToRole="answer" />
+          <NavigationProperty Name="question_type" Relationship="MyContractsGeneratorModel.question_ibfk_1" FromRole="question" ToRole="question_type" />
+          <NavigationProperty Name="forms" Relationship="MyContractsGeneratorModel.form_has_question" FromRole="question" ToRole="form" />
+        </EntityType>
         <Association Name="answer_ibfk_2">
           <End Type="MyContractsGeneratorModel.question" Role="question" Multiplicity="1" />
           <End Type="MyContractsGeneratorModel.answer" Role="answer" Multiplicity="*" />
@@ -491,6 +479,22 @@
               <PropertyRef Name="question_id" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="question_ibfk_1">
+          <End Type="MyContractsGeneratorModel.question_type" Role="question_type" Multiplicity="1" />
+          <End Type="MyContractsGeneratorModel.question" Role="question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="question">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="form_has_question">
+          <End Type="MyContractsGeneratorModel.form" Role="form" Multiplicity="*" />
+          <End Type="MyContractsGeneratorModel.question" Role="question" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -528,15 +532,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="questions">
-            <EntityTypeMapping TypeName="MyContractsGeneratorModel.question">
-              <MappingFragment StoreEntitySet="question">
-                <ScalarProperty Name="order" ColumnName="order" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="type_id" ColumnName="type_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="question_type">
             <EntityTypeMapping TypeName="MyContractsGeneratorModel.question_type">
               <MappingFragment StoreEntitySet="question_type">
@@ -562,14 +557,6 @@
               <ScalarProperty Name="id" ColumnName="id_role" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="form_has_question" TypeName="MyContractsGeneratorModel.form_has_question" StoreEntitySet="form_has_question">
-            <EndProperty Name="form">
-              <ScalarProperty Name="id" ColumnName="id_form" />
-            </EndProperty>
-            <EndProperty Name="question">
-              <ScalarProperty Name="id" ColumnName="id_question" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="role_has_form" TypeName="MyContractsGeneratorModel.role_has_form" StoreEntitySet="role_has_form">
             <EndProperty Name="role">
               <ScalarProperty Name="id" ColumnName="id_role" />
@@ -581,6 +568,8 @@
           <EntitySetMapping Name="form_answer">
             <EntityTypeMapping TypeName="MyContractsGeneratorModel.form_answer">
               <MappingFragment StoreEntitySet="form_answer">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="checked" ColumnName="checked" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="last_update" ColumnName="last_update" />
                 <ScalarProperty Name="replied" ColumnName="replied" />
@@ -599,6 +588,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="questions">
+            <EntityTypeMapping TypeName="MyContractsGeneratorModel.question">
+              <MappingFragment StoreEntitySet="question">
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="label" ColumnName="label" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="form_has_question" TypeName="MyContractsGeneratorModel.form_has_question" StoreEntitySet="form_has_question">
+            <EndProperty Name="question">
+              <ScalarProperty Name="id" ColumnName="id_question" />
+            </EndProperty>
+            <EndProperty Name="form">
+              <ScalarProperty Name="id" ColumnName="id_form" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

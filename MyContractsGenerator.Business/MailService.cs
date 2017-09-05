@@ -94,7 +94,7 @@ namespace MyContractsGenerator.Business
             Thread.CurrentThread.CurrentCulture = currentCulture;
         }
 
-        public void SendFormToCollaborator(collaborator collaborator, string formUrl, int adminId)
+        public void SendFormToCollaborator(collaborator collaborator, string formUrl, int adminId, string tempPassword)
         {
             Requires.ArgumentNotNull(collaborator, "collaborator");
             Requires.StringArgumentNotNullOrEmptyOrWhiteSpace(formUrl, "formUrl");
@@ -111,7 +111,7 @@ namespace MyContractsGenerator.Business
             this.SendEmail(
                 new List<string> { collaborator.email },
                 Resources.Form_CollaboratorMailSubject,
-                string.Format(Resources.Form_CollaboratorMailBody, currentAdministrator.email, formUrl)
+                string.Format(Resources.Form_CollaboratorMailBody, currentAdministrator.email, formUrl, tempPassword)
             );
 
             //Restore previous values

@@ -1,0 +1,79 @@
+﻿@using MyContractsGenerator.Common
+@model MyContractsGenerator.WebUI.Models.CollaboratorFormModels.CollaboratorFormMainModel
+
+@{
+    ViewBag.Title = Resources.CollaboratorForm_Step2_Title;
+    Layout = "~/Views/CollaboratorForm/_LayoutCollaboratorForm.cshtml";
+}
+
+@using (Html.BeginForm("YourForm", "CollaboratorForm", FormMethod.Post, new { id = "check-form" }))
+{
+
+    @Html.HiddenFor(m => m.c)
+    @Html.HiddenFor(m => m.fa)
+
+    @Html.HiddenFor(q => q.Form.Id)
+
+    <div class="row">
+        <div class="col-md-12 mb50">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="center">
+                    <img src='@Url.Content("~/Content/images/MCG_logo.jpg")' class="login-logo" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <!-- TODO Build Dynamic or Hardcoded form (database & code)-->
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    @{
+                        string roles = "";
+                        Model.Form.Roles.ToList().ForEach(r =>
+                        {
+                            roles += r.Label + " ";
+                        });
+                    }
+
+                    <h2>@Html.DisplayTextFor(m => m.Form.Label)</h2>
+                    <h2>@roles</h2>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <div>
+                            @Html.LabelFor(m => m.Form.Collaborator.FirstName, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Form.Collaborator.FirstName, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            @Html.LabelFor(m => m.Form.Collaborator.LastName, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Form.Collaborator.LastName, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <div>
+                            <h3>En développement</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input id="login" type="submit" value="@Resources.Form_SendForm" class="btn btn-info disabled" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+}
+
+

@@ -395,6 +395,15 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à An error occured, please check if your informations are correct or contact your administrator..
+        /// </summary>
+        public static string CollaboratorForm_Error {
+            get {
+                return ResourceManager.GetString("CollaboratorForm_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à MyContractsGenerator - Who are you ?.
         /// </summary>
         public static string CollaboratorForm_Step1_Title {
@@ -404,11 +413,11 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Unknown email, please contact your administrator or try again..
+        ///   Recherche une chaîne localisée semblable à MyContractsGenerator - Please fill this form.
         /// </summary>
-        public static string CollaboratorForm_UnknownEmail {
+        public static string CollaboratorForm_Step2_Title {
             get {
-                return ResourceManager.GetString("CollaboratorForm_UnknownEmail", resourceCulture);
+                return ResourceManager.GetString("CollaboratorForm_Step2_Title", resourceCulture);
             }
         }
         
@@ -442,7 +451,9 @@ namespace MyContractsGenerator.Common.I18N {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Hello,&lt;br/&gt;&lt;br/&gt;
         ///{0} created a form for you, we need this information to complete the contract.&lt;br/&gt;
-        ///Please fill this form : {1}&lt;br/&gt;
+        ///Please fill this form : {1}&lt;br/&gt;&lt;br/&gt;
+        ///We have generated a password : {2}&lt;br/&gt;
+        ///Do not share it, and use it to see your form.&lt;br/&gt;&lt;br/&gt;
         ///&lt;br/&gt;&lt;br/&gt;
         ///Kind regards,.
         /// </summary>
@@ -471,6 +482,15 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mail already sent.
+        /// </summary>
+        public static string Form_MailAlreadySent {
+            get {
+                return ResourceManager.GetString("Form_MailAlreadySent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à An email has been send to {0} {1}..
         /// </summary>
         public static string Form_MailedSentToCollaborator {
@@ -494,6 +514,15 @@ namespace MyContractsGenerator.Common.I18N {
         public static string Form_NoRoleWithCollaborator {
             get {
                 return ResourceManager.GetString("Form_NoRoleWithCollaborator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Send.
+        /// </summary>
+        public static string Form_SendForm {
+            get {
+                return ResourceManager.GetString("Form_SendForm", resourceCulture);
             }
         }
         

@@ -23,11 +23,12 @@ namespace MyContractsGenerator.DAL.Repositories
         /// <returns>
         /// the entity or null
         /// </returns>
-        form IBaseRepository<form>.GetById(int id)
+        public new form GetById(int id)
         {
             return this.Table
                 .Include(d => d.roles)
                 .Include(d => d.questions)
+                .Include(d => d.questions.Select(q => q.question_type))
                 .Include(d => d.form_answer)
                 .SingleOrDefault(d => d.id == id);
         }

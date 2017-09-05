@@ -25,6 +25,8 @@ namespace MyContractsGenerator.Domain
         public bool replied { get; set; }
         public System.DateTime last_update { get; set; }
         public int id { get; set; }
+        public bool @checked { get; set; }
+        public string password { get; set; }
     
         public virtual collaborator collaborator { get; set; }
         public virtual form form { get; set; }

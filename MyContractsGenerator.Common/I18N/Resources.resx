@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+    <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,140 +59,140 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string" />
+                            <xsd:attribute name="type" type="xsd:string" />
+                            <xsd:attribute name="mimetype" type="xsd:string" />
+                            <xsd:attribute ref="xml:space" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string" />
+                            <xsd:attribute name="name" type="xsd:string" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                            <xsd:attribute ref="xml:space" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="administrator_CurrentPassword" xml:space="preserve">
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="administrator_CurrentPassword" xml:space="preserve">
     <value>Current password</value>
   </data>
-  <data name="administrator_NewPassword" xml:space="preserve">
+    <data name="administrator_NewPassword" xml:space="preserve">
     <value>New Password</value>
   </data>
-  <data name="administrator_NewPassWordConfirmation" xml:space="preserve">
+    <data name="administrator_NewPassWordConfirmation" xml:space="preserve">
     <value>New password confirmation</value>
   </data>
-  <data name="FirstName" xml:space="preserve">
+    <data name="FirstName" xml:space="preserve">
     <value>First name</value>
   </data>
-  <data name="Login_Label" xml:space="preserve">
+    <data name="Login_Label" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="Login_Password" xml:space="preserve">
+    <data name="Login_Password" xml:space="preserve">
     <value>Password</value>
   </data>
-  <data name="Name" xml:space="preserve">
+    <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="Shared_MessageError_MinAndMaxLength" xml:space="preserve">
+    <data name="Shared_MessageError_MinAndMaxLength" xml:space="preserve">
     <value>The new password lenght must be between {0} and {1} </value>
   </data>
-  <data name="Shared_RequiredField" xml:space="preserve">
+    <data name="Shared_RequiredField" xml:space="preserve">
     <value>This field is requiered</value>
   </data>
-  <data name="administrator_CancelButton" xml:space="preserve">
+    <data name="administrator_CancelButton" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="administrator_ErrorIncorrectPassword" xml:space="preserve">
+    <data name="administrator_ErrorIncorrectPassword" xml:space="preserve">
     <value>Incorrect password</value>
   </data>
-  <data name="administrator_ErrorIncorrectPasswordConfirmation" xml:space="preserve">
+    <data name="administrator_ErrorIncorrectPasswordConfirmation" xml:space="preserve">
     <value>Passwords are not the same</value>
   </data>
-  <data name="administrator_ErrorMessage_UnknownUser" xml:space="preserve">
+    <data name="administrator_ErrorMessage_UnknownUser" xml:space="preserve">
     <value>The user {0} is unknown from the system</value>
   </data>
-  <data name="administrator_ValidateButton" xml:space="preserve">
+    <data name="administrator_ValidateButton" xml:space="preserve">
     <value>Validate</value>
   </data>
-  <data name="Button_Close" xml:space="preserve">
+    <data name="Button_Close" xml:space="preserve">
     <value>Close</value>
   </data>
-  <data name="Login_ConnexionButton" xml:space="preserve">
+    <data name="Login_ConnexionButton" xml:space="preserve">
     <value>Connexion</value>
   </data>
-  <data name="Login_InvalidUserNameOrPassword" xml:space="preserve">
+    <data name="Login_InvalidUserNameOrPassword" xml:space="preserve">
     <value>Invalid Login or Password</value>
   </data>
-  <data name="Login_PageTitle" xml:space="preserve">
+    <data name="Login_PageTitle" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="Login_PasswordChangeSuccess" xml:space="preserve">
+    <data name="Login_PasswordChangeSuccess" xml:space="preserve">
     <value>Your password has been change</value>
   </data>
-  <data name="Login_PasswordForgotten" xml:space="preserve">
+    <data name="Login_PasswordForgotten" xml:space="preserve">
     <value>Forgot password ?</value>
   </data>
-  <data name="Login_RequiredField" xml:space="preserve">
+    <data name="Login_RequiredField" xml:space="preserve">
     <value>The {0} field is requiered</value>
   </data>
-  <data name="Login_UnknownLogin" xml:space="preserve">
+    <data name="Login_UnknownLogin" xml:space="preserve">
     <value>Unknown login</value>
   </data>
-  <data name="Shared_Button_No" xml:space="preserve">
+    <data name="Shared_Button_No" xml:space="preserve">
     <value>No</value>
   </data>
-  <data name="Shared_Button_Yes" xml:space="preserve">
+    <data name="Shared_Button_Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
-  <data name="UserEditPassword_PageTitle" xml:space="preserve">
+    <data name="UserEditPassword_PageTitle" xml:space="preserve">
     <value>Password change</value>
   </data>
-  <data name="User_PasswordChange_MailBody" xml:space="preserve">
+    <data name="User_PasswordChange_MailBody" xml:space="preserve">
     <value>Hello,&lt;br/&gt;&lt;br/&gt;
 Your My Contracts Generator password reset request has been received.&lt;br/&gt;&lt;br/&gt;
 Your new password is: {0}&lt;br/&gt;&lt;br/&gt;
@@ -201,10 +201,10 @@ Kind regards
 &lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
 PS: You are receiving this e-mail because you, or someone using your e-mail address, has informed us of a forgotten My Contracts Generator password.</value>
   </data>
-  <data name="User_PasswordChange_MailSubject" xml:space="preserve">
+    <data name="User_PasswordChange_MailSubject" xml:space="preserve">
     <value>Your My Contracts Generator password has been reset</value>
   </data>
-  <data name="User_PasswordCreate_MailBody" xml:space="preserve">
+    <data name="User_PasswordCreate_MailBody" xml:space="preserve">
     <value>Hello,&lt;br/&gt;&lt;br/&gt;
 Your &lt;a href="{0}"&gt;My Contracts Generator&lt;/a&gt; account was created on {1} by {2}.&lt;br/&gt;
 Login and password:&lt;br/&gt;&lt;br/&gt;
@@ -214,232 +214,243 @@ You can now login to My Contracts Generator with this password and change it.&lt
 Kind regards&lt;br/&gt;&lt;br/&gt;
 PS: You are receiving this e-mail because {2} created an account for you on My Contracts Generator. The password has been generated automatically.</value>
   </data>
-  <data name="User_PasswordCreate_MailSubject" xml:space="preserve">
+    <data name="User_PasswordCreate_MailSubject" xml:space="preserve">
     <value>Your My Contracts Generator account has been created</value>
   </data>
-  <data name="User_ResetPasswordConfirmationMessage" xml:space="preserve">
+    <data name="User_ResetPasswordConfirmationMessage" xml:space="preserve">
     <value>Are you sure to want to reset your password?
 A new password will automatically be generated and sent by e-mail.</value>
   </data>
-  <data name="User_ResetPasswordConfirmationTitle" xml:space="preserve">
+    <data name="User_ResetPasswordConfirmationTitle" xml:space="preserve">
     <value>Reset your password</value>
   </data>
-  <data name="Administrator_ErrorIncorrectEmailAlreadyUsed" xml:space="preserve">
+    <data name="Administrator_ErrorIncorrectEmailAlreadyUsed" xml:space="preserve">
     <value>This e-mail address is already in use</value>
   </data>
-  <data name="Administrator_label" xml:space="preserve">
+    <data name="Administrator_label" xml:space="preserve">
     <value>Administrators</value>
   </data>
-  <data name="Administrator_Modal_Header" xml:space="preserve">
+    <data name="Administrator_Modal_Header" xml:space="preserve">
     <value>Are you sure ?</value>
   </data>
-  <data name="Administrator_Modal_No" xml:space="preserve">
+    <data name="Administrator_Modal_No" xml:space="preserve">
     <value>No</value>
   </data>
-  <data name="Administrator_Modal_Yes" xml:space="preserve">
+    <data name="Administrator_Modal_Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
-  <data name="Administrator_NewAdministrator" xml:space="preserve">
+    <data name="Administrator_NewAdministrator" xml:space="preserve">
     <value>New collaborator</value>
   </data>
-  <data name="Administrator_Tooltip_RemoveUser" xml:space="preserve">
+    <data name="Administrator_Tooltip_RemoveUser" xml:space="preserve">
     <value>Remove collaborator</value>
   </data>
-  <data name="Collaborator_AddConfirmationMessage" xml:space="preserve">
+    <data name="Collaborator_AddConfirmationMessage" xml:space="preserve">
     <value>You are goin to add a new collaborator to your project, do you want to continue ?</value>
   </data>
-  <data name="Collaborator_Added" xml:space="preserve">
+    <data name="Collaborator_Added" xml:space="preserve">
     <value>Collaborator "{0}" successfully created </value>
   </data>
-  <data name="Collaborator_AddValidateButton" xml:space="preserve">
+    <data name="Collaborator_AddValidateButton" xml:space="preserve">
     <value>Yes</value>
   </data>
-  <data name="Collaborator_CancelButton" xml:space="preserve">
+    <data name="Collaborator_CancelButton" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="Collaborator_CancelModal_Message" xml:space="preserve">
+    <data name="Collaborator_CancelModal_Message" xml:space="preserve">
     <value>Are you sure you want to cancel the modifications?</value>
   </data>
-  <data name="Collaborator_Edit" xml:space="preserve">
+    <data name="Collaborator_Edit" xml:space="preserve">
     <value>Edit collaborator</value>
   </data>
-  <data name="Collaborator_Edited" xml:space="preserve">
+    <data name="Collaborator_Edited" xml:space="preserve">
     <value>Collaborator "{0}" successfully edited </value>
   </data>
-  <data name="Collaborator_Email" xml:space="preserve">
+    <data name="Collaborator_Email" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="Collaborator_ErrorIncorrectEmail" xml:space="preserve">
+    <data name="Collaborator_ErrorIncorrectEmail" xml:space="preserve">
     <value>Incorrect email address</value>
   </data>
-  <data name="Collaborator_FirstName" xml:space="preserve">
+    <data name="Collaborator_FirstName" xml:space="preserve">
     <value>Firstname</value>
   </data>
-  <data name="Collaborator_label" xml:space="preserve">
+    <data name="Collaborator_label" xml:space="preserve">
     <value>Collaborators</value>
   </data>
-  <data name="Collaborator_LastName" xml:space="preserve">
+    <data name="Collaborator_LastName" xml:space="preserve">
     <value>Lastname</value>
   </data>
-  <data name="Collaborator_Modal_Header" xml:space="preserve">
+    <data name="Collaborator_Modal_Header" xml:space="preserve">
     <value>New collaborateur</value>
   </data>
-  <data name="Collaborator_New" xml:space="preserve">
+    <data name="Collaborator_New" xml:space="preserve">
     <value>New collaborator</value>
   </data>
-  <data name="Collaborator_PageTitle" xml:space="preserve">
+    <data name="Collaborator_PageTitle" xml:space="preserve">
     <value>Manage your collaborators</value>
   </data>
-  <data name="Collaborator_RemoveNotification_Message" xml:space="preserve">
+    <data name="Collaborator_RemoveNotification_Message" xml:space="preserve">
     <value>Collaborator "{0} {1}" has been removed</value>
   </data>
-  <data name="Collaborator_SuppressionModal_Header" xml:space="preserve">
+    <data name="Collaborator_SuppressionModal_Header" xml:space="preserve">
     <value>Are you sure ?</value>
   </data>
-  <data name="Collaborator_SuppressionModal_Message" xml:space="preserve">
+    <data name="Collaborator_SuppressionModal_Message" xml:space="preserve">
     <value>Are you sure you want to delete the collaborateur "{0} {1}" ? All linked roles will be unbind.</value>
   </data>
-  <data name="Collaborator_ValidateButton" xml:space="preserve">
+    <data name="Collaborator_ValidateButton" xml:space="preserve">
     <value>Validate</value>
   </data>
-  <data name="Error404_Message" xml:space="preserve">
+    <data name="Error404_Message" xml:space="preserve">
     <value>An error occured, the current page is not found.</value>
   </data>
-  <data name="Error404_Title" xml:space="preserve">
+    <data name="Error404_Title" xml:space="preserve">
     <value>404 Error - Page not Found</value>
   </data>
-  <data name="Form_label" xml:space="preserve">
+    <data name="Form_label" xml:space="preserve">
     <value>Forms</value>
   </data>
-  <data name="Locked_Message" xml:space="preserve">
+    <data name="Locked_Message" xml:space="preserve">
     <value>This account has been locked, please try again</value>
   </data>
-  <data name="Locked_Title" xml:space="preserve">
+    <data name="Locked_Title" xml:space="preserve">
     <value>Locked</value>
   </data>
-  <data name="LoginPartial_Logout" xml:space="preserve">
+    <data name="LoginPartial_Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
-  <data name="LoginPartial_MyProfil" xml:space="preserve">
+    <data name="LoginPartial_MyProfil" xml:space="preserve">
     <value>My profile</value>
   </data>
-  <data name="Menu_LogoutConfirm" xml:space="preserve">
+    <data name="Menu_LogoutConfirm" xml:space="preserve">
     <value>Are you sure you want to logout from MyContractsGenerator ?</value>
   </data>
-  <data name="Modal_Close_Label" xml:space="preserve">
+    <data name="Modal_Close_Label" xml:space="preserve">
     <value>Close</value>
   </data>
-  <data name="Role_AddConfirmationMessage" xml:space="preserve">
+    <data name="Role_AddConfirmationMessage" xml:space="preserve">
     <value>You are goin to add a new job to your project, do you want to continue ?</value>
   </data>
-  <data name="Role_Added" xml:space="preserve">
+    <data name="Role_Added" xml:space="preserve">
     <value>Job "{0}" successfully created</value>
   </data>
-  <data name="Role_AddValidateButton" xml:space="preserve">
+    <data name="Role_AddValidateButton" xml:space="preserve">
     <value>Yes</value>
   </data>
-  <data name="Role_CancelButton" xml:space="preserve">
+    <data name="Role_CancelButton" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="Role_CancelModal_Message" xml:space="preserve">
+    <data name="Role_CancelModal_Message" xml:space="preserve">
     <value>Are you sure you want to cancel the modifications?</value>
   </data>
-  <data name="Role_Edit" xml:space="preserve">
+    <data name="Role_Edit" xml:space="preserve">
     <value>Edit job</value>
   </data>
-  <data name="Role_Edited" xml:space="preserve">
+    <data name="Role_Edited" xml:space="preserve">
     <value>Job "{0}" successfully edited</value>
   </data>
-  <data name="Role_ErrorIncorrectLabelAlreadyUsed" xml:space="preserve">
+    <data name="Role_ErrorIncorrectLabelAlreadyUsed" xml:space="preserve">
     <value>This job label is already in use</value>
   </data>
-  <data name="Role_label" xml:space="preserve">
+    <data name="Role_label" xml:space="preserve">
     <value>Jobs</value>
   </data>
-  <data name="Role_Modal_Header" xml:space="preserve">
+    <data name="Role_Modal_Header" xml:space="preserve">
     <value>Job</value>
   </data>
-  <data name="Role_New" xml:space="preserve">
+    <data name="Role_New" xml:space="preserve">
     <value>Create job</value>
   </data>
-  <data name="Role_PageTitle" xml:space="preserve">
+    <data name="Role_PageTitle" xml:space="preserve">
     <value>Manage your jobs</value>
   </data>
-  <data name="Role_RemoveNotification_Message" xml:space="preserve">
+    <data name="Role_RemoveNotification_Message" xml:space="preserve">
     <value>Job "{0}" has been removed</value>
   </data>
-  <data name="Role_SuppressionModal_Header" xml:space="preserve">
+    <data name="Role_SuppressionModal_Header" xml:space="preserve">
     <value>Are you sure ?</value>
   </data>
-  <data name="Role_SuppressionModal_Message" xml:space="preserve">
+    <data name="Role_SuppressionModal_Message" xml:space="preserve">
     <value>Are you sure you want to delete the job "{0}" ? All linked collaborators will be unbind.</value>
   </data>
-  <data name="Role_ValidateButton" xml:space="preserve">
+    <data name="Role_ValidateButton" xml:space="preserve">
     <value>Validate</value>
   </data>
-  <data name="Shared_BeforeLeave_Message" xml:space="preserve">
+    <data name="Shared_BeforeLeave_Message" xml:space="preserve">
     <value>You have unsaved changes, are you sure you wish to continue ?</value>
   </data>
-  <data name="Shared_Button_Ok" xml:space="preserve">
+    <data name="Shared_Button_Ok" xml:space="preserve">
     <value>Ok</value>
   </data>
-  <data name="Shared_ErrorModal_Header" xml:space="preserve">
+    <data name="Shared_ErrorModal_Header" xml:space="preserve">
     <value>An error occured</value>
   </data>
-  <data name="Shared_MessageError_MaxLength" xml:space="preserve">
+    <data name="Shared_MessageError_MaxLength" xml:space="preserve">
     <value>Maximum length is {1} characters</value>
   </data>
-  <data name="Collaborator_Role" xml:space="preserve">
+    <data name="Collaborator_Role" xml:space="preserve">
     <value>Collaborator's job :</value>
   </data>
-  <data name="Roler_Tooltip_RemoveRole" xml:space="preserve">
+    <data name="Roler_Tooltip_RemoveRole" xml:space="preserve">
     <value>Remove job</value>
   </data>
-  <data name="Role_Label_Name" xml:space="preserve">
+    <data name="Role_Label_Name" xml:space="preserve">
     <value>Job label :</value>
   </data>
-  <data name="Role_MultiSelect_NonSelectedText" xml:space="preserve">
+    <data name="Role_MultiSelect_NonSelectedText" xml:space="preserve">
     <value>No job selected</value>
   </data>
-  <data name="Role_NewRole" xml:space="preserve">
+    <data name="Role_NewRole" xml:space="preserve">
     <value>New job</value>
   </data>
-  <data name="Collaborator_No_Job_Message" xml:space="preserve">
+    <data name="Collaborator_No_Job_Message" xml:space="preserve">
     <value>Warning ! 
 You haven't created any jobs, please create some job to be able to bind them to a collaborator</value>
   </data>
-  <data name="FormMailing_label" xml:space="preserve">
+    <data name="FormMailing_label" xml:space="preserve">
     <value>Mailing</value>
   </data>
-  <data name="Form_CollaboratorMailBody" xml:space="preserve">
+    <data name="Form_CollaboratorMailBody" xml:space="preserve">
     <value>Hello,&lt;br/&gt;&lt;br/&gt;
 {0} created a form for you, we need this information to complete the contract.&lt;br/&gt;
-Please fill this form : {1}&lt;br/&gt;
+Please fill this form : {1}&lt;br/&gt;&lt;br/&gt;
+We have generated a password : {2}&lt;br/&gt;
+Do not share it, and use it to see your form.&lt;br/&gt;&lt;br/&gt;
 &lt;br/&gt;&lt;br/&gt;
 Kind regards,</value>
   </data>
-  <data name="Form_CollaboratorMailSubject" xml:space="preserve">
+    <data name="Form_CollaboratorMailSubject" xml:space="preserve">
     <value>MyContractsGenerator - We need some information, please fill this form </value>
   </data>
-  <data name="Form_MailedSentToCollaborator" xml:space="preserve">
+    <data name="Form_MailedSentToCollaborator" xml:space="preserve">
     <value>An email has been send to {0} {1}.</value>
   </data>
-  <data name="Form_Mailing_Title" xml:space="preserve">
+    <data name="Form_Mailing_Title" xml:space="preserve">
     <value>Mail your collaborators</value>
   </data>
-  <data name="Form_NoRoleWithCollaborator" xml:space="preserve">
+    <data name="Form_NoRoleWithCollaborator" xml:space="preserve">
     <value>Please create jobs, binded collaborator in order to be able to send emails.</value>
   </data>
-  <data name="Form_SendMail" xml:space="preserve">
+    <data name="Form_SendMail" xml:space="preserve">
     <value>Send form</value>
   </data>
-  <data name="Mailing_PageTitle" xml:space="preserve">
+    <data name="Mailing_PageTitle" xml:space="preserve">
     <value>Mailing</value>
   </data>
-  <data name="CollaboratorForm_Step1_Title" xml:space="preserve">
+    <data name="CollaboratorForm_Step1_Title" xml:space="preserve">
     <value>MyContractsGenerator - Who are you ?</value>
   </data>
-  <data name="CollaboratorForm_UnknownEmail" xml:space="preserve">
-    <value>Unknown email, please contact your administrator or try again.</value>
+    <data name="CollaboratorForm_Error" xml:space="preserve">
+    <value>An error occured, please check if your informations are correct or contact your administrator.</value>
+  </data>
+    <data name="Form_MailAlreadySent" xml:space="preserve">
+    <value>Mail already sent</value>
+  </data>
+    <data name="CollaboratorForm_Step2_Title" xml:space="preserve">
+    <value>MyContractsGenerator - Please fill this form</value>
+  </data>
+    <data name="Form_SendForm" xml:space="preserve">
+    <value>Send</value>
   </data>
 </root>

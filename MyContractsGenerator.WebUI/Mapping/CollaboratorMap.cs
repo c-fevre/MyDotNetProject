@@ -6,6 +6,8 @@ using System.Web;
 using MyContractsGenerator.Common.PasswordHelper;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.WebUI.Models.CollaboratorModels;
+using MyContractsGenerator.WebUI.Models.FormAnswerModels;
+using WebGrease.Css.Extensions;
 
 namespace MyContractsGenerator.WebUI.Mapping
 {
@@ -14,7 +16,7 @@ namespace MyContractsGenerator.WebUI.Mapping
         #region Domain To Model
 
         /// <summary>
-        ///     Transforms an User to an AdministratorModel
+        ///     Transforms an User to an CollaboratorModel
         /// </summary>
         /// <param name="collaborator"></param>
         /// <returns></returns>
@@ -32,13 +34,15 @@ namespace MyContractsGenerator.WebUI.Mapping
                 FirstName = collaborator.firstname,
                 Email = collaborator.email,
                 IsActive = collaborator.active,
-                LinkedRolesIds = RoleMap.MapItems(collaborator.roles).Select(r => r.Id).ToList()
+                LinkedRolesIds = RoleMap.MapItems(collaborator.roles).Select(r => r.Id).ToList(),
+                FormAnswers = new List<FormAnswerModel>()
             };
 
-            //TODO Multilingue
-            //administratorModel.Administrator = user.isadministrator;
-            //administratorModel.ApplicationLangageId = user.applicationlanguage.id;
-
+            if (collaborator.form_answer.Any())
+            {
+                collaboratorModel.FormAnswers = FormAnswerMap.MapItems(collaborator.form_answer);
+            }
+            
             return collaboratorModel;
         }
 
@@ -49,9 +53,17 @@ namespace MyContractsGenerator.WebUI.Mapping
         /// <returns></returns>
         internal static IList<CollaboratorModel> MapItems(IEnumerable<collaborator> collaborators)
         {
-            var enumerable = collaborators as IList<collaborator> ?? collaborators.ToList();
+            IList<CollaboratorModel> models = new List<CollaboratorModel>();
 
-            return !enumerable.Any() ? new List<CollaboratorModel>() : enumerable.Select(MapItem).ToList();
+            if (collaborators.Any())
+            {
+                collaborators.ToList().ForEach(c =>
+                {
+                    models.Add(MapItem(c));
+                });
+            }
+
+            return models;
         }
 
         #endregion

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using MyContractsGenerator.Common.I18N;
 using MyContractsGenerator.WebUI.Models.BaseModels;
+using MyContractsGenerator.WebUI.Models.FormAnswerModels;
 using MyContractsGenerator.WebUI.Models.RoleModels;
 
 namespace MyContractsGenerator.WebUI.Models.CollaboratorModels
@@ -73,12 +74,12 @@ namespace MyContractsGenerator.WebUI.Models.CollaboratorModels
         public IEnumerable<int> LinkedRolesIds { get; set; }
 
         /// <summary>
-        /// Gets or sets the form URL.
+        /// Gets or sets the form answers.
         /// </summary>
         /// <value>
-        /// The form URL.
+        /// The form answers.
         /// </value>
-        public string FormUrl { get; set; }
+        public IList<FormAnswerModel> FormAnswers{ get; set; }
 
     }
 }

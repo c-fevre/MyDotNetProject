@@ -25,6 +25,11 @@ namespace MyContractsGenerator.WebUI.Controllers
         private readonly ICollaboratorService collaboratorService;
 
         /// <summary>
+        /// The collaborator service
+        /// </summary>
+        private readonly IFormAnswerService formAnswerService;
+
+        /// <summary>
         /// The role service
         /// </summary>
         private readonly IRoleService roleService;
@@ -34,10 +39,18 @@ namespace MyContractsGenerator.WebUI.Controllers
         /// </summary>
         private readonly IMailService mailService;
 
-        public FormController(ICollaboratorService collaboratorService, IRoleService roleService, IMailService mailService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormController"/> class.
+        /// </summary>
+        /// <param name="collaboratorService">The collaborator service.</param>
+        /// <param name="roleService">The role service.</param>
+        /// <param name="formAnswerService">The form answer service.</param>
+        /// <param name="mailService">The mail service.</param>
+        public FormController(ICollaboratorService collaboratorService, IRoleService roleService, IFormAnswerService formAnswerService, IMailService mailService)
         {
             this.collaboratorService = collaboratorService;
             this.roleService = roleService;
+            this.formAnswerService = formAnswerService;
             this.mailService = mailService;
         }
 
@@ -52,7 +65,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return this.View(model);
             }
 
-            collaborator collab = this.collaboratorService.GetById((int) this.TempData["MailedCollaboratorId"]);
+            collaborator collab = this.collaboratorService.GetById((int)this.TempData["MailedCollaboratorId"]);
             NotificationModel notificationModel = new NotificationModel
             {
                 Title =
@@ -64,13 +77,34 @@ namespace MyContractsGenerator.WebUI.Controllers
             return this.View(model);
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="collaboratorId"></param>
+        /// <returns></returns>
         [HttpGet]
-        public ActionResult Send(int collaboratorId, string formUrl)
+        public ActionResult Send(int collaboratorId)
         {
             int adminId = Convert.ToInt32(this.User.Identity.GetUserId());
             collaborator mailTarget = this.collaboratorService.GetById(collaboratorId);
+            string tempPassword = RandomString(10);
 
-            this.mailService.SendFormToCollaborator(mailTarget, formUrl, adminId);
+            // TODO Check information, Dynamic forms
+            // TODO Link FormAnswer to Role AND collaborator not only collaborator
+            form_answer newFormAnswer = new form_answer
+            {
+                collaborator = mailTarget,
+                last_update = DateTime.Now,
+                replied = false,
+                form_id = 1,
+                password = ShaHashPassword.GetSha256ResultString(tempPassword)
+            };
+
+            form_answer dbFormAnswer = this.formAnswerService.AddFormAnswer(newFormAnswer);
+
+            string formUrl =
+                    $"{GlobalAppSettings.ApplicationBaseUrl}{this.Url.Action("WhoAreYou", "CollaboratorForm", new { c = ShaHashPassword.GetSha256ResultString(mailTarget.id.ToString()), fa = ShaHashPassword.GetSha256ResultString(dbFormAnswer.id.ToString()) })}";
+
+            this.mailService.SendFormToCollaborator(mailTarget, formUrl, adminId, tempPassword);
             this.TempData["MailedCollaboratorId"] = collaboratorId;
 
             return this.RedirectToAction("Index");
@@ -83,9 +117,8 @@ namespace MyContractsGenerator.WebUI.Controllers
         private void PopulateFormMainModel(FormMainModel model)
         {
             IList<role> roles = this.roleService.GetAllActive();
-
             model.RolesWithCollaborators = new List<FormMailingModel>();
-            
+
             if (roles.Any())
             {
                 roles.Where(r => r.collaborators.Any()).ForEach(r =>
@@ -96,17 +129,23 @@ namespace MyContractsGenerator.WebUI.Controllers
                         Collaborators = CollaboratorMap.MapItems(r.collaborators)
                     };
 
-                    mailingModel.Collaborators.ForEach(collab =>
-                    {
-                        collab.FormUrl =
-                            $"{GlobalAppSettings.ApplicationBaseUrl}{this.Url.Action("WhoAreYou", "CollaboratorForm", new { c = ShaHashPassword.GetSha256ResultString(collab.Email) })}";
-                    });
-
                     model.RolesWithCollaborators.Add(mailingModel);
                 });
-
-
             }
+        }
+
+        /// <summary>
+        /// Randoms the string.
+        /// </summary>
+        /// <param name="length">The length.</param>
+        /// <returns></returns>
+        private static string RandomString(int length)
+        {
+            Random random = new Random();
+
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

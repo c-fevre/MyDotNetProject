@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MyContractsGenerator.Common.Validation;
 using MyContractsGenerator.DAL.Repositories;
@@ -11,78 +12,80 @@ namespace MyContractsGenerator.Business
     /// <summary>
     /// </summary>
     /// <seealso cref="MyContractsGenerator.Business.BaseService" />
-    /// <seealso cref="MyContractsGenerator.Interfaces.InterfacesServices.IFormService" />
-    public class FormService : BaseService, IFormService
+    /// <seealso cref="MyContractsGenerator.Interfaces.InterfacesServices.IFormAnswerService" />
+    public class FormAnswerService : BaseService, IFormAnswerService
     {
         /// <summary>
-        /// The form repository
+        /// The formAnswer repository
         /// </summary>
-        private readonly IFormRepository formRepository;
+        private readonly IFormAnswerRepository formAnswerRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FormService"/> class.
+        /// Initializes a new instance of the <see cref="FormAnswerService"/> class.
         /// </summary>
-        /// <param name="formRepository">The form repository.</param>
-        public FormService(IFormRepository formRepository)
+        /// <param name="formAnswerRepository">The formAnswer repository.</param>
+        public FormAnswerService(IFormAnswerRepository formAnswerRepository)
         {
-            this.formRepository = formRepository;
+            this.formAnswerRepository = formAnswerRepository;
         }
         
         /// <summary>
-        /// Gets form by Id
+        /// Gets formAnswer by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public form GetById(int id)
+        public form_answer GetById(int id)
         {
-            return this.formRepository.GetById(id);
+            return this.formAnswerRepository.GetById(id);
         }
         
         /// <summary>
-        /// delete logically the form
+        /// delete logically the formAnswer
         /// </summary>
-        /// <param name="formId"></param>
-        public void DeleteForm(int formId)
+        /// <param name="formAnswerId"></param>
+        public void DeleteFormAnswer(int formAnswerId)
         {
-            Requires.ArgumentGreaterThanZero(formId, "Form Answer Id");
-            this.formRepository.Remove(formId);
+            Requires.ArgumentGreaterThanZero(formAnswerId, "Form Answer Id");
+            this.formAnswerRepository.Remove(formAnswerId);
             
-            this.formRepository.SaveChanges();
+            this.formAnswerRepository.SaveChanges();
         }
 
         /// <summary>
-        /// Adds the form.
+        /// Adds the formAnswer.
         /// </summary>
-        /// <param name="formToCreate">The form to create.</param>
+        /// <param name="formAnswerToCreate">The formAnswer to create.</param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public form AddForm(form formToCreate)
+        public form_answer AddFormAnswer(form_answer formAnswerToCreate)
         {
-            Requires.ArgumentNotNull(formToCreate, "formToCreate");
+            Requires.ArgumentNotNull(formAnswerToCreate, "formAnswerToCreate");
 
-            form dbForm = this.formRepository.Add(formToCreate);
-            this.formRepository.SaveChanges();
+            form_answer dbFormAnswer = this.formAnswerRepository.Add(formAnswerToCreate);
+            this.formAnswerRepository.SaveChanges();
 
-            return dbForm;
+            return dbFormAnswer;
         }
 
         /// <summary>
-        /// Updates the form.
+        /// Updates the formAnswer.
         /// </summary>
-        /// <param name="formToUpdate">The form to update.</param>
-        public void UpdateForm(form formToUpdate)
+        /// <param name="formAnswerToUpdate">The formAnswer to update.</param>
+        public void UpdateFormAnswer(form_answer formAnswerToUpdate)
         {
-            var dbForm = this.formRepository.GetById(formToUpdate.id);
-            if (dbForm == null)
+            var dbFormAnswer = this.formAnswerRepository.GetById(formAnswerToUpdate.id);
+            if (dbFormAnswer == null)
             {
                 return;
             }
 
             //TODO Bindings ?
-            dbForm.label = formToUpdate.label;
+            dbFormAnswer.last_update = DateTime.Now;
+            dbFormAnswer.replied = formAnswerToUpdate.replied;
+            dbFormAnswer.@checked = formAnswerToUpdate.@checked;
 
-            this.formRepository.Update(dbForm);
-            this.formRepository.SaveChanges();
+            this.formAnswerRepository.Update(dbFormAnswer);
+            this.formAnswerRepository.SaveChanges();
         }
 
         /// <summary>
@@ -90,9 +93,9 @@ namespace MyContractsGenerator.Business
         /// </summary>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public IList<form> GetAll()
+        public IList<form_answer> GetAll()
         {
-            return this.formRepository.GetAll().ToList();
+            return this.formAnswerRepository.GetAll().ToList();
         }
     }
 }

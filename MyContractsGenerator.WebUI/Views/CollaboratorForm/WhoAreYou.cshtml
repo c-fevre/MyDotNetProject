@@ -6,11 +6,12 @@
     Layout = "~/Views/CollaboratorForm/_LayoutCollaboratorForm.cshtml";
 }
 
-@using (Html.BeginForm("EmailCheck", "CollaboratorForm", FormMethod.Post, new { id = "email-check-form" }))
+@using (Html.BeginForm("Checkin", "CollaboratorForm", FormMethod.Post, new { id = "email-check-form" }))
 {
     @Html.AntiForgeryToken()
 
-    @Html.HiddenFor(m => m.HashedMail)
+    @Html.HiddenFor(m => m.c)
+    @Html.HiddenFor(m => m.fa)
 
     <div class="row">
         <div class="col-md-12 mb50">
@@ -30,6 +31,11 @@
                 <div>@Html.LabelFor(m => m.Email, new { @class = "control-label" })</div>
                 <div>@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })</div>
                 <div>@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })</div>
+            </div>
+            <div class="form-group">
+                <div>@Html.LabelFor(m => m.Password, new { @class = "control-label" })</div>
+                <div>@Html.PasswordFor(m => m.Password, new { @class = "form-control" })</div>
+                <div>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })</div>
             </div>
             <div class="form-group">
                 <div>

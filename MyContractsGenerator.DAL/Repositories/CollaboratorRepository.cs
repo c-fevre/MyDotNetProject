@@ -27,6 +27,7 @@ namespace MyContractsGenerator.DAL.Repositories
             return this.Table
                 //.Include(d => d.applicationlanguage)
                 .Include(d => d.roles)
+                .Include(u => u.form_answer)
                 .Where(u => u.active)
                 .SingleOrDefault(d => d.id == id);
         }
@@ -39,8 +40,8 @@ namespace MyContractsGenerator.DAL.Repositories
         public collaborator GetByEmail(string email)
         {
             return this.Table
-                       //.Include(d => d.applicationlanguage)
                        .Include(d => d.roles)
+                       .Include(u => u.form_answer)
                        .Where(u => u.email == email)
                        .SingleOrDefault(u => u.active);
         }
@@ -50,6 +51,7 @@ namespace MyContractsGenerator.DAL.Repositories
             return this.Table
                        //.Include(d => d.applicationlanguage)
                        .Include(d => d.roles)
+                       .Include(u => u.form_answer)
                        .Where(u => u.active);
         }
     }

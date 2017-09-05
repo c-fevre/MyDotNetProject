@@ -31,6 +31,7 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         /// <param name="collaborator">The collaborator.</param>
         /// <param name="formUrl">The form URL.</param>
         /// <param name="adminId">The admin identifier.</param>
-        void SendFormToCollaborator(collaborator collaborator, string formUrl, int adminId);
+        /// <param name="tempPassword">The temporary password.</param>
+        void SendFormToCollaborator(collaborator collaborator, string formUrl, int adminId, string tempPassword);
     }
 }

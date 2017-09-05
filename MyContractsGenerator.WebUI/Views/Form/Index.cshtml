@@ -38,9 +38,18 @@
                                         <td>@collaborator.Email</td>
                                         <td>
                                             @{
-                                                string url = $"{GlobalAppSettings.ApplicationBaseUrl}{Url.Action("Send", "Form", new { collaboratorId = collaborator.Id, formUrl = collaborator.FormUrl })}";
+                                                if (collaborator.FormAnswers.Any() && !collaborator.FormAnswers.OrderBy(fa => fa.LastUpdateTime).First().Replied)
+                                                {
+                                                    // TODO Re-send Mail
+                                                    string url = "#";
+                                                    <a role="button" class="btn btn-info disabled" href="@url">@Resources.Form_MailAlreadySent</a>
+                                                }
+                                                else
+                                                {
+                                                    string url = $"{GlobalAppSettings.ApplicationBaseUrl}{Url.Action("Send", "Form", new { collaboratorId = collaborator.Id })}";
+                                                    <a role="button" class="btn btn-info" href="@url">@Resources.Form_SendMail</a>
+                                                }
                                             }
-                                            <a role="button" class="btn btn-info" href="@url">@Resources.Form_SendMail</a>
                                         </td>
                                     </tr>
                                 }
