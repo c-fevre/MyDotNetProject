@@ -221,6 +221,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\custom-shared-ie8.css" />
+    <Content Include="Content\icomoon.css" />
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\MCG_logo.jpg" />
     <Content Include="Content\Images\pixel_gray.png" />
@@ -228,6 +229,9 @@
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.structure.css" />
     <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\jquery.multiselect.css" />
+    <Content Include="Content\jquery.multiselect.filter.css" />
+    <Content Include="Content\simple-sidebar.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
