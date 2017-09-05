@@ -203,8 +203,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             {
                 email = model.EditedCollaborator.Email,
                 firstname = model.EditedCollaborator.FirstName,
-                lastname = model.EditedCollaborator.LastName,
-                roles = (ICollection<role>) this.roleService.GetAllActive().Where(r => model.EditedCollaborator.LinkedRolesIds.Contains(r.id))
+                lastname = model.EditedCollaborator.LastName
             };
 
             // TODO Multilingue
@@ -213,6 +212,9 @@ namespace MyContractsGenerator.WebUI.Controllers
             //this.applicationLangageService.GetById(model.EditedAdministrator.ApplicationLangageId);
 
             collaborator dbCollab = this.collaboratorService.AddCollaborator(newCollaborator);
+
+            this.roleService.AffectToRole(model.EditedCollaborator.LinkedRolesIds,
+                                                                      dbCollab.id);
 
             this.PopulateCollaboratorMainModel(model);
 
