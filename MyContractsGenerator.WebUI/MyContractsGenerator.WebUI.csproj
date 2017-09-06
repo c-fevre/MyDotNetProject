@@ -189,18 +189,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mapping\AnswerMap.cs" />
     <Compile Include="Mapping\FormAnswerMap.cs" />
     <Compile Include="Mapping\QuestionMap.cs" />
     <Compile Include="Mapping\RoleMap.cs" />
     <Compile Include="Mapping\CollaboratorMap.cs" />
     <Compile Include="Models\AdministratorModels\AdministratorEditPasswordModel.cs" />
     <Compile Include="Models\AdministratorModels\AdministratorLoginModel.cs" />
+    <Compile Include="Models\AnswerModels\AnswerModel.cs" />
     <Compile Include="Models\BaseModels\BaseModel.cs" />
     <Compile Include="Models\CollaboratorFormModels\CollaboratorFormMainModel.cs" />
     <Compile Include="Models\CollaboratorFormModels\CollaboratorFormModel.cs" />
     <Compile Include="Models\CollaboratorModels\CollaboratorMainModel.cs" />
     <Compile Include="Models\CollaboratorModels\CollaboratorModel.cs" />
     <Compile Include="Models\FormAnswerModels\FormAnswerModel.cs" />
+    <Compile Include="Models\FormModels\AnswersModel.cs" />
     <Compile Include="Models\FormModels\FormMailingModel.cs" />
     <Compile Include="Models\FormModels\FormMainModel.cs" />
     <Compile Include="Models\NotificationModels\NotificationModel.cs" />
@@ -341,6 +344,9 @@
     <Content Include="Views\CollaboratorForm\_LayoutCollaboratorForm.cshtml" />
     <Content Include="Views\CollaboratorForm\_AnonymousLayout.cshtml" />
     <Content Include="Views\CollaboratorForm\YourForm.cshtml" />
+    <Content Include="Views\CollaboratorForm\Thanks.cshtml" />
+    <Content Include="Views\CollaboratorForm\AlreadyReplied.cshtml" />
+    <Content Include="Views\Form\CollaboratorAnswers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

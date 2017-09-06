@@ -95,5 +95,16 @@ namespace MyContractsGenerator.Business
         {
             return this.questionRepository.GetAll().ToList();
         }
+
+        /// <summary>
+        /// Gets the questions by form identifier.
+        /// </summary>
+        /// <param name="formId">The form identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public IEnumerable<question> GetQuestionsByFormId(int formId)
+        {
+            return this.questionRepository.GetAllByFormId(formId).ToList();
+        }
     }
 }

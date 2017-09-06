@@ -10,6 +10,7 @@ using MyContractsGenerator.Common.PasswordHelper;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.Interfaces.InterfacesServices;
 using MyContractsGenerator.WebUI.Mapping;
+using MyContractsGenerator.WebUI.Models.FormAnswerModels;
 using MyContractsGenerator.WebUI.Models.FormModels;
 using MyContractsGenerator.WebUI.Models.NotificationModels;
 using WebGrease.Css.Extensions;
@@ -35,6 +36,11 @@ namespace MyContractsGenerator.WebUI.Controllers
         private readonly IRoleService roleService;
 
         /// <summary>
+        /// The question service
+        /// </summary>
+        private readonly IQuestionService questionService;
+
+        /// <summary>
         /// The mail service
         /// </summary>
         private readonly IMailService mailService;
@@ -45,13 +51,15 @@ namespace MyContractsGenerator.WebUI.Controllers
         /// <param name="collaboratorService">The collaborator service.</param>
         /// <param name="roleService">The role service.</param>
         /// <param name="formAnswerService">The form answer service.</param>
+        /// <param name="questionService">The question service.</param>
         /// <param name="mailService">The mail service.</param>
-        public FormController(ICollaboratorService collaboratorService, IRoleService roleService, IFormAnswerService formAnswerService, IMailService mailService)
+        public FormController(ICollaboratorService collaboratorService, IRoleService roleService, IFormAnswerService formAnswerService, IQuestionService questionService, IMailService mailService)
         {
             this.collaboratorService = collaboratorService;
             this.roleService = roleService;
             this.formAnswerService = formAnswerService;
             this.mailService = mailService;
+            this.questionService = questionService;
         }
 
         [HttpGet]
@@ -92,6 +100,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             // TODO Link FormAnswer to Role AND collaborator not only collaborator
             form_answer newFormAnswer = new form_answer
             {
+                admin_id = adminId,
                 collaborator = mailTarget,
                 last_update = DateTime.Now,
                 replied = false,
@@ -108,6 +117,32 @@ namespace MyContractsGenerator.WebUI.Controllers
             this.TempData["MailedCollaboratorId"] = collaboratorId;
 
             return this.RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="collaboratorId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult CollaboratorAnswers(int collaboratorId)
+        {
+            AnswersModel model = new AnswersModel();
+            this.PopulateAnswersModel(model, collaboratorId);
+
+            return this.View(model);
+        }
+
+        /// <summary>
+        /// Populates the answers model.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        private void PopulateAnswersModel(AnswersModel model, int collaboratorId)
+        {
+            collaborator collab = this.collaboratorService.GetById(collaboratorId);
+            IList<form_answer> collabFormAnswers = this.formAnswerService.GetAllForCollaborator(collaboratorId);
+
+            model.Collaborator = CollaboratorMap.MapItem(collab);
+            model.FormAnswers = FormAnswerMap.MapItems(collabFormAnswers);
         }
 
         /// <summary>

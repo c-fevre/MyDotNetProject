@@ -119,6 +119,42 @@ namespace MyContractsGenerator.Business
             Thread.CurrentThread.CurrentCulture = currentCulture;
         }
 
+        public void SendFormResultToAdministrator(form_answer formAnswer, IList<answer> answers)
+        {
+            Requires.ArgumentNotNull(formAnswer, "dbFormAnswer");
+            Requires.ArgumentNotNull(answers, "answers");
+
+            //change temporarily the cultureInfo to send the mail in the default application web language
+            CultureInfo currentUICulture = Thread.CurrentThread.CurrentUICulture;
+            CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(WebConfigurationManager.AppSettings["MailCulture"]);
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(WebConfigurationManager.AppSettings["MailCulture"]);
+
+            string answersString = "";
+            answers.ToList().ForEach(a =>
+            {
+                answersString += $"<b>{a.question.label}</b> : {a.answer_value}<br/>";
+            });
+
+            // TODO Link FormAnswer to Role AND collaborator not only collaborator
+            string collaboratorIdentity = $"{formAnswer.collaborator.firstname} {formAnswer.collaborator.lastname}";
+            string collaboratorRoles = "";
+            formAnswer.collaborator.roles.ToList().ForEach(r =>
+            {
+                collaboratorRoles += $"({r.label}) ";
+            });
+
+            this.SendEmail(
+                new List<string> { formAnswer.administrator.email },
+                Resources.Form_CollaboratorAnswerMailSubject,
+                string.Format(Resources.Form_CollaboratorAnswerMailBody, collaboratorIdentity, collaboratorRoles, answersString)
+            );
+
+            //Restore previous values
+            Thread.CurrentThread.CurrentUICulture = currentUICulture;
+            Thread.CurrentThread.CurrentCulture = currentCulture;
+        }
+
         /// <summary>
         ///     Sends generic mail
         /// </summary>

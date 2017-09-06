@@ -94,5 +94,22 @@ namespace MyContractsGenerator.Business
         {
             return this.answerRepository.GetAll().ToList();
         }
+
+        /// <summary>
+        /// Adds the answers.
+        /// </summary>
+        /// <param name="answers">The answers.</param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public void AddAnswers(IList<answer> answers)
+        {
+            Requires.ArgumentNotNull(answers, "answers");
+
+            answers.ToList().ForEach(a =>
+            {
+                this.answerRepository.Add(a);
+            });
+
+            this.answerRepository.SaveChanges();
+        }
     }
 }

@@ -19,5 +19,11 @@ namespace MyContractsGenerator.DAL.Repositories
         /// <returns></returns>
         IEnumerable<form_answer> GetAll();
 
+        /// <summary>
+        /// Gets all for collaborator.
+        /// </summary>
+        /// <param name="collaboratorId">The collaborator identifier.</param>
+        /// <returns></returns>
+        IEnumerable<form_answer> GetAllForCollaborator(int collaboratorId);
     }
 }

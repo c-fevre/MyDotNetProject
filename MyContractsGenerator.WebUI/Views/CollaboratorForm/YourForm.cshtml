@@ -1,4 +1,5 @@
 ﻿@using MyContractsGenerator.Common
+@using MyContractsGenerator.Core.Enum
 @model MyContractsGenerator.WebUI.Models.CollaboratorFormModels.CollaboratorFormMainModel
 
 @{
@@ -6,13 +7,14 @@
     Layout = "~/Views/CollaboratorForm/_LayoutCollaboratorForm.cshtml";
 }
 
-@using (Html.BeginForm("YourForm", "CollaboratorForm", FormMethod.Post, new { id = "check-form" }))
+@using (Html.BeginForm("CheckForm", "CollaboratorForm", FormMethod.Post, new { id = "check-form" }))
 {
 
     @Html.HiddenFor(m => m.c)
     @Html.HiddenFor(m => m.fa)
 
     @Html.HiddenFor(q => q.Form.Id)
+    @Html.HiddenFor(q => q.Password)
 
     <div class="row">
         <div class="col-md-12 mb50">
@@ -29,12 +31,9 @@
         </div>
         <div class="col-md-8">
             <div class="form-group">
-                <!-- TODO Build Dynamic or Hardcoded form (database & code)-->
-            </div>
-            <div class="form-group">
                 <div class="form-group">
                     @{
-                        string roles = "";
+                        string roles = $"{Model.Form.Collaborator.FirstName} {Model.Form.Collaborator.LastName} - ";
                         Model.Form.Roles.ToList().ForEach(r =>
                         {
                             roles += r.Label + " ";
@@ -45,35 +44,66 @@
                     <h2>@roles</h2>
                 </div>
 
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <div>
-                            @Html.LabelFor(m => m.Form.Collaborator.FirstName, new { @class = "control-label" })
-                            @Html.TextBoxFor(m => m.Form.Collaborator.FirstName, new { @class = "form-control", disabled = "disabled" })
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div>
-                            @Html.LabelFor(m => m.Form.Collaborator.LastName, new { @class = "control-label" })
-                            @Html.TextBoxFor(m => m.Form.Collaborator.LastName, new { @class = "form-control", disabled = "disabled" })
-                        </div>
-                    </div>
+                <div class="form-group">
+                    @Html.ValidationSummary()
                 </div>
+
+                @{
+                    int count = 1;
+                }
+
+                @foreach (var question in Model.Form.Questions.ToList())
+                {
+                    if (count == 1)
+                    {
+                        @Html.Raw("<div class=\"form-group row\">");
+                    }
+
+                    @Html.Raw("<div class=\"col-md-6\">");
+
+
+                    @Html.Label(question.Label);
+
+                    switch (question.Type)
+                    {
+                        case QuestionType.QuestionTypeEnum.Text:
+                            @Html.TextBox($"{AppConstants.QuestionIdPrefix}{question.Id}", question.Value, new { @class="form-control small-medium-input text-box single-line valid"})
+                            ;
+                            break;
+                        case QuestionType.QuestionTypeEnum.Boolean:
+                            @Html.CheckBox($"{AppConstants.QuestionIdPrefix}{question.Id}", false, new { @class = "form-control small-medium-input text-box single-line valid" });
+                            break;
+                        case QuestionType.QuestionTypeEnum.Numeric:
+                            @Html.TextBox($"{AppConstants.QuestionIdPrefix}{question.Id}", question.Value, new { type = "number", @class = "form-control small-medium-input text-box single-line valid" });
+                            break;
+                        case QuestionType.QuestionTypeEnum.Datetime:
+                            @Html.TextBox($"{AppConstants.QuestionIdPrefix}{question.Id}", question.Value, new { type = "date", @class = "form-control small-medium-input text-box single-line valid" });
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
+                    @Html.Raw("</div>");
+
+                    if (count % 2 == 0)
+                    {
+                        @Html.Raw("</div>")
+                    }
+                    if (count % 2 == 0 && count < Model.Form.Questions.Count)
+                    {
+                        @Html.Raw("<div class=\"form-group row\">")
+                    }
+                    count++;
+                }
+
                 <div class="form-group row">
                     <div class="col-md-12">
-                        <div>
-                            <h3>En développement</h3>
-                        </div>
+                        <input id="login" type="submit" value="@Resources.Form_SendForm" class="btn btn-info" style="float:right;" />
                     </div>
-                </div>
-                <div class="form-group">
-                    <input id="login" type="submit" value="@Resources.Form_SendForm" class="btn btn-info disabled" />
                 </div>
             </div>
         </div>
         <div class="col-md-2">
         </div>
     </div>
-}
-
-
+                    }

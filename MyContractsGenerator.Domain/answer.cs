@@ -19,7 +19,7 @@ namespace MyContractsGenerator.Domain
         public int question_id { get; set; }
         public string answer_value { get; set; }
     
-        public virtual form_answer form_answer { get; set; }
         public virtual question question { get; set; }
+        public virtual form_answer form_answer { get; set; }
     }
 }

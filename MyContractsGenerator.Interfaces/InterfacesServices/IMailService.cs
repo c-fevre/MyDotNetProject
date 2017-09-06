@@ -33,5 +33,12 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         /// <param name="adminId">The admin identifier.</param>
         /// <param name="tempPassword">The temporary password.</param>
         void SendFormToCollaborator(collaborator collaborator, string formUrl, int adminId, string tempPassword);
+
+        /// <summary>
+        /// Sends the form result to administrator.
+        /// </summary>
+        /// <param name="dbFormAnswer">The database form answer.</param>
+        /// <param name="answers">The answers.</param>
+        void SendFormResultToAdministrator(form_answer dbFormAnswer, IList<answer> answers);
     }
 }

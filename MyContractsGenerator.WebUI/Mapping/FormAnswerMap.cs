@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using MyContractsGenerator.Core.Enum;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.WebUI.Models.FormAnswerModels;
+using MyContractsGenerator.WebUI.Models.QuestionModels;
 
 namespace MyContractsGenerator.WebUI.Mapping
 {
@@ -30,8 +32,29 @@ namespace MyContractsGenerator.WebUI.Mapping
             {
                 Id = formAnswer.id,
                 LastUpdateTime = formAnswer.last_update,
-                Replied = formAnswer.replied
+                Replied = formAnswer.replied,
+                QuestionsAnswers = new List<QuestionModel>(),
+                FormLabel = formAnswer.form?.label ?? ""
             };
+
+            if (formAnswer.answers == null || !formAnswer.answers.Any())
+            {
+                return formAnswerModel;
+            }
+
+            formAnswer.answers.ToList().ForEach(a =>
+            {
+                QuestionModel questionModel = new QuestionModel
+                {
+                    Id = a.question_id,
+                    Label = a.question.label,
+                    Order = a.question.order,
+                    Type = EnumEx.GetValueFromDescription<QuestionType.QuestionTypeEnum>(a.question.question_type.label),
+                    Value = a.answer_value
+                };
+                formAnswerModel.QuestionsAnswers.Add(questionModel);
+            });
+
             
             return formAnswerModel;
         }

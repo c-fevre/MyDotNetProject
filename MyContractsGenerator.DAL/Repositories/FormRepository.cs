@@ -27,10 +27,13 @@ namespace MyContractsGenerator.DAL.Repositories
         {
             return this.Table
                 .Include(d => d.roles)
+                .Include(d => d.form_answer)
+                .Include(d => d.form_answer.Select(fa => fa.collaborator))
+                .Include(d => d.form_answer.Select(fa => fa.collaborator).Select(c => c.roles))
+                .Include(d => d.form_answer.Select(fa => fa.administrator))
                 .Include(d => d.questions)
                 .Include(d => d.questions.Select(q => q.question_type))
-                .Include(d => d.form_answer)
-                .SingleOrDefault(d => d.id == id);
+                .SingleOrDefault(d => d.id.Equals(id));
         }
 
         /// <summary>

@@ -36,5 +36,12 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         /// <param name="formAnswerToCreate">The form_answer to create.</param>
         /// <returns></returns>
         form_answer AddFormAnswer(form_answer formAnswerToCreate);
+
+        /// <summary>
+        /// Gets all for collaborator.
+        /// </summary>
+        /// <param name="collaboratorId">The collaborator identifier.</param>
+        /// <returns></returns>
+        IList<form_answer> GetAllForCollaborator(int collaboratorId);
     }
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using MyContractsGenerator.Interfaces.InterfacesRepo;
 using MyContractsGenerator.Domain;
+using MyContractsGenerator.Interfaces.InterfacesRepo;
 
 namespace MyContractsGenerator.DAL.Repositories
 {
@@ -17,31 +16,47 @@ namespace MyContractsGenerator.DAL.Repositories
         }
 
         /// <summary>
-        /// Get an entity by identifier
+        ///     Get an entity by identifier
         /// </summary>
         /// <param name="id">the identifier</param>
         /// <returns>
-        /// the entity or null
+        ///     the entity or null
         /// </returns>
         form_answer IBaseRepository<form_answer>.GetById(int id)
         {
             return this.Table
-                .Include(d => d.collaborator)
-                .Include(d => d.answers)
-                .Include(d => d.form)
-                .SingleOrDefault(d => d.id == id);
+                       .Include(d => d.collaborator)
+                       .Include(d => d.answers)
+                       .Include(d => d.form)
+                       .SingleOrDefault(d => d.id == id);
         }
 
         /// <summary>
-        /// Gets all.
+        ///     Gets all.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<form_answer> GetAll()
         {
             return this.Table
-                .Include(d => d.collaborator)
-                .Include(d => d.answers)
-                .Include(d => d.form);
+                       .Include(d => d.collaborator)
+                       .Include(d => d.answers)
+                       .Include(d => d.form);
+        }
+
+        /// <summary>
+        ///     Gets all for collaborator.
+        /// </summary>
+        /// <param name="collaboratorId">The collaborator identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public IEnumerable<form_answer> GetAllForCollaborator(int collaboratorId)
+        {
+            return this.Table
+                       .Include(fa => fa.form)
+                       .Include(fa => fa.answers)
+                       .Include(fa => fa.answers.Select(a => a.question))
+                       .Include(fa => fa.answers.Select(a => a.question).Select(q => q.question_type))
+                       .Where(fa => fa.collaborator_id.Equals(collaboratorId));
         }
     }
 }

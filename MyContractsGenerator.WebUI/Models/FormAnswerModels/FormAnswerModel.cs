@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using MyContractsGenerator.WebUI.Models.BaseModels;
+using MyContractsGenerator.WebUI.Models.QuestionModels;
 
 namespace MyContractsGenerator.WebUI.Models.FormAnswerModels
 {
@@ -31,5 +32,21 @@ namespace MyContractsGenerator.WebUI.Models.FormAnswerModels
         ///   <c>true</c> if replied; otherwise, <c>false</c>.
         /// </value>
         public bool Replied { get; set; }
+
+        /// <summary>
+        /// Gets or sets the form label.
+        /// </summary>
+        /// <value>
+        /// The form label.
+        /// </value>
+        public string FormLabel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the questions answers.
+        /// </summary>
+        /// <value>
+        /// The questions answers.
+        /// </value>
+        public IList<QuestionModel> QuestionsAnswers { get; set; }
     }
 }

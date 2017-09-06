@@ -41,5 +41,15 @@ namespace MyContractsGenerator.DAL.Repositories
                 .Include(d => d.forms)
                 .Include(d => d.answers);
         }
+
+        /// <summary>
+        /// Gets all by form identifier.
+        /// </summary>
+        /// <param name="formId">The form identifier.</param>
+        /// <returns></returns>
+        public IEnumerable<question> GetAllByFormId(int formId)
+        {
+            return this.Table.Where(q => q.forms.Any(f => f.id.Equals(formId)));
+        }
     }
 }

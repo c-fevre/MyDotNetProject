@@ -22,12 +22,13 @@ namespace MyContractsGenerator.DAL.Repositories
         /// <returns>
         /// the entity or null
         /// </returns>
-        collaborator IBaseRepository<collaborator>.GetById(int id)
+        public new collaborator GetById(int id)
         {
             return this.Table
-                //.Include(d => d.applicationlanguage)
                 .Include(d => d.roles)
                 .Include(u => u.form_answer)
+                .Include(c => c.form_answer.Select(fa => fa.answers))
+                .Include(c => c.form_answer.Select(fa => fa.form))
                 .Where(u => u.active)
                 .SingleOrDefault(d => d.id == id);
         }

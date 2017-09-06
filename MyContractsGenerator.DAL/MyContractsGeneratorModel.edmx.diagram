@@ -12,15 +12,16 @@
         <EntityTypeShape EntityType="MyContractsGeneratorModel.role" Width="1.5" PointX="7.125" PointY="0.625" IsExpanded="true" />
         <AssociationConnector Association="MyContractsGeneratorModel.collaborator_has_role" ManuallyRouted="false" />
         <AssociationConnector Association="MyContractsGeneratorModel.role_has_form" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="MyContractsGeneratorModel.form_answer" Width="1.5" PointX="7.125" PointY="3.625" />
-        <AssociationConnector Association="MyContractsGeneratorModel.form_answer_ibfk_2" />
-        <AssociationConnector Association="MyContractsGeneratorModel.form_answer_ibfk_1" />
         <EntityTypeShape EntityType="MyContractsGeneratorModel.answer" Width="1.5" PointX="11.625" PointY="4.125" />
-        <AssociationConnector Association="MyContractsGeneratorModel.answer_ibfk_1" />
         <EntityTypeShape EntityType="MyContractsGeneratorModel.question" Width="1.5" PointX="11.625" PointY="0.625" />
         <AssociationConnector Association="MyContractsGeneratorModel.answer_ibfk_2" />
         <AssociationConnector Association="MyContractsGeneratorModel.question_ibfk_1" />
         <AssociationConnector Association="MyContractsGeneratorModel.form_has_question" />
+        <EntityTypeShape EntityType="MyContractsGeneratorModel.form_answer" Width="1.5" PointX="6.625" PointY="3.375" />
+        <AssociationConnector Association="MyContractsGeneratorModel.form_answer_ibfk_3" />
+        <AssociationConnector Association="MyContractsGeneratorModel.answer_ibfk_1" />
+        <AssociationConnector Association="MyContractsGeneratorModel.form_answer_ibfk_2" />
+        <AssociationConnector Association="MyContractsGeneratorModel.form_answer_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

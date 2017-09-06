@@ -18,8 +18,8 @@ namespace MyContractsGenerator.Domain
         public form()
         {
             this.roles = new HashSet<role>();
-            this.form_answer = new HashSet<form_answer>();
             this.questions = new HashSet<question>();
+            this.form_answer = new HashSet<form_answer>();
         }
     
         public int id { get; set; }
@@ -28,8 +28,8 @@ namespace MyContractsGenerator.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<role> roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<form_answer> form_answer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<question> questions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<form_answer> form_answer { get; set; }
     }
 }

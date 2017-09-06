@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 05 Septembre 2017 à 16:21
+-- Généré le :  Mer 06 Septembre 2017 à 18:43
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `my_contracts_generator`
 --
+CREATE DATABASE IF NOT EXISTS `my_contracts_generator` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `my_contracts_generator`;
 
 -- --------------------------------------------------------
 
@@ -35,14 +37,16 @@ CREATE TABLE IF NOT EXISTS `administrator` (
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `administrator`
 --
 
 INSERT INTO `administrator` (`id`, `login`, `password`, `email`, `active`) VALUES
-(1, 'c.fevre', '89D920829A794322E6F27178552359D1503643DF50DA827ECCB766C3A6025E95', 'c.fevre166@gmail.com', 1);
+(1, 'c.fevre', '89D920829A794322E6F27178552359D1503643DF50DA827ECCB766C3A6025E95', 'c.fevre166@gmail.com', 1),
+(2, 'j.collier', '89D920829A794322E6F27178552359D1503643DF50DA827ECCB766C3A6025E95', 'fux.prod@gmail.com', 1),
+(3, 'maylis.dlb', '89D920829A794322E6F27178552359D1503643DF50DA827ECCB766C3A6025E95', 'maylis.dlb@hotmail.fr', 1);
 
 -- --------------------------------------------------------
 
@@ -61,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
   KEY `answer_id` (`id`),
   KEY `form_answer_id` (`form_answer_id`),
   KEY `question_id` (`question_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=49 ;
 
 -- --------------------------------------------------------
 
@@ -78,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `collaborator` (
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `collaborator`
@@ -86,7 +90,8 @@ CREATE TABLE IF NOT EXISTS `collaborator` (
 
 INSERT INTO `collaborator` (`id`, `firstname`, `lastname`, `email`, `active`) VALUES
 (1, 'Julien', 'Collier', 'clem166@hotmail.com', 1),
-(5, 'test', 'test', 'test@test.test', 1);
+(5, 'test', 'test', 'test@test.test', 0),
+(6, 'Clément', 'Fevre', 'c.fevre166@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -101,6 +106,16 @@ CREATE TABLE IF NOT EXISTS `collaborator_has_role` (
   PRIMARY KEY (`id_collaborator`,`id_role`),
   KEY `id_role` (`id_role`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+
+--
+-- Contenu de la table `collaborator_has_role`
+--
+
+INSERT INTO `collaborator_has_role` (`id_collaborator`, `id_role`) VALUES
+(6, 7),
+(1, 8),
+(1, 9),
+(1, 10);
 
 -- --------------------------------------------------------
 
@@ -136,22 +151,16 @@ CREATE TABLE IF NOT EXISTS `form_answer` (
   `form_id` int(11) NOT NULL,
   `collaborator_id` int(11) NOT NULL,
   `replied` tinyint(1) NOT NULL,
-  `last_update` date NOT NULL,
+  `last_update` datetime NOT NULL,
   `password` varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
-  `checked` tinyint(1) NOT NULL DEFAULT '0',
+  `admin_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `form_answer_id` (`id`),
-  UNIQUE KEY `collaborator_id` (`collaborator_id`),
   KEY `form_answer_id_2` (`id`),
-  KEY `form_id` (`form_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=3 ;
-
---
--- Contenu de la table `form_answer`
---
-
-INSERT INTO `form_answer` (`id`, `form_id`, `collaborator_id`, `replied`, `last_update`, `password`, `checked`) VALUES
-(2, 1, 1, 0, '2017-09-05', '68441B57B686E326BDC69E1305A902B85AA4EDB70D0AC68F2593079E54E724D2', 1);
+  KEY `form_id` (`form_id`),
+  KEY `collaborator_id` (`collaborator_id`),
+  KEY `admin_id` (`admin_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=12 ;
 
 -- --------------------------------------------------------
 
@@ -206,10 +215,10 @@ INSERT INTO `question` (`id`, `type_id`, `label`, `order`) VALUES
 (1, 1, 'Nom', 1),
 (2, 1, 'Prénom', 2),
 (3, 1, 'Pseudo', 3),
-(4, 4, 'Date de naissance', 4),
+(4, 4, 'Date de naissance', 5),
 (6, 1, 'Ville de naissance', 6),
 (7, 1, 'Adresse (domicile)', 7),
-(8, 1, 'Adresse mail', 8),
+(8, 1, 'Adresse mail', 4),
 (9, 1, 'Numéro de téléphone', 9);
 
 -- --------------------------------------------------------
@@ -250,7 +259,17 @@ CREATE TABLE IF NOT EXISTS `role` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `label` (`label`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=11 ;
+
+--
+-- Contenu de la table `role`
+--
+
+INSERT INTO `role` (`id`, `label`, `active`) VALUES
+(7, 'Développeur', 1),
+(8, 'Guitariste', 1),
+(9, 'Producteur', 1),
+(10, 'Ingénieur du son', 1);
 
 -- --------------------------------------------------------
 
@@ -288,6 +307,7 @@ ALTER TABLE `collaborator_has_role`
 -- Contraintes pour la table `form_answer`
 --
 ALTER TABLE `form_answer`
+  ADD CONSTRAINT `form_answer_ibfk_3` FOREIGN KEY (`admin_id`) REFERENCES `administrator` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `form_answer_ibfk_1` FOREIGN KEY (`form_id`) REFERENCES `form` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `form_answer_ibfk_2` FOREIGN KEY (`collaborator_id`) REFERENCES `collaborator` (`id`);
 

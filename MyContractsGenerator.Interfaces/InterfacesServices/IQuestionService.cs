@@ -37,5 +37,12 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         /// <param name="questionToCreate">The question to create.</param>
         /// <returns></returns>
         question AddQuestion(question questionToCreate);
+
+        /// <summary>
+        /// Gets the questions by form identifier.
+        /// </summary>
+        /// <param name="formId">The form identifier.</param>
+        /// <returns></returns>
+        IEnumerable<question> GetQuestionsByFormId(int formId);
     }
 }

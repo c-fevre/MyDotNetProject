@@ -36,5 +36,11 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         /// <param name="answerToCreate">The answer to create.</param>
         /// <returns></returns>
         answer AddAnswer(answer answerToCreate);
+
+        /// <summary>
+        /// Adds the answers.
+        /// </summary>
+        /// <param name="answers">The answers.</param>
+        void AddAnswers(IList<answer> answers);
     }
 }

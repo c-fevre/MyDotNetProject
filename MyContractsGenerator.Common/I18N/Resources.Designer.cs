@@ -196,6 +196,24 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Collaborators answers.
+        /// </summary>
+        public static string Answers_PageTitle {
+            get {
+                return ResourceManager.GetString("Answers_PageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Form &quot;{0}&quot; - Last update : {1}.
+        /// </summary>
+        public static string Answers_SubTitle {
+            get {
+                return ResourceManager.GetString("Answers_SubTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Close.
         /// </summary>
         public static string Button_Close {
@@ -228,6 +246,15 @@ namespace MyContractsGenerator.Common.I18N {
         public static string Collaborator_AddValidateButton {
             get {
                 return ResourceManager.GetString("Collaborator_AddValidateButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Answers Count.
+        /// </summary>
+        public static string Collaborator_AnswerCount {
+            get {
+                return ResourceManager.GetString("Collaborator_AnswerCount", resourceCulture);
             }
         }
         
@@ -422,6 +449,33 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à This form has been already completed, thank you, an administrator will contact you as soon as possible..
+        /// </summary>
+        public static string CollaboratorForm_Step3_AlreadyRepliedMessage {
+            get {
+                return ResourceManager.GetString("CollaboratorForm_Step3_AlreadyRepliedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Thanks for your informations, an administrator will contact you as soon as possible..
+        /// </summary>
+        public static string CollaboratorForm_Step3_Message {
+            get {
+                return ResourceManager.GetString("CollaboratorForm_Step3_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à MyContractsGenerator - Thank you.
+        /// </summary>
+        public static string CollaboratorForm_Step3_Title {
+            get {
+                return ResourceManager.GetString("CollaboratorForm_Step3_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à An error occured, the current page is not found..
         /// </summary>
         public static string Error404_Message {
@@ -449,13 +503,45 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Available form answers : .
+        /// </summary>
+        public static string Form_Answers_Title {
+            get {
+                return ResourceManager.GetString("Form_Answers_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Hello,&lt;br/&gt;&lt;br/&gt;
+        ///{0} - {1} responded to your form request.&lt;br/&gt;&lt;br/&gt;
+        ///Form reponses : &lt;br/&gt; {2}&lt;br/&gt;&lt;br/&gt;
+        ///Kind regards,&lt;br/&gt;
+        ///MyContractsGenerator Team.
+        /// </summary>
+        public static string Form_CollaboratorAnswerMailBody {
+            get {
+                return ResourceManager.GetString("Form_CollaboratorAnswerMailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à MyContractsGenerator - A new collaborator answer is available.
+        /// </summary>
+        public static string Form_CollaboratorAnswerMailSubject {
+            get {
+                return ResourceManager.GetString("Form_CollaboratorAnswerMailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Hello,&lt;br/&gt;&lt;br/&gt;
         ///{0} created a form for you, we need this information to complete the contract.&lt;br/&gt;
         ///Please fill this form : {1}&lt;br/&gt;&lt;br/&gt;
-        ///We have generated a password : {2}&lt;br/&gt;
+        ///We have generated a password : &lt;b&gt;{2}&lt;/b&gt;&lt;br/&gt;
         ///Do not share it, and use it to see your form.&lt;br/&gt;&lt;br/&gt;
         ///&lt;br/&gt;&lt;br/&gt;
-        ///Kind regards,.
+        ///Kind regards,&lt;br/&gt;
+        ///MyContractsGenerator Team.
         /// </summary>
         public static string Form_CollaboratorMailBody {
             get {
@@ -518,6 +604,15 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Check Answers.
+        /// </summary>
+        public static string Form_SeeAnswers {
+            get {
+                return ResourceManager.GetString("Form_SeeAnswers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Send.
         /// </summary>
         public static string Form_SendForm {
@@ -536,7 +631,7 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Mailing.
+        ///   Recherche une chaîne localisée semblable à Mailing &amp; Collaborators answers.
         /// </summary>
         public static string FormMailing_label {
             get {

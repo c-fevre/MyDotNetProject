@@ -82,7 +82,6 @@ namespace MyContractsGenerator.Business
             //TODO Bindings ?
             dbFormAnswer.last_update = DateTime.Now;
             dbFormAnswer.replied = formAnswerToUpdate.replied;
-            dbFormAnswer.@checked = formAnswerToUpdate.@checked;
 
             this.formAnswerRepository.Update(dbFormAnswer);
             this.formAnswerRepository.SaveChanges();
@@ -96,6 +95,17 @@ namespace MyContractsGenerator.Business
         public IList<form_answer> GetAll()
         {
             return this.formAnswerRepository.GetAll().ToList();
+        }
+
+        /// <summary>
+        /// Gets all for collaborator.
+        /// </summary>
+        /// <param name="collaboratorId">The collaborator identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public IList<form_answer> GetAllForCollaborator(int collaboratorId)
+        {
+            return this.formAnswerRepository.GetAllForCollaborator(collaboratorId).ToList();
         }
     }
 }
