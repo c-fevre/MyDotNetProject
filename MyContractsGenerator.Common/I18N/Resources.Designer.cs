@@ -613,7 +613,7 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Check Answers.
+        ///   Recherche une chaîne localisée semblable à Check {0} answer(s).
         /// </summary>
         public static string Form_SeeAnswers {
             get {

@@ -42,6 +42,6 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         /// </summary>
         /// <param name="collaboratorId">The collaborator identifier.</param>
         /// <returns></returns>
-        IList<form_answer> GetAllForCollaborator(int collaboratorId);
+        IList<form_answer> GetAllForCollaboratorAndRole(int collaboratorId, int rolId);
     }
 }

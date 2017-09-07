@@ -41,8 +41,8 @@
                                             @{
                                                 if (collaborator.FormAnswers.Where(fa => fa.Replied).ToList().Count > 0)
                                                 {
-                                                    string url = $"{GlobalAppSettings.ApplicationBaseUrl}{Url.Action("CollaboratorAnswers", "Form", new { collaboratorId = collaborator.Id })}";
-                                                    <a role="button" class="btn btn-success" href="@url">@Resources.Form_SeeAnswers</a>
+                                                    string url = $"{GlobalAppSettings.ApplicationBaseUrl}{Url.Action("CollaboratorAnswers", "Form", new { collaboratorId = collaborator.Id, roleId = role.Role.Id })}";
+                                                    <a role="button" class="btn btn-success" href="@url">@string.Format(Resources.Form_SeeAnswers, collaborator.FormAnswers.Where(fa => fa.Replied).ToList().Count)</a>
                                                 }
                                                 else
                                                 {
@@ -50,17 +50,18 @@
                                                 }
                                             }
                                         </td>
+
                                         <td>
                                             @{
                                                 if (!collaborator.FormAnswers.Any() || (collaborator.FormAnswers.Any() && collaborator.FormAnswers.OrderByDescending(fa => fa.LastUpdateTime).First().Replied))
                                                 {
-                                                    string url = $"{GlobalAppSettings.ApplicationBaseUrl}{Url.Action("Send", "Form", new { collaboratorId = collaborator.Id })}";
+                                                    string url = $"{GlobalAppSettings.ApplicationBaseUrl}{Url.Action("Send", "Form", new { collaboratorId = collaborator.Id, roleId = role.Role.Id })}";
                                                     <a role="button" class="btn btn-info" href="@url">@Resources.Form_SendMail</a>
                                                 }
                                                 else if (!collaborator.FormAnswers.OrderByDescending(fa => fa.LastUpdateTime).First().Replied)
                                                 {
                                                     bool canResendMail = collaborator.FormAnswers.OrderByDescending(fa => fa.LastUpdateTime).First().LastCollaboratorMailTime.AddDays(+1) < DateTime.Now;
-                                                    string url = canResendMail ? $"{GlobalAppSettings.ApplicationBaseUrl}{Url.Action("ReSend", "Form", new { collaboratorId = collaborator.Id })}" : "#";
+                                                    string url = canResendMail ? $"{GlobalAppSettings.ApplicationBaseUrl}{Url.Action("ReSend", "Form", new { collaboratorId = collaborator.Id, roleId = role.Role.Id })}" : "#";
                                                     string buttonText = canResendMail ? Resources.Form_ReSendMail : Resources.Form_MailAlreadySent;
                                                     string className = canResendMail ? "" : "disabled";
                                                     

@@ -24,7 +24,9 @@ namespace MyContractsGenerator.DAL.Repositories
         {
             return this.Table
                 .Include(r => r.collaborators)
-                .Include(r => r.collaborators.Select(c => c.form_answer))
+                .Include(r => r.form_answer)
+                .Include(r => r.form_answer.Select(c => c.collaborator))
+                .Where(d => d.active)
                 .SingleOrDefault(d => d.id == id);
         }
 
@@ -37,7 +39,8 @@ namespace MyContractsGenerator.DAL.Repositories
         {
             return this.Table
                 .Include(r => r.collaborators)
-                .Include(r => r.collaborators.Select(c => c.form_answer))
+                .Include(r => r.form_answer)
+                .Include(r => r.form_answer.Select(c => c.collaborator))
                 .Where(d => d.active);
         }
     }

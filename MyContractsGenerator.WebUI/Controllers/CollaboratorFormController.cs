@@ -16,6 +16,10 @@ using MyContractsGenerator.WebUI.Models.QuestionModels;
 
 namespace MyContractsGenerator.WebUI.Controllers
 {
+    /// <summary>
+    /// TODO Check security ...
+    /// </summary>
+    /// <seealso cref="MyContractsGenerator.WebUI.Controllers.BaseController" />
     [Authorize]
     public class CollaboratorFormController : BaseController
     {
@@ -114,9 +118,9 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return this.View("WhoAreYou", model);
             }
 
-            form_answer lastFormAnswer = collaboratorToCheck.form_answer.OrderByDescending(c => c.last_update).FirstOrDefault(lfa => !lfa.replied);
-
-
+            form_answer lastFormAnswer = collaboratorToCheck.form_answer.Where(fa => !fa.replied)
+                                            .SingleOrDefault(fa => ShaHashPassword.GetSha256ResultString(fa.id.ToString()).Equals(model.fa));
+            
             if (lastFormAnswer != null &&
                 model.fa == ShaHashPassword.GetSha256ResultString(lastFormAnswer.id.ToString()) &&
                 model.c == ShaHashPassword.GetSha256ResultString(collaboratorToCheck.id.ToString()))
@@ -167,7 +171,8 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return this.View("WhoAreYou", model);
             }
 
-            form_answer lastFormAnswer = collaboratorToCheck.form_answer.OrderByDescending(c => c.last_update).FirstOrDefault();
+            form_answer lastFormAnswer = collaboratorToCheck.form_answer.Where(fa => !fa.replied)
+                                .SingleOrDefault(fa => ShaHashPassword.GetSha256ResultString(fa.id.ToString()).Equals(model.fa));
 
             if (lastFormAnswer != null &&
                 model.fa == ShaHashPassword.GetSha256ResultString(lastFormAnswer.id.ToString()) &&
@@ -253,8 +258,10 @@ namespace MyContractsGenerator.WebUI.Controllers
             {
                 throw new InvalidCredentialException("Error while deconding form model - Don't cheat please.");
             }
+            
+            form_answer dbFormAnswer = dbForm.form_answer.Where(fa => !fa.replied)
+                    .SingleOrDefault(fa => ShaHashPassword.GetSha256ResultString(fa.id.ToString()).Equals(formAnswerHashedId));
 
-            form_answer dbFormAnswer = dbForm.form_answer.OrderByDescending(fa => fa.last_update).First();
 
             if (dbFormAnswer == null || dbFormAnswer.password != passwordHashed)
             {
@@ -280,10 +287,10 @@ namespace MyContractsGenerator.WebUI.Controllers
         /// <param name="collaboratorHashedId">The collaborator hashed identifier.</param>
         /// <param name="formAnswerHashedId">The form answer hashed identifier.</param>
         /// <param name="formId">The form identifier.</param>
-        private static void ProcessCustomForm(FormCollection model, out IList<AnswerModel> questionsAnswers, out string collaboratorHashedId, 
+        private static void ProcessCustomForm(FormCollection model, out IList<AnswerModel> questionsAnswers, out string collaboratorHashedId,
                                                 out string formAnswerHashedId, out string passwordHashed, out int formId)
         {
-            questionsAnswers  = new List<AnswerModel>();
+            questionsAnswers = new List<AnswerModel>();
             collaboratorHashedId = string.Empty;
             formAnswerHashedId = string.Empty;
             passwordHashed = string.Empty;
@@ -334,7 +341,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 Label = dbForm.label,
                 Id = dbForm.id,
                 Collaborator = CollaboratorMap.MapItem(dbCollaborator),
-                Roles = RoleMap.MapItems(dbCollaborator.roles),
+                Role = RoleMap.MapItem(lastFormAnswer.role),
                 Questions = QuestionMap.MapItems(dbForm.questions.OrderByDescending(q => q.order))
             };
         }

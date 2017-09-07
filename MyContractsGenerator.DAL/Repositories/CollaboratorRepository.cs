@@ -27,6 +27,7 @@ namespace MyContractsGenerator.DAL.Repositories
             return this.Table
                 .Include(d => d.roles)
                 .Include(u => u.form_answer)
+                .Include(u => u.form_answer.Select(fa => fa.role))
                 .Include(c => c.form_answer.Select(fa => fa.answers))
                 .Include(c => c.form_answer.Select(fa => fa.form))
                 .Where(u => u.active)
@@ -43,6 +44,7 @@ namespace MyContractsGenerator.DAL.Repositories
             return this.Table
                        .Include(d => d.roles)
                        .Include(u => u.form_answer)
+                       .Include(u => u.form_answer.Select(fa => fa.role))
                        .Where(u => u.email == email)
                        .SingleOrDefault(u => u.active);
         }
@@ -53,6 +55,7 @@ namespace MyContractsGenerator.DAL.Repositories
                        //.Include(d => d.applicationlanguage)
                        .Include(d => d.roles)
                        .Include(u => u.form_answer)
+                       .Include(u => u.form_answer.Select(fa => fa.role))
                        .Where(u => u.active);
         }
     }

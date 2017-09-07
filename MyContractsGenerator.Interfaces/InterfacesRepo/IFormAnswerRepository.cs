@@ -20,10 +20,11 @@ namespace MyContractsGenerator.DAL.Repositories
         IEnumerable<form_answer> GetAll();
 
         /// <summary>
-        /// Gets all for collaborator.
+        /// Gets all for collaborator and role.
         /// </summary>
         /// <param name="collaboratorId">The collaborator identifier.</param>
+        /// <param name="roleId">The role identifier.</param>
         /// <returns></returns>
-        IEnumerable<form_answer> GetAllForCollaborator(int collaboratorId);
+        IEnumerable<form_answer> GetAllForCollaboratorAndRole(int collaboratorId, int roleId);
     }
 }

@@ -36,7 +36,7 @@ namespace MyContractsGenerator.WebUI.Mapping
                 QuestionsAnswers = new List<QuestionModel>(),
                 FormLabel = formAnswer.form?.label ?? "",
                 LastCollaboratorMailTime = formAnswer.last_collaborator_mail_time
-        };
+            };
 
             if (formAnswer.answers == null || !formAnswer.answers.Any())
             {
@@ -45,18 +45,22 @@ namespace MyContractsGenerator.WebUI.Mapping
 
             formAnswer.answers.ToList().ForEach(a =>
             {
-                QuestionModel questionModel = new QuestionModel
+                if (a.question != null)
                 {
-                    Id = a.question_id,
-                    Label = a.question.label,
-                    Order = a.question.order,
-                    Type = EnumEx.GetValueFromDescription<QuestionType.QuestionTypeEnum>(a.question.question_type.label),
-                    Value = a.answer_value
-                };
-                formAnswerModel.QuestionsAnswers.Add(questionModel);
+
+                    QuestionModel questionModel = new QuestionModel
+                    {
+                        Id = a.question_id,
+                        Label = a.question.label,
+                        Order = a.question.order,
+                        Type = EnumEx.GetValueFromDescription<QuestionType.QuestionTypeEnum>(a.question.question_type.label),
+                        Value = a.answer_value
+                    };
+                    formAnswerModel.QuestionsAnswers.Add(questionModel);
+                }
             });
 
-            
+
             return formAnswerModel;
         }
 

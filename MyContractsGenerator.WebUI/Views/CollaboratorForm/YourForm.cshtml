@@ -32,16 +32,8 @@
         <div class="col-md-8">
             <div class="form-group">
                 <div class="form-group">
-                    @{
-                        string roles = $"{Model.Form.Collaborator.FirstName} {Model.Form.Collaborator.LastName} - ";
-                        Model.Form.Roles.ToList().ForEach(r =>
-                        {
-                            roles += r.Label + " ";
-                        });
-                    }
-
                     <h2>@Html.DisplayTextFor(m => m.Form.Label)</h2>
-                    <h2>@roles</h2>
+                    <h2>@Model.Form.Role.Label</h2>
                 </div>
 
                 <div class="form-group">

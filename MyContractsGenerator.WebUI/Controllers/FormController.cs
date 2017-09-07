@@ -87,14 +87,15 @@ namespace MyContractsGenerator.WebUI.Controllers
 
         /// <summary>
         /// </summary>
+        /// <param name="roleId"></param>
         /// <param name="collaboratorId"></param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult ReSend(int collaboratorId)
+        public ActionResult ReSend(int collaboratorId, int roleId)
         {
             int adminId = Convert.ToInt32(this.User.Identity.GetUserId());
             collaborator mailTarget = this.collaboratorService.GetById(collaboratorId);
-            form_answer lastFormAnswer = mailTarget.form_answer.ToList().Where(fa => !fa.replied).OrderByDescending(fa => fa.last_update).FirstOrDefault();
+            form_answer lastFormAnswer = mailTarget.form_answer.Where(fa => !fa.replied).FirstOrDefault(fa=> fa.role.id.Equals(roleId));
 
             if (lastFormAnswer != null)
             {
@@ -118,20 +119,23 @@ namespace MyContractsGenerator.WebUI.Controllers
         /// <summary>
         /// </summary>
         /// <param name="collaboratorId"></param>
+        /// <param name="roleId"></param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult Send(int collaboratorId)
+        public ActionResult Send(int collaboratorId, int roleId)
         {
             int adminId = Convert.ToInt32(this.User.Identity.GetUserId());
             collaborator mailTarget = this.collaboratorService.GetById(collaboratorId);
-            string tempPassword = RandomString(10);
+            role linkedRole = this.roleService.GetById(roleId);
 
+            string tempPassword = RandomString(10);
+            
             // TODO Check information, Dynamic forms
-            // TODO Link FormAnswer to Role AND collaborator not only collaborator
             form_answer newFormAnswer = new form_answer
             {
                 admin_id = adminId,
                 collaborator = mailTarget,
+                role = linkedRole,
                 last_update = DateTime.Now,
                 last_collaborator_mail_time = DateTime.Now,
                 replied = false,
@@ -154,12 +158,13 @@ namespace MyContractsGenerator.WebUI.Controllers
         /// <summary>
         /// </summary>
         /// <param name="collaboratorId"></param>
+        /// <param name="roleId"></param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult CollaboratorAnswers(int collaboratorId)
+        public ActionResult CollaboratorAnswers(int collaboratorId, int roleId)
         {
             AnswersModel model = new AnswersModel();
-            this.PopulateAnswersModel(model, collaboratorId);
+            this.PopulateAnswersModel(model, collaboratorId, roleId);
 
             return this.View(model);
         }
@@ -168,13 +173,17 @@ namespace MyContractsGenerator.WebUI.Controllers
         /// Populates the answers model.
         /// </summary>
         /// <param name="model">The model.</param>
-        private void PopulateAnswersModel(AnswersModel model, int collaboratorId)
+        /// <param name="collaboratorId">The collaborator identifier.</param>
+        /// <param name="roleId">The role identifier.</param>
+        private void PopulateAnswersModel(AnswersModel model, int collaboratorId, int roleId)
         {
             collaborator collab = this.collaboratorService.GetById(collaboratorId);
-            IList<form_answer> collabFormAnswers = this.formAnswerService.GetAllForCollaborator(collaboratorId);
+            role role = this.roleService.GetById(roleId);
+            IList<form_answer> collabFormAnswers = this.formAnswerService.GetAllForCollaboratorAndRole(collaboratorId, roleId);
 
             model.Collaborator = CollaboratorMap.MapItem(collab);
             model.FormAnswers = FormAnswerMap.MapItems(collabFormAnswers);
+            model.Role = RoleMap.MapItem(role);
         }
 
         /// <summary>
@@ -195,6 +204,12 @@ namespace MyContractsGenerator.WebUI.Controllers
                         Role = RoleMap.MapItem(r),
                         Collaborators = CollaboratorMap.MapItems(r.collaborators)
                     };
+
+                    mailingModel.Collaborators.ToList().ForEach(c =>
+                    {
+                        c.FormAnswers =
+                            FormAnswerMap.MapItems(r.form_answer.Where(fa => fa.collaborator_id.Equals(c.Id)));
+                    });
 
                     model.RolesWithCollaborators.Add(mailingModel);
                 });

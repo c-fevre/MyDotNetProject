@@ -137,19 +137,13 @@ namespace MyContractsGenerator.Business
             {
                 answersString += $"<b>{a.question.label}</b> : {a.answer_value}<br/>";
             });
-
-            // TODO Link FormAnswer to Role AND collaborator not only collaborator
+            
             string collaboratorIdentity = $"{formAnswer.collaborator.firstname} {formAnswer.collaborator.lastname}";
-            string collaboratorRoles = "";
-            formAnswer.collaborator.roles.ToList().ForEach(r =>
-            {
-                collaboratorRoles += $"({r.label}) ";
-            });
 
             this.SendEmail(
                 new List<string> { formAnswer.administrator.email },
                 Resources.Form_CollaboratorAnswerMailSubject,
-                string.Format(Resources.Form_CollaboratorAnswerMailBody, collaboratorIdentity, collaboratorRoles, answersString)
+                string.Format(Resources.Form_CollaboratorAnswerMailBody, collaboratorIdentity, formAnswer.role.label, answersString)
             );
 
             //Restore previous values

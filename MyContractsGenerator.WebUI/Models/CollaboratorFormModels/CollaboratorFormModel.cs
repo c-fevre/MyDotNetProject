@@ -46,7 +46,7 @@ namespace MyContractsGenerator.WebUI.Models.CollaboratorFormModels
         /// <value>
         /// The role.
         /// </value>
-        public IList<RoleModel> Roles { get; set; }
+        public RoleModel Role { get; set; }
 
         /// <summary>
         /// Gets or sets the questions.

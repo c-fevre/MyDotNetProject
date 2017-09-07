@@ -25,6 +25,7 @@ namespace MyContractsGenerator.DAL.Repositories
         form_answer IBaseRepository<form_answer>.GetById(int id)
         {
             return this.Table
+                       .Include(d => d.role)
                        .Include(d => d.collaborator)
                        .Include(d => d.answers)
                        .Include(d => d.form)
@@ -38,6 +39,7 @@ namespace MyContractsGenerator.DAL.Repositories
         public IEnumerable<form_answer> GetAll()
         {
             return this.Table
+                       .Include(d => d.role)
                        .Include(d => d.collaborator)
                        .Include(d => d.answers)
                        .Include(d => d.form);
@@ -49,14 +51,15 @@ namespace MyContractsGenerator.DAL.Repositories
         /// <param name="collaboratorId">The collaborator identifier.</param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public IEnumerable<form_answer> GetAllForCollaborator(int collaboratorId)
+        public IEnumerable<form_answer> GetAllForCollaboratorAndRole(int collaboratorId, int roleId)
         {
             return this.Table
+                       .Include(d => d.role)
                        .Include(fa => fa.form)
                        .Include(fa => fa.answers)
                        .Include(fa => fa.answers.Select(a => a.question))
                        .Include(fa => fa.answers.Select(a => a.question).Select(q => q.question_type))
-                       .Where(fa => fa.collaborator_id.Equals(collaboratorId));
+                       .Where(fa => fa.collaborator_id.Equals(collaboratorId) && fa.role.id.Equals(roleId));
         }
     }
 }

@@ -56,6 +56,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="form_id" Type="int" Nullable="false" />
           <Property Name="collaborator_id" Type="int" Nullable="false" />
+          <Property Name="role_id" Type="int" Nullable="false" />
           <Property Name="replied" Type="bool" Nullable="false" />
           <Property Name="last_collaborator_mail_time" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="last_update" Type="datetime" Precision="0" Nullable="false" />
@@ -186,6 +187,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="form_answer_ibfk_4">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="form_answer" Type="Self.form_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="form_answer">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="form_has_question_ibfk_1">
           <End Role="form" Type="Self.form" Multiplicity="1" />
           <End Role="form_has_question" Type="Self.form_has_question" Multiplicity="*" />
@@ -286,6 +299,10 @@
             <End Role="administrator" EntitySet="administrator" />
             <End Role="form_answer" EntitySet="form_answer" />
           </AssociationSet>
+          <AssociationSet Name="form_answer_ibfk_4" Association="Self.form_answer_ibfk_4">
+            <End Role="role" EntitySet="role" />
+            <End Role="form_answer" EntitySet="form_answer" />
+          </AssociationSet>
           <AssociationSet Name="form_has_question_ibfk_1" Association="Self.form_has_question_ibfk_1">
             <End Role="form" EntitySet="form" />
             <End Role="form_has_question" EntitySet="form_has_question" />
@@ -361,6 +378,7 @@
           <Property Name="active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="collaborators" Relationship="Self.collaborator_has_role" FromRole="role" ToRole="collaborator" />
           <NavigationProperty Name="forms" Relationship="Self.role_has_form" FromRole="role" ToRole="form" />
+          <NavigationProperty Name="form_answer" Relationship="MyContractsGeneratorModel.form_answer_ibfk_4" FromRole="role" ToRole="form_answer" />
         </EntityType>
         <Association Name="collaborator_has_role">
           <End Role="collaborator" Type="Self.collaborator" Multiplicity="*" />
@@ -413,6 +431,10 @@
           </AssociationSet>
           <AssociationSet Name="form_answer_ibfk_1" Association="MyContractsGeneratorModel.form_answer_ibfk_1">
             <End Role="form" EntitySet="forms" />
+            <End Role="form_answer" EntitySet="form_answer" />
+          </AssociationSet>
+          <AssociationSet Name="form_answer_ibfk_4" Association="MyContractsGeneratorModel.form_answer_ibfk_4">
+            <End Role="role" EntitySet="roles" />
             <End Role="form_answer" EntitySet="form_answer" />
           </AssociationSet>
           </EntityContainer>
@@ -483,6 +505,8 @@
           <NavigationProperty Name="answers" Relationship="MyContractsGeneratorModel.answer_ibfk_1" FromRole="form_answer" ToRole="answer" />
           <NavigationProperty Name="collaborator" Relationship="MyContractsGeneratorModel.form_answer_ibfk_2" FromRole="form_answer" ToRole="collaborator" />
           <NavigationProperty Name="form" Relationship="MyContractsGeneratorModel.form_answer_ibfk_1" FromRole="form_answer" ToRole="form" />
+          <Property Name="role_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="role" Relationship="MyContractsGeneratorModel.form_answer_ibfk_4" FromRole="form_answer" ToRole="role" />
         </EntityType>
         <Association Name="form_answer_ibfk_3">
           <End Type="MyContractsGeneratorModel.administrator" Role="administrator" Multiplicity="1" />
@@ -529,6 +553,18 @@
             </Principal>
             <Dependent Role="form_answer">
               <PropertyRef Name="form_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="form_answer_ibfk_4">
+          <End Type="MyContractsGeneratorModel.role" Role="role" Multiplicity="1" />
+          <End Type="MyContractsGeneratorModel.form_answer" Role="form_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="form_answer">
+              <PropertyRef Name="role_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -632,6 +668,7 @@
           <EntitySetMapping Name="form_answer">
             <EntityTypeMapping TypeName="MyContractsGeneratorModel.form_answer">
               <MappingFragment StoreEntitySet="form_answer">
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
                 <ScalarProperty Name="admin_id" ColumnName="admin_id" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="last_update" ColumnName="last_update" />

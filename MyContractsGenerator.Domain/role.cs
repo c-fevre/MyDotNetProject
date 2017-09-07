@@ -19,6 +19,7 @@ namespace MyContractsGenerator.Domain
         {
             this.collaborators = new HashSet<collaborator>();
             this.forms = new HashSet<form>();
+            this.form_answer = new HashSet<form_answer>();
         }
     
         public int id { get; set; }
@@ -29,5 +30,7 @@ namespace MyContractsGenerator.Domain
         public virtual ICollection<collaborator> collaborators { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<form> forms { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<form_answer> form_answer { get; set; }
     }
 }

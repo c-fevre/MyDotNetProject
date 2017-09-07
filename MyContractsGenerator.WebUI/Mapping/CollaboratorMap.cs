@@ -35,13 +35,7 @@ namespace MyContractsGenerator.WebUI.Mapping
                 Email = collaborator.email,
                 IsActive = collaborator.active,
                 LinkedRolesIds = RoleMap.MapItems(collaborator.roles).Select(r => r.Id).ToList(),
-                FormAnswers = new List<FormAnswerModel>()
             };
-
-            if (collaborator.form_answer.Any())
-            {
-                collaboratorModel.FormAnswers = FormAnswerMap.MapItems(collaborator.form_answer);
-            }
             
             return collaboratorModel;
         }

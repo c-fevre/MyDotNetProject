@@ -98,14 +98,14 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Gets all for collaborator.
+        /// Gets all for collaborator and role.
         /// </summary>
         /// <param name="collaboratorId">The collaborator identifier.</param>
+        /// <param name="roleId">The role identifier.</param>
         /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public IList<form_answer> GetAllForCollaborator(int collaboratorId)
+        public IList<form_answer> GetAllForCollaboratorAndRole(int collaboratorId, int roleId)
         {
-            return this.formAnswerRepository.GetAllForCollaborator(collaboratorId).ToList();
+            return this.formAnswerRepository.GetAllForCollaboratorAndRole(collaboratorId, roleId).ToList();
         }
     }
 }

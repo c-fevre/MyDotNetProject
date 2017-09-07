@@ -483,7 +483,7 @@ MyContractsGenerator Team</value>
     <value>Available form answers : </value>
   </data>
   <data name="Form_SeeAnswers" xml:space="preserve">
-    <value>Check Answers</value>
+    <value>Check {0} answer(s)</value>
   </data>
   <data name="Answers_SubTitle" xml:space="preserve">
     <value>Form "{0}" - Last update : {1}</value>

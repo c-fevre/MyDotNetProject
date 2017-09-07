@@ -10,7 +10,7 @@
     <div class="col-sm-8 col-sm-offset-2">
 
         <div class="row">
-            <h2>@Resources.Form_Answers_Title @Model.Collaborator.FirstName @Model.Collaborator.LastName</h2>
+            <h2>@Resources.Form_Answers_Title @Model.Collaborator.FirstName @Model.Collaborator.LastName - @Model.Role.Label</h2>
         </div>
 
         @if (Model.FormAnswers.Any())
@@ -21,7 +21,6 @@
                 {
                     <div class="row mt75">
                         <div class="col-md-12">
-                            <!-- TODO LIKE UNIQ ROLE /!\ -->
                             <h4>@string.Format(Resources.Answers_SubTitle, formAnswerModel.FormLabel, formAnswerModel.LastUpdateTime.ToString("dd-MM-yyyy hh:mm"))</h4>
                         </div>
                     </div>
