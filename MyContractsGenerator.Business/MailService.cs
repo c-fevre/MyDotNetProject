@@ -94,7 +94,7 @@ namespace MyContractsGenerator.Business
             Thread.CurrentThread.CurrentCulture = currentCulture;
         }
 
-        public void SendFormToCollaborator(collaborator collaborator, string formUrl, int adminId, string tempPassword)
+        public void SendFormToCollaborator(collaborator collaborator, string formUrl, int adminId, string tempPassword, DateTime lastMailTime)
         {
             Requires.ArgumentNotNull(collaborator, "collaborator");
             Requires.StringArgumentNotNullOrEmptyOrWhiteSpace(formUrl, "formUrl");
@@ -108,12 +108,14 @@ namespace MyContractsGenerator.Business
 
             administrator currentAdministrator = this.administratorRepository.GetById(adminId);
 
-            this.SendEmail(
+            if (lastMailTime.AddDays(+1) < DateTime.Now)
+            {
+                this.SendEmail(
                 new List<string> { collaborator.email },
                 Resources.Form_CollaboratorMailSubject,
-                string.Format(Resources.Form_CollaboratorMailBody, currentAdministrator.email, formUrl, tempPassword)
-            );
-
+                string.Format(Resources.Form_CollaboratorMailBody, currentAdministrator.email, formUrl, tempPassword));
+            }
+            
             //Restore previous values
             Thread.CurrentThread.CurrentUICulture = currentUICulture;
             Thread.CurrentThread.CurrentCulture = currentCulture;
@@ -131,7 +133,7 @@ namespace MyContractsGenerator.Business
             Thread.CurrentThread.CurrentCulture = new CultureInfo(WebConfigurationManager.AppSettings["MailCulture"]);
 
             string answersString = "";
-            answers.ToList().ForEach(a =>
+            answers.OrderBy(a => a.question.order).ToList().ForEach(a =>
             {
                 answersString += $"<b>{a.question.label}</b> : {a.answer_value}<br/>";
             });

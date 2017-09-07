@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ad49258da109490f98ad4748d425fe10" Name="Diagram1" ZoomLevel="100">
+      <Diagram DiagramId="ad49258da109490f98ad4748d425fe10" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="MyContractsGeneratorModel.administrator" Width="1.5" PointX="1.75" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MyContractsGeneratorModel.collaborator" Width="1.5" PointX="4.875" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MyContractsGeneratorModel.form" Width="1.5" PointX="9.375" PointY="0.625" IsExpanded="true" />
@@ -17,7 +17,7 @@
         <AssociationConnector Association="MyContractsGeneratorModel.answer_ibfk_2" />
         <AssociationConnector Association="MyContractsGeneratorModel.question_ibfk_1" />
         <AssociationConnector Association="MyContractsGeneratorModel.form_has_question" />
-        <EntityTypeShape EntityType="MyContractsGeneratorModel.form_answer" Width="1.5" PointX="6.625" PointY="3.375" />
+        <EntityTypeShape EntityType="MyContractsGeneratorModel.form_answer" Width="1.5" PointX="6.25" PointY="3.5" />
         <AssociationConnector Association="MyContractsGeneratorModel.form_answer_ibfk_3" />
         <AssociationConnector Association="MyContractsGeneratorModel.answer_ibfk_1" />
         <AssociationConnector Association="MyContractsGeneratorModel.form_answer_ibfk_2" />

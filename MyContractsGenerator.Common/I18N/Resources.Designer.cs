@@ -604,6 +604,15 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Send mail again.
+        /// </summary>
+        public static string Form_ReSendMail {
+            get {
+                return ResourceManager.GetString("Form_ReSendMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Check Answers.
         /// </summary>
         public static string Form_SeeAnswers {

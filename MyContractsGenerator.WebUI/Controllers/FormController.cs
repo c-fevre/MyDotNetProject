@@ -90,6 +90,36 @@ namespace MyContractsGenerator.WebUI.Controllers
         /// <param name="collaboratorId"></param>
         /// <returns></returns>
         [HttpGet]
+        public ActionResult ReSend(int collaboratorId)
+        {
+            int adminId = Convert.ToInt32(this.User.Identity.GetUserId());
+            collaborator mailTarget = this.collaboratorService.GetById(collaboratorId);
+            form_answer lastFormAnswer = mailTarget.form_answer.ToList().Where(fa => !fa.replied).OrderByDescending(fa => fa.last_update).FirstOrDefault();
+
+            if (lastFormAnswer != null)
+            {
+                string formUrl =
+                        $"{GlobalAppSettings.ApplicationBaseUrl}{this.Url.Action("WhoAreYou", "CollaboratorForm", new { c = ShaHashPassword.GetSha256ResultString(mailTarget.id.ToString()), fa = ShaHashPassword.GetSha256ResultString(lastFormAnswer.id.ToString()) })}";
+
+                lastFormAnswer.password = RandomString(10);
+                this.mailService.SendFormToCollaborator(mailTarget, formUrl, adminId, lastFormAnswer.password,lastFormAnswer.last_collaborator_mail_time);
+
+                lastFormAnswer.password = ShaHashPassword.GetSha256ResultString(lastFormAnswer.password);
+                lastFormAnswer.last_update = DateTime.Now;
+                lastFormAnswer.last_collaborator_mail_time = DateTime.Now;
+                this.formAnswerService.UpdateFormAnswer(lastFormAnswer);
+            }
+
+            this.TempData["MailedCollaboratorId"] = collaboratorId;
+
+            return this.RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="collaboratorId"></param>
+        /// <returns></returns>
+        [HttpGet]
         public ActionResult Send(int collaboratorId)
         {
             int adminId = Convert.ToInt32(this.User.Identity.GetUserId());
@@ -103,6 +133,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 admin_id = adminId,
                 collaborator = mailTarget,
                 last_update = DateTime.Now,
+                last_collaborator_mail_time = DateTime.Now,
                 replied = false,
                 form_id = 1,
                 password = ShaHashPassword.GetSha256ResultString(tempPassword)
@@ -113,7 +144,8 @@ namespace MyContractsGenerator.WebUI.Controllers
             string formUrl =
                     $"{GlobalAppSettings.ApplicationBaseUrl}{this.Url.Action("WhoAreYou", "CollaboratorForm", new { c = ShaHashPassword.GetSha256ResultString(mailTarget.id.ToString()), fa = ShaHashPassword.GetSha256ResultString(dbFormAnswer.id.ToString()) })}";
 
-            this.mailService.SendFormToCollaborator(mailTarget, formUrl, adminId, tempPassword);
+            this.mailService.SendFormToCollaborator(mailTarget, formUrl, adminId, tempPassword, DateTime.MinValue);
+            
             this.TempData["MailedCollaboratorId"] = collaboratorId;
 
             return this.RedirectToAction("Index");

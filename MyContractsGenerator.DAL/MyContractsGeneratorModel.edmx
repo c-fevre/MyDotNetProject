@@ -57,6 +57,7 @@
           <Property Name="form_id" Type="int" Nullable="false" />
           <Property Name="collaborator_id" Type="int" Nullable="false" />
           <Property Name="replied" Type="bool" Nullable="false" />
+          <Property Name="last_collaborator_mail_time" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="last_update" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="admin_id" Type="int" Nullable="false" />
@@ -474,6 +475,7 @@
           <Property Name="form_id" Type="Int32" Nullable="false" />
           <Property Name="collaborator_id" Type="Int32" Nullable="false" />
           <Property Name="replied" Type="Boolean" Nullable="false" />
+          <Property Name="last_collaborator_mail_time" Type="DateTime" Nullable="false" />
           <Property Name="last_update" Type="DateTime" Nullable="false" />
           <Property Name="password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="admin_id" Type="Int32" Nullable="false" />
@@ -633,6 +635,7 @@
                 <ScalarProperty Name="admin_id" ColumnName="admin_id" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="last_update" ColumnName="last_update" />
+                <ScalarProperty Name="last_collaborator_mail_time" ColumnName="last_collaborator_mail_time" />
                 <ScalarProperty Name="replied" ColumnName="replied" />
                 <ScalarProperty Name="collaborator_id" ColumnName="collaborator_id" />
                 <ScalarProperty Name="form_id" ColumnName="form_id" />

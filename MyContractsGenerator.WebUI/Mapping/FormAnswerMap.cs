@@ -34,8 +34,9 @@ namespace MyContractsGenerator.WebUI.Mapping
                 LastUpdateTime = formAnswer.last_update,
                 Replied = formAnswer.replied,
                 QuestionsAnswers = new List<QuestionModel>(),
-                FormLabel = formAnswer.form?.label ?? ""
-            };
+                FormLabel = formAnswer.form?.label ?? "",
+                LastCollaboratorMailTime = formAnswer.last_collaborator_mail_time
+        };
 
             if (formAnswer.answers == null || !formAnswer.answers.Any())
             {

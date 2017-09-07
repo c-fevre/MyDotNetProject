@@ -24,6 +24,7 @@ namespace MyContractsGenerator.Domain
         public int form_id { get; set; }
         public int collaborator_id { get; set; }
         public bool replied { get; set; }
+        public System.DateTime last_collaborator_mail_time { get; set; }
         public System.DateTime last_update { get; set; }
         public string password { get; set; }
         public int admin_id { get; set; }

@@ -13,27 +13,32 @@
             <h2>@Resources.Form_Answers_Title @Model.Collaborator.FirstName @Model.Collaborator.LastName</h2>
         </div>
 
-        @foreach (var formAnswerModel in Model.FormAnswers.ToList())
+        @if (Model.FormAnswers.Any())
         {
-            <div class="row mt50">
-                <div class="col-md-12">
-                    <!-- TODO LIKE UNIQ ROLE /!\ -->
-                    <h4>@string.Format(Resources.Answers_SubTitle, formAnswerModel.FormLabel, formAnswerModel.LastUpdateTime.ToString("dd-MM-yyyy hh:mm"))</h4>
-                </div>
-            </div>
-            foreach (var questionsAnswer in formAnswerModel.QuestionsAnswers.OrderBy(q => q.Order))
+            foreach (var formAnswerModel in Model.FormAnswers.ToList())
+            {
+                if (formAnswerModel.QuestionsAnswers.Any())
                 {
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-2">
-                        <b>@Html.Label(questionsAnswer.Label)</b>
+                    <div class="row mt75">
+                        <div class="col-md-12">
+                            <!-- TODO LIKE UNIQ ROLE /!\ -->
+                            <h4>@string.Format(Resources.Answers_SubTitle, formAnswerModel.FormLabel, formAnswerModel.LastUpdateTime.ToString("dd-MM-yyyy hh:mm"))</h4>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        @Html.Raw(questionsAnswer.Value)
-                    </div>
-                </div>
+                    foreach (var questionsAnswer in formAnswerModel.QuestionsAnswers.OrderBy(q => q.Order))
+                    {
+                        <div class="row">
+                            <div class="col-md-4 col-md-offset-2">
+                                <b>@Html.Label(questionsAnswer.Label)</b>
+                            </div>
+                            <div class="col-md-4">
+                                @Html.Raw(questionsAnswer.Value)
+                            </div>
+                        </div>
+                    }
+                }
             }
         }
-
         <div class="row">
         </div>
     </div>

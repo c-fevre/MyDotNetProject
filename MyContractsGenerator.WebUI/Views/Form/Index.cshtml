@@ -52,19 +52,23 @@
                                         </td>
                                         <td>
                                             @{
-                                                if (collaborator.FormAnswers.Any() && !collaborator.FormAnswers.OrderByDescending(fa => fa.LastUpdateTime).First().Replied)
-                                                {
-                                                    // TODO Re-send Mail
-                                                    string url = "#";
-                                                    <a role="button" class="btn btn-info disabled" href="@url">@Resources.Form_MailAlreadySent</a>
-                                                }
-                                                else
+                                                if (!collaborator.FormAnswers.Any() || (collaborator.FormAnswers.Any() && collaborator.FormAnswers.OrderByDescending(fa => fa.LastUpdateTime).First().Replied))
                                                 {
                                                     string url = $"{GlobalAppSettings.ApplicationBaseUrl}{Url.Action("Send", "Form", new { collaboratorId = collaborator.Id })}";
                                                     <a role="button" class="btn btn-info" href="@url">@Resources.Form_SendMail</a>
                                                 }
+                                                else if (!collaborator.FormAnswers.OrderByDescending(fa => fa.LastUpdateTime).First().Replied)
+                                                {
+                                                    bool canResendMail = collaborator.FormAnswers.OrderByDescending(fa => fa.LastUpdateTime).First().LastCollaboratorMailTime.AddDays(+1) < DateTime.Now;
+                                                    string url = canResendMail ? $"{GlobalAppSettings.ApplicationBaseUrl}{Url.Action("ReSend", "Form", new { collaboratorId = collaborator.Id })}" : "#";
+                                                    string buttonText = canResendMail ? Resources.Form_ReSendMail : Resources.Form_MailAlreadySent;
+                                                    string className = canResendMail ? "" : "disabled";
+                                                    
+                                                    <a role="button" class="btn btn-info @className" href="@url">@buttonText</a>
+                                                }
                                             }
                                         </td>
+
                                     </tr>
                                 }
                                 </tbody>

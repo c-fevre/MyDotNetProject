@@ -26,6 +26,14 @@ namespace MyContractsGenerator.WebUI.Models.FormAnswerModels
         public DateTime LastUpdateTime { get; set; }
 
         /// <summary>
+        /// Gets or sets the last collaborator mail time.
+        /// </summary>
+        /// <value>
+        /// The last collaborator mail time.
+        /// </value>
+        public DateTime LastCollaboratorMailTime { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this <see cref="FormAnswerModel"/> is replied.
         /// </summary>
         /// <value>

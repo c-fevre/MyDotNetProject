@@ -488,4 +488,7 @@ MyContractsGenerator Team</value>
   <data name="Answers_SubTitle" xml:space="preserve">
     <value>Form "{0}" - Last update : {1}</value>
   </data>
+  <data name="Form_ReSendMail" xml:space="preserve">
+    <value>Send mail again</value>
+  </data>
 </root>
