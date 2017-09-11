@@ -41,5 +41,26 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         /// <param name="dbFormAnswer">The database form answer.</param>
         /// <param name="answers">The answers.</param>
         void SendFormResultToAdministrator(form_answer dbFormAnswer, IList<answer> answers);
+
+        /// <summary>
+        /// Sends the password changed administrator.
+        /// </summary>
+        /// <param name="administrator">The administrator.</param>
+        /// <param name="password">The password.</param>
+        void SendPasswordChangedAdministrator(administrator administrator, string password);
+
+        /// <summary>
+        /// Sends the welcome new administrator.
+        /// </summary>
+        /// <param name="administrator">The administrator.</param>
+        /// <param name="password">The password.</param>
+        void SendWelcomeNewAdministrator(administrator administrator, string password);
+
+        /// <summary>
+        /// Sends the generated password administrator.
+        /// </summary>
+        /// <param name="dbAdmin">The database admin.</param>
+        /// <param name="generatedPassword">The generated password.</param>
+        void SendGeneratedPasswordAdministrator(administrator dbAdmin, string generatedPassword);
     }
 }

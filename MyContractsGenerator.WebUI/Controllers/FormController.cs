@@ -102,7 +102,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 string formUrl =
                         $"{GlobalAppSettings.ApplicationBaseUrl}{this.Url.Action("WhoAreYou", "CollaboratorForm", new { c = ShaHashPassword.GetSha256ResultString(mailTarget.id.ToString()), fa = ShaHashPassword.GetSha256ResultString(lastFormAnswer.id.ToString()) })}";
 
-                lastFormAnswer.password = RandomString(10);
+                lastFormAnswer.password = PasswordGenerator.GeneratePassword(8, 4);
                 this.mailService.SendFormToCollaborator(mailTarget, formUrl, adminId, lastFormAnswer.password,lastFormAnswer.last_collaborator_mail_time);
 
                 lastFormAnswer.password = ShaHashPassword.GetSha256ResultString(lastFormAnswer.password);
@@ -128,7 +128,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             collaborator mailTarget = this.collaboratorService.GetById(collaboratorId);
             role linkedRole = this.roleService.GetById(roleId);
 
-            string tempPassword = RandomString(10);
+            string tempPassword = PasswordGenerator.GeneratePassword(8, 4);
             
             // TODO Check information, Dynamic forms
             form_answer newFormAnswer = new form_answer
@@ -214,20 +214,6 @@ namespace MyContractsGenerator.WebUI.Controllers
                     model.RolesWithCollaborators.Add(mailingModel);
                 });
             }
-        }
-
-        /// <summary>
-        /// Randoms the string.
-        /// </summary>
-        /// <param name="length">The length.</param>
-        /// <returns></returns>
-        private static string RandomString(int length)
-        {
-            Random random = new Random();
-
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

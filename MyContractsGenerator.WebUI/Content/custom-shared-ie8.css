@@ -34,6 +34,6 @@
     padding-right: 50px !important;
 }
 
-#footerMenu {
+#footerMenu, .footerMenu {
     min-height: auto !important;
 }

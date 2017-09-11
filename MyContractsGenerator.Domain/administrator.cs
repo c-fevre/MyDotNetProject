@@ -21,10 +21,13 @@ namespace MyContractsGenerator.Domain
         }
     
         public int id { get; set; }
-        public string login { get; set; }
         public string password { get; set; }
+        public string lastname { get; set; }
+        public string firstname { get; set; }
+        public int organization_id { get; set; }
         public string email { get; set; }
         public bool active { get; set; }
+        public bool is_super_admin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<form_answer> form_answer { get; set; }

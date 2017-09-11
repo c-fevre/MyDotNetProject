@@ -7,18 +7,9 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
     public interface IAdministratorService
     {
         /// <summary>
-        ///     Gets administrator by login
+        ///     Gets administrator by Email
         /// </summary>
         /// <param name="email"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        administrator GetByLogin(string email, string password);
-
-        /// <summary>
-        ///     Gets administrator by login
-        /// </summary>
-        /// <param name="email"></param>
-        /// <param name="password"></param>
         /// <returns></returns>
         administrator GetByEmail(string email);
 
@@ -34,12 +25,6 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         /// </summary>
         /// <returns></returns>
         IList<administrator> GetActiveAdministrators();
-
-        /// <summary>
-        ///     delete logically the administrator
-        /// </summary>
-        /// <param name="administratorId"></param>
-        void DeleteAdministrator(int administratorId);
 
         /// <summary>
         ///     Check if this email is already used be an active administrator
@@ -67,14 +52,25 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         ///     Reset administrator password and send the generated password by mail
         /// </summary>
         /// <param name="passwordOwneradministratorId"></param>
-        /// <param name="administratorDoingUpdateId"></param>
-        void ResetPassword(int passwordOwneradministratorId, int administratorDoingUpdateId);
+        void ResetPassword(int passwordOwneradministratorId);
 
         /// <summary>
         /// Updates the administrator.
         /// </summary>
         /// <param name="administratorToUpdate">The administrator to update.</param>
-        void UpdateAdministrator(administrator administratorToUpdate);
+        void Update(administrator administratorToUpdate);
 
+        /// <summary>
+        /// Deletes the specified administrator identifier.
+        /// </summary>
+        /// <param name="administratorId">The administrator identifier.</param>
+        void Delete(int administratorId);
+
+        /// <summary>
+        /// Adds the specified administrator to create.
+        /// </summary>
+        /// <param name="administratorToCreate">The administrator to create.</param>
+        /// <returns></returns>
+        administrator Add(administrator administratorToCreate);
     }
 }

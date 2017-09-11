@@ -22,19 +22,19 @@ namespace MyContractsGenerator.Domain
     
         public int id { get; set; }
         public int form_id { get; set; }
-        public int collaborator_id { get; set; }
+        public int role_id { get; set; }
         public bool replied { get; set; }
         public System.DateTime last_collaborator_mail_time { get; set; }
         public System.DateTime last_update { get; set; }
         public string password { get; set; }
         public int admin_id { get; set; }
-        public int role_id { get; set; }
+        public int collaborator_id { get; set; }
     
-        public virtual administrator administrator { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<answer> answers { get; set; }
         public virtual collaborator collaborator { get; set; }
         public virtual form form { get; set; }
         public virtual role role { get; set; }
+        public virtual administrator administrator { get; set; }
     }
 }

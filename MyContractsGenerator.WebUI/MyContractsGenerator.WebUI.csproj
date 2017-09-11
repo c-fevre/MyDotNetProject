@@ -181,6 +181,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Common\AppSession.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\AdministratorController.cs" />
     <Compile Include="Controllers\CollaboratorFormController.cs" />
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -190,6 +191,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mapping\AnswerMap.cs" />
+    <Compile Include="Mapping\AdministratorMap.cs" />
     <Compile Include="Mapping\FormAnswerMap.cs" />
     <Compile Include="Mapping\QuestionMap.cs" />
     <Compile Include="Mapping\RoleMap.cs" />
@@ -200,6 +202,8 @@
     <Compile Include="Models\BaseModels\BaseModel.cs" />
     <Compile Include="Models\CollaboratorFormModels\CollaboratorFormMainModel.cs" />
     <Compile Include="Models\CollaboratorFormModels\CollaboratorFormModel.cs" />
+    <Compile Include="Models\AdministratorModels\AdministratorMainModel.cs" />
+    <Compile Include="Models\AdministratorModels\AdministratorModel.cs" />
     <Compile Include="Models\CollaboratorModels\CollaboratorMainModel.cs" />
     <Compile Include="Models\CollaboratorModels\CollaboratorModel.cs" />
     <Compile Include="Models\FormAnswerModels\FormAnswerModel.cs" />
@@ -322,8 +326,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Identity\EditPassword.cshtml" />
-    <Content Include="Views\Identity\EditPasswordSuccess.cshtml" />
     <Content Include="Views\Identity\Login.cshtml" />
     <Content Include="Views\Shared\Error404.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
@@ -347,6 +349,12 @@
     <Content Include="Views\CollaboratorForm\Thanks.cshtml" />
     <Content Include="Views\CollaboratorForm\AlreadyReplied.cshtml" />
     <Content Include="Views\Form\CollaboratorAnswers.cshtml" />
+    <Content Include="Views\Administrator\_LayoutAdministrator.cshtml" />
+    <Content Include="Views\Administrator\Create.cshtml" />
+    <Content Include="Views\Administrator\Edit.cshtml" />
+    <Content Include="Views\Administrator\Index.cshtml" />
+    <Content Include="Views\Administrator\MyProfile.cshtml" />
+    <Content Include="Views\Administrator\_LayoutLimitedAdministrator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

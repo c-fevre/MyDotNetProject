@@ -27,6 +27,7 @@ namespace MyContractsGenerator.DAL.Repositories
         {
             return this.Table
                 //.Include(d => d.applicationlanguage)
+                .Where(d => d.active)
                 .SingleOrDefault(d => d.id == id);
         }
 
@@ -40,6 +41,7 @@ namespace MyContractsGenerator.DAL.Repositories
             return this.Table
                        //.Include(d => d.applicationlanguage)
                        .Where(u => u.email == email)
+                       .Where(d => d.active)
                        .SingleOrDefault(u => u.active);
         }
 
@@ -51,20 +53,8 @@ namespace MyContractsGenerator.DAL.Repositories
         {
             return this.Table
                        .Where(u => u.active)
-                       .OrderBy(u => u.login)
+                       .OrderBy(u => u.email)
                        .ToList();
-        }
-
-        /// <summary>
-        /// Gets administrator by login
-        /// </summary>
-        /// <param name="login"></param>
-        /// <returns></returns>
-        public administrator GetByLogin(string login)
-        {
-            return this.Table
-                       .Where(u => u.login == login)
-                       .SingleOrDefault(u => u.active);
         }
     }
 }

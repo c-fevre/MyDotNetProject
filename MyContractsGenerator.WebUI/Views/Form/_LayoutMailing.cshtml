@@ -9,15 +9,14 @@
 
 @section ScriptSection {
     <script>
-        $(document).ready(function () {
-            var aspnet = {
-                messages: {
-                    beforeLeave: @Html.Raw(Json.Encode(Resources.Shared_BeforeLeave_Message)),
-                    nonSelectedText: @Html.Raw(Json.Encode(Resources.Role_MultiSelect_NonSelectedText))
-                }
-            };
-            
-    </script>
+    $(document).ready(function() {
+        var aspnet = {
+            messages: {
+                beforeLeave: @Html.Raw(Json.Encode(Resources.Shared_BeforeLeave_Message)),
+                nonSelectedText: @Html.Raw(Json.Encode(Resources.Role_MultiSelect_NonSelectedText))
+            }
+        };
+        </script>
 
     @RenderSection("PageChangeChecker", false)
-}
+    }

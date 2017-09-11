@@ -1,0 +1,30 @@
+﻿@using MyContractsGenerator.Common
+@model MyContractsGenerator.WebUI.Models.AdministratorModels.AdministratorMainModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="contentSideBarSection">
+    @if (User.IsInRole(AppConstants.AdminRoleLabel))
+    {
+        @RenderBody()
+    }
+</div>
+
+@section ScriptSection {
+
+    <script>
+        $(document).ready(function() {
+            var aspnet = {
+                messages: {
+                    beforeLeave: @Html.Raw(Json.Encode(Resources.Shared_BeforeLeave_Message)),
+                    nonSelectedText: @Html.Raw(Json.Encode(Resources.Role_MultiSelect_NonSelectedText))
+                }
+            };
+        });
+
+    </script>
+
+    @RenderSection("PageChangeChecker", false)
+}

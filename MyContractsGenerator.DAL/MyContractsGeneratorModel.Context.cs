@@ -26,7 +26,6 @@ namespace MyContractsGenerator.DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<administrator> administrators { get; set; }
         public virtual DbSet<collaborator> collaborators { get; set; }
         public virtual DbSet<form> forms { get; set; }
         public virtual DbSet<question_type> question_type { get; set; }
@@ -34,5 +33,6 @@ namespace MyContractsGenerator.DAL
         public virtual DbSet<answer> answers { get; set; }
         public virtual DbSet<question> questions { get; set; }
         public virtual DbSet<form_answer> form_answer { get; set; }
+        public virtual DbSet<administrator> administrators { get; set; }
     }
 }

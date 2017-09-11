@@ -1,0 +1,50 @@
+﻿@using MyContractsGenerator.Common
+@using MyContractsGenerator.WebUI.Models.AdministratorModels
+@model MyContractsGenerator.WebUI.Models.AdministratorModels.AdministratorMainModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="contentSideBarSection">
+    @if (User.IsInRole(AppConstants.SuperAdminRoleLabel))
+    {
+        @RenderBody()
+    }
+</div>
+
+@section LeftMenuSection {
+    @Helpers.LeftMenu(
+        menuCss: "administratorLeftMenu",
+        itemIconCss: x => "glyphicon glyphicon-user",
+        items: Model.Administrators,
+        itemIsActive: x => Model.EditedAdministrator != null && (x as AdministratorModel).Id == Model.EditedAdministrator.Id,
+        itemActionUrl: x => Url.Action("Edit", "Administrator", new { (x as AdministratorModel).Id }),
+        itemDisplay:
+            @<div>
+                <span class="text-uppercase">@( (item as AdministratorModel).LastName)</span>
+                <span class="text-capitalize">@( (item as AdministratorModel).FirstName)</span>
+            </div>,
+        newItemUrl: Url.Action("Create", "Administrator"),
+        newItemText: Resources.Administrator_New,
+        userCanDeleteItem: (currentUserId, item) => true,
+        deleteTooltipText: Resources.Administrator_Tooltip_RemoveUser
+         )
+}
+
+@section ScriptSection {
+
+    <script>
+        $(document).ready(function() {
+            var aspnet = {
+                messages: {
+                    beforeLeave: @Html.Raw(Json.Encode(Resources.Shared_BeforeLeave_Message)),
+                    nonSelectedText: @Html.Raw(Json.Encode(Resources.Role_MultiSelect_NonSelectedText))
+                }
+            };
+        });
+
+    </script>
+
+    @RenderSection("PageChangeChecker", false)
+}

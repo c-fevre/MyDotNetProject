@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="administrator_CurrentPassword" xml:space="preserve">
+  <data name="Administrator_CurrentPassword" xml:space="preserve">
     <value>Current password</value>
   </data>
-  <data name="administrator_NewPassword" xml:space="preserve">
+  <data name="Administrator_NewPassword" xml:space="preserve">
     <value>New Password</value>
   </data>
-  <data name="administrator_NewPassWordConfirmation" xml:space="preserve">
+  <data name="Administrator_NewPasswordConfirmation" xml:space="preserve">
     <value>New password confirmation</value>
   </data>
   <data name="FirstName" xml:space="preserve">
@@ -144,19 +144,16 @@
   <data name="Shared_RequiredField" xml:space="preserve">
     <value>This field is requiered</value>
   </data>
-  <data name="administrator_CancelButton" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="administrator_ErrorIncorrectPassword" xml:space="preserve">
+  <data name="Administrator_ErrorIncorrectPassword" xml:space="preserve">
     <value>Incorrect password</value>
   </data>
-  <data name="administrator_ErrorIncorrectPasswordConfirmation" xml:space="preserve">
+  <data name="Administrator_ErrorIncorrectPasswordConfirmation" xml:space="preserve">
     <value>Passwords are not the same</value>
   </data>
-  <data name="administrator_ErrorMessage_UnknownUser" xml:space="preserve">
+  <data name="Administrator_ErrorMessage_UnknownUser" xml:space="preserve">
     <value>The user {0} is unknown from the system</value>
   </data>
-  <data name="administrator_ValidateButton" xml:space="preserve">
+  <data name="Administrator_ValidateButton" xml:space="preserve">
     <value>Validate</value>
   </data>
   <data name="Button_Close" xml:space="preserve">
@@ -172,7 +169,7 @@
     <value>Login</value>
   </data>
   <data name="Login_PasswordChangeSuccess" xml:space="preserve">
-    <value>Your password has been change</value>
+    <value>Your password has been change. A nemail has been sent to you with the auto-generated password.</value>
   </data>
   <data name="Login_PasswordForgotten" xml:space="preserve">
     <value>Forgot password ?</value>
@@ -181,7 +178,7 @@
     <value>The {0} field is requiered</value>
   </data>
   <data name="Login_UnknownLogin" xml:space="preserve">
-    <value>Unknown login</value>
+    <value>Unknown login email</value>
   </data>
   <data name="Shared_Button_No" xml:space="preserve">
     <value>No</value>
@@ -239,8 +236,8 @@ A new password will automatically be generated and sent by e-mail.</value>
   <data name="Administrator_Modal_Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
-  <data name="Administrator_NewAdministrator" xml:space="preserve">
-    <value>New collaborator</value>
+  <data name="Administrator_New" xml:space="preserve">
+    <value>New administrator</value>
   </data>
   <data name="Administrator_Tooltip_RemoveUser" xml:space="preserve">
     <value>Remove collaborator</value>
@@ -490,5 +487,89 @@ MyContractsGenerator Team</value>
   </data>
   <data name="Form_ReSendMail" xml:space="preserve">
     <value>Send mail again</value>
+  </data>
+  <data name="Administrator_PageTitle" xml:space="preserve">
+    <value>Administrators</value>
+  </data>
+  <data name="Administrator_Added" xml:space="preserve">
+    <value>Administrator "{0}" successfully created</value>
+  </data>
+  <data name="Administrator_CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Administrator_CancelModal_Message" xml:space="preserve">
+    <value>Are you sure you want to cancel the modifications?</value>
+  </data>
+  <data name="Administrator_Edit" xml:space="preserve">
+    <value>Edit administrator</value>
+  </data>
+  <data name="Administrator_Edited" xml:space="preserve">
+    <value>Administrator "{0}" successfully edited</value>
+  </data>
+  <data name="Administrator_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Administrator_ErrorIncorrectEmail" xml:space="preserve">
+    <value>Incorrect email format</value>
+  </data>
+  <data name="Administrator_FirstName" xml:space="preserve">
+    <value>Firstname</value>
+  </data>
+  <data name="Administrator_LastName" xml:space="preserve">
+    <value>Lastname</value>
+  </data>
+  <data name="Administrator_RemoveNotification_Message" xml:space="preserve">
+    <value>Administrator "{0} {1}" has been removed</value>
+  </data>
+  <data name="Administrator_SuppressionModal_Header" xml:space="preserve">
+    <value>Are you sure ?</value>
+  </data>
+  <data name="Administrator_SuppressionModal_Message" xml:space="preserve">
+    <value>Are you sure you want to delete the administrator "{0} {1}" ?</value>
+  </data>
+  <data name="Administrator_AddConfirmationMessage" xml:space="preserve">
+    <value>You are goin to add a new administrator to your project, do you want to continue ? An email with a generated password will be send to this administrator.</value>
+  </data>
+  <data name="Administrator_AddValidateButton" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Administrator_ErrorOldAndNewPasswordAreTheSame" xml:space="preserve">
+    <value>The new and old password cannot be the same.</value>
+  </data>
+  <data name="Administrator_GeneratedAdministratorPasswordBody" xml:space="preserve">
+    <value>Dear {0}, &lt;br/&gt;&lt;br/&gt; This email notify you that a password has been generated for your MyContractsGenerator account ({1}). &lt;br/&gt;Your email (login) : {2} &lt;br/&gt;Your new password : &lt;b&gt;{3}&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Don't forget to change your password after your first login ("My profile" section)&lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team.</value>
+  </data>
+  <data name="Administrator_GeneratedAdministratorPasswordTitle" xml:space="preserve">
+    <value>MyContractsGenerator - A new password has been generated for you.</value>
+  </data>
+  <data name="Administrator_GenerateNewPassword" xml:space="preserve">
+    <value>Generate a new password</value>
+  </data>
+  <data name="Administrator_NewAdministratorPasswordBody" xml:space="preserve">
+    <value>Dear {0}, &lt;br/&gt;&lt;br/&gt; This email notify you a password change related to your MyContractsGenerator account ({1}). &lt;br/&gt;Your email (login) : {2} &lt;br/&gt;Your password : {2}&lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team.</value>
+  </data>
+  <data name="Administrator_NewAdministratorPasswordTitle" xml:space="preserve">
+    <value>MyContractsGenerator - Password Changed</value>
+  </data>
+  <data name="Administrator_NewPasswordGenerated" xml:space="preserve">
+    <value>A new password has been generated for {0}. The new password has been sent by email to the administrator.</value>
+  </data>
+  <data name="Administrator_PasswordChange" xml:space="preserve">
+    <value>Change administrator password (optionnal)</value>
+  </data>
+  <data name="Administrator_WelcomeNewAdministratorBody" xml:space="preserve">
+    <value>Welcome {0} ! &lt;br/&gt;&lt;br/&gt; You can now acces to the "MyContractsGenerator" application.&lt;br/&gt;URL : {1} &lt;br/&gt;Here are your credentials : &lt;br/&gt; Email (login) : {2}&lt;br/&gt;Password : {3} &lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team.</value>
+  </data>
+  <data name="Administrator_WelcomeNewAdministratorTitle" xml:space="preserve">
+    <value>MyContractsGenerator - Welcome !</value>
+  </data>
+  <data name="Email_Label" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Error_Message" xml:space="preserve">
+    <value>An error occured, please try again or contact your administrator</value>
+  </data>
+  <data name="Error_Title" xml:space="preserve">
+    <value>An error occured</value>
   </data>
 </root>

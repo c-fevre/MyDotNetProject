@@ -1,4 +1,4 @@
-@model System.Web.Mvc.HandleErrorInfo
+@model HandleErrorInfo
 
 @{
     ViewBag.Title = Resources.Error404_Title;
@@ -18,5 +18,7 @@
 
 @if (ViewBag.ReferrerUrl != null)
 {
-    <p>Go back to the <a href="@ViewBag.ReferrerUrl">previous page</a>.</p>
+    <p>
+        Go back to the <a href="@ViewBag.ReferrerUrl">previous page</a>.
+    </p>
 }

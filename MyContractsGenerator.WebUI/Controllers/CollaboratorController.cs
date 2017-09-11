@@ -153,8 +153,7 @@ namespace MyContractsGenerator.WebUI.Controllers
 
             this.PushNotification(model,
                                   string.Format(Resources.Collaborator_Edited,
-                                                $"{existingCollaborator.firstname} {existingCollaborator.lastname}",
-                                                existingCollaborator.lastname), "success");
+                                                $"{existingCollaborator.firstname} {existingCollaborator.lastname}"), "success");
 
             return this.View(model);
         }

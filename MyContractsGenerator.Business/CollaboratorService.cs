@@ -151,10 +151,7 @@ namespace MyContractsGenerator.Business
             dbUser.email = collaboratorToUpdate.email;
             dbUser.firstname = collaboratorToUpdate.firstname;
             dbUser.lastname = collaboratorToUpdate.lastname;
-
-            // TODO Multilingue
-            //dbUser.applicationlanguage = this.applicationLangageRepository.GetById(userToUpdate.applicationlanguage.id);
-
+            
             this.collaboratorRepository.Update(dbUser);
             this.collaboratorRepository.SaveChanges();
         }

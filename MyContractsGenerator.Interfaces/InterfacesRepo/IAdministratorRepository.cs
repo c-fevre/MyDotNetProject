@@ -22,13 +22,6 @@ namespace MyContractsGenerator.Interfaces.InterfacesRepo
         administrator GetByEmail(string email);
 
         /// <summary>
-        ///     Gets administrator by login
-        /// </summary>
-        /// <param name="login"></param>
-        /// <returns></returns>
-        administrator GetByLogin(string login);
-
-        /// <summary>
         ///     Gets all administrators order by lastName
         /// </summary>
         /// <returns></returns>

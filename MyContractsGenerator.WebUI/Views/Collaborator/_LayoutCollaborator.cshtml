@@ -1,5 +1,4 @@
-﻿@using MyContractsGenerator.Common
-@using MyContractsGenerator.WebUI.Models.CollaboratorModels
+﻿@using MyContractsGenerator.WebUI.Models.CollaboratorModels
 @model MyContractsGenerator.WebUI.Models.CollaboratorModels.CollaboratorMainModel
 
 @{
@@ -16,23 +15,23 @@
         menuCss: "collaboratorLeftMenu",
         itemIconCss: x => "glyphicon glyphicon-user",
         items: Model.Collaborators,
-        itemIsActive: x => (Model.EditedCollaborator != null) && ((x as CollaboratorModel).Id == Model.EditedCollaborator.Id),
-        itemActionUrl: x => Url.Action("Edit", "Collaborator", new { Id = (x as CollaboratorModel).Id }),
+        itemIsActive: x => Model.EditedCollaborator != null && (x as CollaboratorModel).Id == Model.EditedCollaborator.Id,
+        itemActionUrl: x => Url.Action("Edit", "Collaborator", new { (x as CollaboratorModel).Id }),
         itemDisplay:
-        @<div>
-            <span class="text-uppercase">@((item as CollaboratorModel).LastName)</span>
-            <span class="text-capitalize">@((item as CollaboratorModel).FirstName)</span>
-        </div>,
+            @<div>
+                <span class="text-uppercase">@( (item as CollaboratorModel).LastName)</span>
+                <span class="text-capitalize">@( (item as CollaboratorModel).FirstName)</span>
+            </div>,
         newItemUrl: Url.Action("Create", "Collaborator"),
-        newItemText: @Resources.Administrator_NewAdministrator,
+        newItemText: Resources.Administrator_New,
         userCanDeleteItem: (currentUserId, item) => true,
         deleteTooltipText: Resources.Administrator_Tooltip_RemoveUser
-        )
+         )
 }
 
 @section ScriptSection {
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             var aspnet = {
                 messages: {
                     beforeLeave: @Html.Raw(Json.Encode(Resources.Shared_BeforeLeave_Message)),

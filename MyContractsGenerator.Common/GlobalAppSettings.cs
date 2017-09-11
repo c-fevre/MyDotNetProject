@@ -9,7 +9,7 @@ namespace MyContractsGenerator.Common
         {
             get { return Get<int>("ImageUploadMinSizeBytes"); }
         }
-
+        
         public static int ImageUploadMaxSizeBytes
         {
             get { return Get<int>("ImageUploadMaxSizeBytes"); }

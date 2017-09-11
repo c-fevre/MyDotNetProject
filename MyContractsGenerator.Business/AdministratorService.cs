@@ -13,8 +13,6 @@ namespace MyContractsGenerator.Business
 {
     public class AdministratorService : BaseService, IAdministratorService
     {
-        // TODO Multilingue
-        //private readonly IApplicationLangageRepository applicationLangageRepository;
         private readonly IMailService mailService;
         private readonly IAdministratorRepository administratorRepository;
 
@@ -25,26 +23,7 @@ namespace MyContractsGenerator.Business
         public AdministratorService(IAdministratorRepository administratorRepo, IMailService mailService)
         {
             this.administratorRepository = administratorRepo;
-            // TODO Multilingue
-            //this.applicationLangageRepository = applicationLangageRepo;
             this.mailService = mailService;
-        }
-
-        /// <summary>
-        ///     Gets administrator by login
-        /// </summary>
-        /// <param name="login"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        public administrator GetByLogin(string login, string password)
-        {
-            var administrator = this.administratorRepository.GetByLogin(login);
-            if (administrator == null)
-            {
-                return null;
-            }
-
-            return administrator.password != password ? null : administrator;
         }
 
         /// <summary>
@@ -104,7 +83,7 @@ namespace MyContractsGenerator.Business
         /// </summary>
         /// <param name="administratorToUpdate"></param>
         /// <param name="administratorDoingUpdate"></param>
-        public void UpdateAdministrator(administrator administratorToUpdate)
+        public void Update(administrator administratorToUpdate)
         {
             Requires.ArgumentNotNull(administratorToUpdate, "administratorToUpdate");
 
@@ -115,9 +94,11 @@ namespace MyContractsGenerator.Business
             }
 
             dbadministrator.email = administratorToUpdate.email;
-            dbadministrator.login = administratorToUpdate.login;
-            // TODO Multilingue
-            // dbadministrator.applicationlanguage = this.applicationLangageRepository.GetById(administratorToUpdate.applicationlanguage.id);
+            dbadministrator.firstname = administratorToUpdate.firstname;
+            dbadministrator.lastname = administratorToUpdate.lastname;
+            dbadministrator.active = administratorToUpdate.active;
+            dbadministrator.organization_id = administratorToUpdate.organization_id;
+
             if (!string.IsNullOrEmpty(administratorToUpdate.password))
             {
                 dbadministrator.password = administratorToUpdate.password;
@@ -132,9 +113,8 @@ namespace MyContractsGenerator.Business
         /// </summary>
         /// <param name="administratorToCreate"></param>
         /// <returns></returns>
-        public administrator Addadministrator(administrator administratorToCreate)
+        public administrator Add(administrator administratorToCreate)
         {
-            Requires.ArgumentNotNull(administratorToCreate, "administratorToUpdate");
             Requires.ArgumentNotNull(administratorToCreate, "administratorToCreate");
 
             administratorToCreate.active = true;
@@ -149,7 +129,7 @@ namespace MyContractsGenerator.Business
         ///     DeleteAdministrator
         /// </summary>
         /// <param name="administratorId"></param>
-        public void DeleteAdministrator(int administratorId)
+        public void Delete(int administratorId)
         {
             Requires.ArgumentGreaterThanZero(administratorId, "administratorid");
 
@@ -187,23 +167,20 @@ namespace MyContractsGenerator.Business
         ///     Reset administrator password and send the generated password by mail
         /// </summary>
         /// <param name="passwordOwneradministratorId"></param>
-        /// <param name="administratorDoingUpdateId"></param>
-        public void ResetPassword(int passwordOwneradministratorId, int administratorDoingUpdateId)
+        public void ResetPassword(int passwordOwneradministratorId)
         {
             //Requires
             Requires.ArgumentGreaterThanZero(passwordOwneradministratorId, "passwordOwneradministratorId");
-            Requires.ArgumentGreaterThanZero(administratorDoingUpdateId, "administratorDoingUpdateId");
             administrator administrator = this.administratorRepository.GetById(passwordOwneradministratorId);
             Requires.ArgumentNotNull(administrator, "administrator");
 
             //new password generation
             string clearPassword = PasswordGenerator.GeneratePassword(8, 4);
             administrator.password = ShaHashPassword.GetSha256ResultString(clearPassword);
-            this.UpdateAdministrator(administrator);
+            this.Update(administrator);
 
             //Send mail
-            this.mailService.SendResetPasswordEmail(administrator, clearPassword);
+            this.mailService.SendGeneratedPasswordAdministrator(administrator, clearPassword);
         }
-
     }
 }

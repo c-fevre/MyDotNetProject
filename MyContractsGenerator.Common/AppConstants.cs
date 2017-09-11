@@ -35,5 +35,15 @@ namespace MyContractsGenerator.Common
         /// The form answer hashed identifier identifier
         /// </summary>
         public const string FormAnswerHashedIdIdentifier = "fa";
+
+        /// <summary>
+        /// The super admin role label
+        /// </summary>
+        public const string SuperAdminRoleLabel = "SuperAdmin";
+
+        /// <summary>
+        /// The admin role label
+        /// </summary>
+        public const string AdminRoleLabel = "Admin";
     }
 }

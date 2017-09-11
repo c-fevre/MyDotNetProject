@@ -9,7 +9,6 @@
 
 @using (Html.BeginForm("CheckForm", "CollaboratorForm", FormMethod.Post, new { id = "check-form" }))
 {
-
     @Html.HiddenFor(m => m.c)
     @Html.HiddenFor(m => m.fa)
 
@@ -20,7 +19,7 @@
         <div class="col-md-12 mb50">
             <div class="col-md-6 col-md-offset-3">
                 <div class="center">
-                    <img src='@Url.Content("~/Content/images/MCG_logo.jpg")' class="login-logo" />
+                    <img src='@Url.Content("~/Content/images/MCG_logo.jpg")' class="login-logo"/>
                 </div>
             </div>
         </div>
@@ -48,34 +47,40 @@
                 {
                     if (count == 1)
                     {
-                        @Html.Raw("<div class=\"form-group row\">");
+                        @Html.Raw("<div class=\"form-group row\">")
+                        ;
                     }
 
-                    @Html.Raw("<div class=\"col-md-6\">");
+                    @Html.Raw("<div class=\"col-md-6\">")
+                    ;
 
-
-                    @Html.Label(question.Label);
+                    @Html.Label(question.Label)
+                    ;
 
                     switch (question.Type)
                     {
                         case QuestionType.QuestionTypeEnum.Text:
-                            @Html.TextBox($"{AppConstants.QuestionIdPrefix}{question.Id}", question.Value, new { @class="form-control small-medium-input text-box single-line valid"})
+                            @Html.TextBox($"{AppConstants.QuestionIdPrefix}{question.Id}", question.Value, new { @class = "form-control small-medium-input text-box single-line valid" })
                             ;
                             break;
                         case QuestionType.QuestionTypeEnum.Boolean:
-                            @Html.CheckBox($"{AppConstants.QuestionIdPrefix}{question.Id}", false, new { @class = "form-control small-medium-input text-box single-line valid" });
+                            @Html.CheckBox($"{AppConstants.QuestionIdPrefix}{question.Id}", false, new { @class = "form-control small-medium-input text-box single-line valid" })
+                            ;
                             break;
                         case QuestionType.QuestionTypeEnum.Numeric:
-                            @Html.TextBox($"{AppConstants.QuestionIdPrefix}{question.Id}", question.Value, new { type = "number", @class = "form-control small-medium-input text-box single-line valid" });
+                            @Html.TextBox($"{AppConstants.QuestionIdPrefix}{question.Id}", question.Value, new { type = "number", @class = "form-control small-medium-input text-box single-line valid" })
+                            ;
                             break;
                         case QuestionType.QuestionTypeEnum.Datetime:
-                            @Html.TextBox($"{AppConstants.QuestionIdPrefix}{question.Id}", question.Value, new { type = "date", @class = "form-control small-medium-input text-box single-line valid" });
+                            @Html.TextBox($"{AppConstants.QuestionIdPrefix}{question.Id}", question.Value, new { type = "date", @class = "form-control small-medium-input text-box single-line valid" })
+                            ;
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
 
-                    @Html.Raw("</div>");
+                    @Html.Raw("</div>")
+                    ;
 
                     if (count % 2 == 0)
                     {
@@ -90,7 +95,7 @@
 
                 <div class="form-group row">
                     <div class="col-md-12">
-                        <input id="login" type="submit" value="@Resources.Form_SendForm" class="btn btn-info" style="float:right;" />
+                        <input id="login" type="submit" value="@Resources.Form_SendForm" class="btn btn-info" style="float: right;"/>
                     </div>
                 </div>
             </div>
@@ -98,4 +103,4 @@
         <div class="col-md-2">
         </div>
     </div>
-                    }
+}
