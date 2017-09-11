@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using MyContractsGenerator.Common.I18N;
-using MyContractsGenerator.Common.PasswordHelper;
 using MyContractsGenerator.Common.Validation;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.Interfaces.InterfacesServices;
 using MyContractsGenerator.WebUI.Mapping;
-using MyContractsGenerator.WebUI.Models.RoleModels;
 using MyContractsGenerator.WebUI.Models.NotificationModels;
+using MyContractsGenerator.WebUI.Models.RoleModels;
 
 namespace MyContractsGenerator.WebUI.Controllers
 {
@@ -18,7 +15,7 @@ namespace MyContractsGenerator.WebUI.Controllers
     public class RoleController : BaseController
     {
         /// <summary>
-        /// The role service
+        ///     The role service
         /// </summary>
         private readonly IRoleService roleService;
 
@@ -42,7 +39,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return this.View(model);
             }
 
-            role deleteRole = this.roleService.GetById((int)this.TempData["DeleteRoleId"]);
+            role deleteRole = this.roleService.GetById((int) this.TempData["DeleteRoleId"]);
             NotificationModel notificationModel = new NotificationModel
             {
                 Title =
@@ -63,7 +60,9 @@ namespace MyContractsGenerator.WebUI.Controllers
             if (id == 0)
             {
                 role defaultSelectedRole = this.roleService.GetAllActive().FirstOrDefault();
-                return defaultSelectedRole == null ? this.RedirectToAction("Index") : this.RedirectToAction("Edit", new { defaultSelectedRole.id });
+                return defaultSelectedRole == null
+                    ? this.RedirectToAction("Index")
+                    : this.RedirectToAction("Edit", new { defaultSelectedRole.id });
             }
 
             RoleMainModel model = new RoleMainModel();
@@ -73,7 +72,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             model.EditedRole = RoleMap.MapItem(dbRole);
 
             //display a notification if an administrator has been deleted
-            if (this.TempData["RoleCreated"] != null && (bool)this.TempData["RoleCreated"])
+            if (this.TempData["RoleCreated"] != null && (bool) this.TempData["RoleCreated"])
             {
                 this.PushNotification(model,
                                       string.Format(Resources.Role_Added, $"{dbRole.label}"),
@@ -109,13 +108,12 @@ namespace MyContractsGenerator.WebUI.Controllers
                                               Resources.Role_ErrorIncorrectLabelAlreadyUsed);
                 return this.ErrorOnEdit(model);
             }
-            
 
             if (!this.ModelState.IsValid)
             {
                 return this.ErrorOnEdit(model);
             }
-            
+
             existingRole.label = model.EditedRole.Label;
 
             this.roleService.UpdateRole(existingRole);

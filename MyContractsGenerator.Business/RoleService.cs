@@ -32,7 +32,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        ///     Gets administrator by Id
+        ///     Get role by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -41,6 +41,10 @@ namespace MyContractsGenerator.Business
             return this.roleRepository.GetById(id);
         }
 
+        /// <summary>
+        /// delete logically the roles
+        /// </summary>
+        /// <param name="roleId"></param>
         public void DeleteRole(int roleId)
         {
             Requires.ArgumentGreaterThanZero(roleId, "Role Id");

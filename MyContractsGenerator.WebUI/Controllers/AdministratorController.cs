@@ -78,29 +78,31 @@ namespace MyContractsGenerator.WebUI.Controllers
             if (id == 0)
             {
                 administrator defaultSelectedAdministrator =
-                    this.administratorService.GetActiveAdministrators().FirstOrDefault();
-                return defaultSelectedAdministrator == null
-                    ? this.RedirectToAction("Index")
-                    : this.RedirectToAction("Edit", new { defaultSelectedAdministrator.id });
+                    this.administratorService.GetAdministratorById(int.Parse(this.User.Identity.GetUserId()));
+                return this.RedirectToAction("Edit", new { defaultSelectedAdministrator.id });
             }
 
             AdministratorMainModel model = new AdministratorMainModel();
             this.PopulateAdministratorMainModel(model);
 
-            administrator administrator = this.administratorService.GetAdministratorById(id);
-            model.EditedAdministrator = AdministratorMap.MapItem(administrator);
-
+            administrator dbAdmin;
             if (!this.User.IsInRole(AppConstants.SuperAdminRoleLabel))
             {
+                dbAdmin = this.administratorService.GetAdministratorById(int.Parse(this.User.Identity.GetUserId()));
+                model.EditedAdministrator = AdministratorMap.MapItem(dbAdmin);
+
                 return this.View("MyProfile", model);
             }
+
+            dbAdmin = this.administratorService.GetAdministratorById(id);
+            model.EditedAdministrator = AdministratorMap.MapItem(dbAdmin);
 
             //display a notification if an administrator has been deleted
             if (this.TempData["AdministratorCreated"] != null && (bool) this.TempData["AdministratorCreated"])
             {
                 this.PushNotification(model,
                                       string.Format(Resources.Administrator_Added,
-                                                    $"{administrator.firstname} {administrator.lastname}"),
+                                                    $"{dbAdmin.firstname} {dbAdmin.lastname}"),
                                       "success");
             }
             else if (this.TempData["NewAdministratorPasswordGenerated"] != null)
@@ -282,6 +284,12 @@ namespace MyContractsGenerator.WebUI.Controllers
                 }
             }
 
+            if (model.EditedAdministrator.NewPassword == null ||
+                model.EditedAdministrator.NewPasswordConfirmation == null)
+            {
+                return false;
+            }
+
             if (existingAdministrator.password ==
                 ShaHashPassword.GetSha256ResultString(model.EditedAdministrator.NewPassword))
             {
@@ -293,12 +301,9 @@ namespace MyContractsGenerator.WebUI.Controllers
                 }
             }
 
-            if (model.EditedAdministrator.NewPassword != null &&
-                model.EditedAdministrator.NewPasswordConfirmation != null)
-            {
-                existingAdministrator.password =
-                    ShaHashPassword.GetSha256ResultString(model.EditedAdministrator.NewPassword);
-            }
+            existingAdministrator.password =
+                ShaHashPassword.GetSha256ResultString(model.EditedAdministrator.NewPassword);
+
             return false;
         }
 
