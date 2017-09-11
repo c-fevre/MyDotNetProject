@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyContractsGenerator.DAL;
+﻿using System.Collections.Generic;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.Interfaces.InterfacesRepo;
 
@@ -19,7 +14,7 @@ namespace MyContractsGenerator.DAL.Repositories
         new role GetById(int id);
 
         /// <summary>
-        /// Gets all active.
+        ///     Gets all active.
         /// </summary>
         /// <returns></returns>
         IEnumerable<role> GetAllActive();

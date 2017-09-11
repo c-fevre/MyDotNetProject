@@ -1,15 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.WebUI.Models.AnswerModels;
-using MyContractsGenerator.WebUI.Models.RoleModels;
 
 namespace MyContractsGenerator.WebUI.Mapping
 {
     public static class AnswerMap
     {
+        /// <summary>
+        ///     Models to data map.
+        /// </summary>
+        /// <param name="questionsAnswers">The questions answers.</param>
+        /// <returns></returns>
+        public static IList<answer> ModelToEntitieaMap(IList<AnswerModel> questionsAnswers)
+        {
+            IList<answer> answers = new List<answer>();
+
+            questionsAnswers.ToList().ForEach(qa =>
+            {
+                answer newAnswer = new answer
+                {
+                    form_answer_id = qa.FormAnswerId,
+                    question_id = qa.QuestionId,
+                    answer_value = qa.AnswerValue
+                };
+                answers.Add(newAnswer);
+            });
+
+            return answers;
+        }
+
         #region Domain To Model
 
         /// <summary>
@@ -36,7 +56,7 @@ namespace MyContractsGenerator.WebUI.Mapping
         }
 
         /// <summary>
-        /// Maps the items.
+        ///     Maps the items.
         /// </summary>
         /// <param name="answers">The answers.</param>
         /// <returns></returns>
@@ -48,28 +68,5 @@ namespace MyContractsGenerator.WebUI.Mapping
         }
 
         #endregion
-
-        /// <summary>
-        /// Models to data map.
-        /// </summary>
-        /// <param name="questionsAnswers">The questions answers.</param>
-        /// <returns></returns>
-        public static IList<answer> ModelToEntitieaMap(IList<AnswerModel> questionsAnswers)
-        {
-            IList<answer> answers = new List<answer>();
-
-            questionsAnswers.ToList().ForEach(qa =>
-            {
-                answer newAnswer = new answer
-                {
-                    form_answer_id = qa.FormAnswerId,
-                    question_id = qa.QuestionId,
-                    answer_value = qa.AnswerValue
-                };
-                answers.Add(newAnswer);
-            });
-
-            return answers;
-        }
     }
 }

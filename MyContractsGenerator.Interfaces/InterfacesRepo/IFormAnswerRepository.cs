@@ -14,13 +14,13 @@ namespace MyContractsGenerator.DAL.Repositories
         new form_answer GetById(int id);
 
         /// <summary>
-        /// Gets all.
+        ///     Gets all.
         /// </summary>
         /// <returns></returns>
         IEnumerable<form_answer> GetAll();
 
         /// <summary>
-        /// Gets all for collaborator and role.
+        ///     Gets all for collaborator and role.
         /// </summary>
         /// <param name="collaboratorId">The collaborator identifier.</param>
         /// <param name="roleId">The role identifier.</param>

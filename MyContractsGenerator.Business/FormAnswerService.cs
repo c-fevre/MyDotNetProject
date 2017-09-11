@@ -4,7 +4,6 @@ using System.Linq;
 using MyContractsGenerator.Common.Validation;
 using MyContractsGenerator.DAL.Repositories;
 using MyContractsGenerator.Domain;
-using MyContractsGenerator.Interfaces.InterfacesRepo;
 using MyContractsGenerator.Interfaces.InterfacesServices;
 
 namespace MyContractsGenerator.Business
@@ -16,21 +15,21 @@ namespace MyContractsGenerator.Business
     public class FormAnswerService : BaseService, IFormAnswerService
     {
         /// <summary>
-        /// The formAnswer repository
+        ///     The formAnswer repository
         /// </summary>
         private readonly IFormAnswerRepository formAnswerRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FormAnswerService"/> class.
+        ///     Initializes a new instance of the <see cref="FormAnswerService" /> class.
         /// </summary>
         /// <param name="formAnswerRepository">The formAnswer repository.</param>
         public FormAnswerService(IFormAnswerRepository formAnswerRepository)
         {
             this.formAnswerRepository = formAnswerRepository;
         }
-        
+
         /// <summary>
-        /// Gets formAnswer by Id
+        ///     Gets formAnswer by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -38,21 +37,21 @@ namespace MyContractsGenerator.Business
         {
             return this.formAnswerRepository.GetById(id);
         }
-        
+
         /// <summary>
-        /// delete logically the formAnswer
+        ///     delete logically the formAnswer
         /// </summary>
         /// <param name="formAnswerId"></param>
         public void DeleteFormAnswer(int formAnswerId)
         {
             Requires.ArgumentGreaterThanZero(formAnswerId, "Form Answer Id");
             this.formAnswerRepository.Remove(formAnswerId);
-            
+
             this.formAnswerRepository.SaveChanges();
         }
 
         /// <summary>
-        /// Adds the formAnswer.
+        ///     Adds the formAnswer.
         /// </summary>
         /// <param name="formAnswerToCreate">The formAnswer to create.</param>
         /// <returns></returns>
@@ -68,7 +67,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Updates the formAnswer.
+        ///     Updates the formAnswer.
         /// </summary>
         /// <param name="formAnswerToUpdate">The formAnswer to update.</param>
         public void UpdateFormAnswer(form_answer formAnswerToUpdate)
@@ -88,7 +87,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Gets all.
+        ///     Gets all.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
@@ -98,7 +97,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Gets all for collaborator and role.
+        ///     Gets all for collaborator and role.
         /// </summary>
         /// <param name="collaboratorId">The collaborator identifier.</param>
         /// <param name="roleId">The role identifier.</param>

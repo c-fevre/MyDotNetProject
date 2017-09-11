@@ -6,7 +6,7 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
     public interface IAnswerService
     {
         /// <summary>
-        /// Gets all.
+        ///     Gets all.
         /// </summary>
         /// <returns></returns>
         IList<answer> GetAll();
@@ -17,7 +17,7 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         /// <param name="id"></param>
         /// <returns></returns>
         answer GetById(int id);
-        
+
         /// <summary>
         ///     delete logically the answer
         /// </summary>
@@ -25,20 +25,20 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         void DeleteAnswer(int answerId);
 
         /// <summary>
-        /// Updates the answer.
+        ///     Updates the answer.
         /// </summary>
         /// <param name="answerToUpdate">The answer to update.</param>
         void UpdateAnswer(answer answerToUpdate);
 
         /// <summary>
-        /// Adds the answer.
+        ///     Adds the answer.
         /// </summary>
         /// <param name="answerToCreate">The answer to create.</param>
         /// <returns></returns>
         answer AddAnswer(answer answerToCreate);
 
         /// <summary>
-        /// Adds the answers.
+        ///     Adds the answers.
         /// </summary>
         /// <param name="answers">The answers.</param>
         void AddAnswers(IList<answer> answers);

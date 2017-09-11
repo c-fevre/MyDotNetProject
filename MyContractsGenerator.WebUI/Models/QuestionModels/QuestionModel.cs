@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using MyContractsGenerator.Core.Enum;
+﻿using MyContractsGenerator.Core.Enum;
 using MyContractsGenerator.WebUI.Models.BaseModels;
 
 namespace MyContractsGenerator.WebUI.Models.QuestionModels
@@ -10,42 +6,42 @@ namespace MyContractsGenerator.WebUI.Models.QuestionModels
     public class QuestionModel : BaseModel
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        ///     Gets or sets the identifier.
         /// </summary>
         /// <value>
-        /// The identifier.
+        ///     The identifier.
         /// </value>
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the label.
+        ///     Gets or sets the label.
         /// </summary>
         /// <value>
-        /// The label.
+        ///     The label.
         /// </value>
         public string Label { get; set; }
 
         /// <summary>
-        /// Gets or sets the value.
+        ///     Gets or sets the value.
         /// </summary>
         /// <value>
-        /// The value.
+        ///     The value.
         /// </value>
         public string Value { get; set; }
 
         /// <summary>
-        /// Gets or sets the order.
+        ///     Gets or sets the order.
         /// </summary>
         /// <value>
-        /// The order.
+        ///     The order.
         /// </value>
         public int Order { get; set; }
 
         /// <summary>
-        /// Gets or sets the type.
+        ///     Gets or sets the type.
         /// </summary>
         /// <value>
-        /// The type.
+        ///     The type.
         /// </value>
         public QuestionType.QuestionTypeEnum Type { get; set; }
     }

@@ -12,49 +12,48 @@ using MyContractsGenerator.Interfaces.InterfacesServices;
 using MyContractsGenerator.WebUI.Mapping;
 using MyContractsGenerator.WebUI.Models.AnswerModels;
 using MyContractsGenerator.WebUI.Models.CollaboratorFormModels;
-using MyContractsGenerator.WebUI.Models.QuestionModels;
 
 namespace MyContractsGenerator.WebUI.Controllers
 {
     /// <summary>
-    /// TODO Check security ...
+    ///     TODO Check security ...
     /// </summary>
     /// <seealso cref="MyContractsGenerator.WebUI.Controllers.BaseController" />
     [Authorize]
     public class CollaboratorFormController : BaseController
     {
         /// <summary>
-        /// The collaborator service
-        /// </summary>
-        private readonly ICollaboratorService collaboratorService;
-
-        /// <summary>
-        /// The role service
-        /// </summary>
-        private readonly IRoleService roleService;
-
-        /// <summary>
-        /// The form answer service
-        /// </summary>
-        private readonly IFormService formService;
-
-        /// <summary>
-        /// The form answer service
-        /// </summary>
-        private readonly IFormAnswerService formAnswerService;
-
-        /// <summary>
-        /// The answer service
+        ///     The answer service
         /// </summary>
         private readonly IAnswerService answerService;
 
         /// <summary>
-        /// The mail service
+        ///     The collaborator service
+        /// </summary>
+        private readonly ICollaboratorService collaboratorService;
+
+        /// <summary>
+        ///     The form answer service
+        /// </summary>
+        private readonly IFormAnswerService formAnswerService;
+
+        /// <summary>
+        ///     The form answer service
+        /// </summary>
+        private readonly IFormService formService;
+
+        /// <summary>
+        ///     The mail service
         /// </summary>
         private readonly IMailService mailService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CollaboratorFormController"/> class.
+        ///     The role service
+        /// </summary>
+        private readonly IRoleService roleService;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="CollaboratorFormController" /> class.
         /// </summary>
         /// <param name="collaboratorService">The collaborator service.</param>
         /// <param name="roleService">The role service.</param>
@@ -62,7 +61,8 @@ namespace MyContractsGenerator.WebUI.Controllers
         /// <param name="formAnswerService">The form answer service.</param>
         /// <param name="answerService">The answer service.</param>
         public CollaboratorFormController(ICollaboratorService collaboratorService, IRoleService roleService,
-                                          IFormService formService, IFormAnswerService formAnswerService, IAnswerService answerService,
+                                          IFormService formService, IFormAnswerService formAnswerService,
+                                          IAnswerService answerService,
                                           IMailService mailService)
         {
             this.collaboratorService = collaboratorService;
@@ -86,7 +86,6 @@ namespace MyContractsGenerator.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Thanks()
         {
-
             return this.View();
         }
 
@@ -119,8 +118,12 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             form_answer lastFormAnswer = collaboratorToCheck.form_answer.Where(fa => !fa.replied)
-                                            .SingleOrDefault(fa => ShaHashPassword.GetSha256ResultString(fa.id.ToString()).Equals(model.fa));
-            
+                                                            .SingleOrDefault(
+                                                                fa =>
+                                                                    ShaHashPassword.GetSha256ResultString(
+                                                                        fa.id.ToString()).Equals(
+                                                                        model.fa));
+
             if (lastFormAnswer != null &&
                 model.fa == ShaHashPassword.GetSha256ResultString(lastFormAnswer.id.ToString()) &&
                 model.c == ShaHashPassword.GetSha256ResultString(collaboratorToCheck.id.ToString()))
@@ -133,20 +136,17 @@ namespace MyContractsGenerator.WebUI.Controllers
                                                   Resources.CollaboratorForm_Error);
                     return this.View("WhoAreYou", model);
                 }
-                
+
                 return this.RedirectToAction("YourForm", model);
             }
-            else
-            {
-                this.ModelState.AddModelError(string.Empty,
-                                              Resources.CollaboratorForm_Error);
-                return this.View("WhoAreYou", model);
-            }
 
+            this.ModelState.AddModelError(string.Empty,
+                                          Resources.CollaboratorForm_Error);
+            return this.View("WhoAreYou", model);
         }
 
         /// <summary>
-        /// Yours the form.
+        ///     Yours the form.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns></returns>
@@ -172,7 +172,11 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             form_answer lastFormAnswer = collaboratorToCheck.form_answer.Where(fa => !fa.replied)
-                                .SingleOrDefault(fa => ShaHashPassword.GetSha256ResultString(fa.id.ToString()).Equals(model.fa));
+                                                            .SingleOrDefault(
+                                                                fa =>
+                                                                    ShaHashPassword.GetSha256ResultString(
+                                                                        fa.id.ToString()).Equals(
+                                                                        model.fa));
 
             if (lastFormAnswer != null &&
                 model.fa == ShaHashPassword.GetSha256ResultString(lastFormAnswer.id.ToString()) &&
@@ -204,7 +208,8 @@ namespace MyContractsGenerator.WebUI.Controllers
             string passwordHashed;
             int formId;
             IList<AnswerModel> questionsAnswers;
-            ProcessCustomForm(model, out questionsAnswers, out collaboratorHashedId, out formAnswerHashedId, out passwordHashed, out formId);
+            ProcessCustomForm(model, out questionsAnswers, out collaboratorHashedId, out formAnswerHashedId,
+                              out passwordHashed, out formId);
 
             form dbForm = this.formService.GetById(formId);
 
@@ -216,10 +221,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             // Set Checked Form Answer Id
-            questionsAnswers.ToList().ForEach(qa =>
-            {
-                qa.FormAnswerId = dbFormAnswer.id;
-            });
+            questionsAnswers.ToList().ForEach(qa => { qa.FormAnswerId = dbFormAnswer.id; });
 
             // Add Answers
             IList<answer> answers = AnswerMap.ModelToEntitieaMap(questionsAnswers);
@@ -237,7 +239,7 @@ namespace MyContractsGenerator.WebUI.Controllers
         }
 
         /// <summary>
-        /// Checks the form data integrity.
+        ///     Checks the form data integrity.
         /// </summary>
         /// <param name="dbForm">The database form.</param>
         /// <param name="passwordHashed">The password hashed.</param>
@@ -245,11 +247,11 @@ namespace MyContractsGenerator.WebUI.Controllers
         /// <param name="collaboratorHashedId">The collaborator hashed identifier.</param>
         /// <returns></returns>
         /// <exception cref="System.InvalidCastException">
-        /// Error while deconding form model - Don't cheat please.
-        /// or
-        /// Error while deconding form model - Don't cheat please.
-        /// or
-        /// Error while deconding form model - Don't cheat please.
+        ///     Error while deconding form model - Don't cheat please.
+        ///     or
+        ///     Error while deconding form model - Don't cheat please.
+        ///     or
+        ///     Error while deconding form model - Don't cheat please.
         /// </exception>
         private static form_answer CheckFormDataIntegrity(form dbForm, string passwordHashed, string formAnswerHashedId,
                                                           string collaboratorHashedId)
@@ -258,10 +260,12 @@ namespace MyContractsGenerator.WebUI.Controllers
             {
                 throw new InvalidCredentialException("Error while deconding form model - Don't cheat please.");
             }
-            
-            form_answer dbFormAnswer = dbForm.form_answer.Where(fa => !fa.replied)
-                    .SingleOrDefault(fa => ShaHashPassword.GetSha256ResultString(fa.id.ToString()).Equals(formAnswerHashedId));
 
+            form_answer dbFormAnswer = dbForm.form_answer.Where(fa => !fa.replied)
+                                             .SingleOrDefault(
+                                                 fa =>
+                                                     ShaHashPassword.GetSha256ResultString(fa.id.ToString()).Equals(
+                                                         formAnswerHashedId));
 
             if (dbFormAnswer == null || dbFormAnswer.password != passwordHashed)
             {
@@ -280,15 +284,16 @@ namespace MyContractsGenerator.WebUI.Controllers
         }
 
         /// <summary>
-        /// Processes the custom form.
+        ///     Processes the custom form.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <param name="questionsAnswers">The questions answers.</param>
         /// <param name="collaboratorHashedId">The collaborator hashed identifier.</param>
         /// <param name="formAnswerHashedId">The form answer hashed identifier.</param>
         /// <param name="formId">The form identifier.</param>
-        private static void ProcessCustomForm(FormCollection model, out IList<AnswerModel> questionsAnswers, out string collaboratorHashedId,
-                                                out string formAnswerHashedId, out string passwordHashed, out int formId)
+        private static void ProcessCustomForm(FormCollection model, out IList<AnswerModel> questionsAnswers,
+                                              out string collaboratorHashedId,
+                                              out string formAnswerHashedId, out string passwordHashed, out int formId)
         {
             questionsAnswers = new List<AnswerModel>();
             collaboratorHashedId = string.Empty;
@@ -327,7 +332,7 @@ namespace MyContractsGenerator.WebUI.Controllers
         }
 
         /// <summary>
-        /// Populates the form main model.
+        ///     Populates the form main model.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <param name="lastFormAnswer">The last form answer.</param>

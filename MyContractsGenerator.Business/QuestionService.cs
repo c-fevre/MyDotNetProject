@@ -3,7 +3,6 @@ using System.Linq;
 using MyContractsGenerator.Common.Validation;
 using MyContractsGenerator.DAL.Repositories;
 using MyContractsGenerator.Domain;
-using MyContractsGenerator.Interfaces.InterfacesRepo;
 using MyContractsGenerator.Interfaces.InterfacesServices;
 
 namespace MyContractsGenerator.Business
@@ -15,21 +14,21 @@ namespace MyContractsGenerator.Business
     public class QuestionService : BaseService, IQuestionService
     {
         /// <summary>
-        /// The question repository
+        ///     The question repository
         /// </summary>
         private readonly IQuestionRepository questionRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuestionService"/> class.
+        ///     Initializes a new instance of the <see cref="QuestionService" /> class.
         /// </summary>
         /// <param name="questionRepository">The question repository.</param>
         public QuestionService(IQuestionRepository questionRepository)
         {
             this.questionRepository = questionRepository;
         }
-        
+
         /// <summary>
-        /// Gets question by Id
+        ///     Gets question by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -37,21 +36,21 @@ namespace MyContractsGenerator.Business
         {
             return this.questionRepository.GetById(id);
         }
-        
+
         /// <summary>
-        /// delete logically the question
+        ///     delete logically the question
         /// </summary>
         /// <param name="questionId"></param>
         public void DeleteQuestion(int questionId)
         {
             Requires.ArgumentGreaterThanZero(questionId, "Form Answer Id");
             this.questionRepository.Remove(questionId);
-            
+
             this.questionRepository.SaveChanges();
         }
 
         /// <summary>
-        /// Adds the question.
+        ///     Adds the question.
         /// </summary>
         /// <param name="questionToCreate">The question to create.</param>
         /// <returns></returns>
@@ -67,7 +66,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Updates the question.
+        ///     Updates the question.
         /// </summary>
         /// <param name="questionToUpdate">The question to update.</param>
         public void UpdateQuestion(question questionToUpdate)
@@ -87,7 +86,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Gets all.
+        ///     Gets all.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
@@ -97,7 +96,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Gets the questions by form identifier.
+        ///     Gets the questions by form identifier.
         /// </summary>
         /// <param name="formId">The form identifier.</param>
         /// <returns></returns>

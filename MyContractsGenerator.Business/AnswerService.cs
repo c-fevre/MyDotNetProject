@@ -3,7 +3,6 @@ using System.Linq;
 using MyContractsGenerator.Common.Validation;
 using MyContractsGenerator.DAL.Repositories;
 using MyContractsGenerator.Domain;
-using MyContractsGenerator.Interfaces.InterfacesRepo;
 using MyContractsGenerator.Interfaces.InterfacesServices;
 
 namespace MyContractsGenerator.Business
@@ -15,21 +14,21 @@ namespace MyContractsGenerator.Business
     public class AnswerService : BaseService, IAnswerService
     {
         /// <summary>
-        /// The answer repository
+        ///     The answer repository
         /// </summary>
         private readonly IAnswerRepository answerRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AnswerService"/> class.
+        ///     Initializes a new instance of the <see cref="AnswerService" /> class.
         /// </summary>
         /// <param name="answerRepository">The answer repository.</param>
         public AnswerService(IAnswerRepository answerRepository)
         {
             this.answerRepository = answerRepository;
         }
-        
+
         /// <summary>
-        /// Gets answer by Id
+        ///     Gets answer by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -37,21 +36,21 @@ namespace MyContractsGenerator.Business
         {
             return this.answerRepository.GetById(id);
         }
-        
+
         /// <summary>
-        /// delete logically the answer
+        ///     delete logically the answer
         /// </summary>
         /// <param name="answerId"></param>
         public void DeleteAnswer(int answerId)
         {
             Requires.ArgumentGreaterThanZero(answerId, "Answer Id");
             this.answerRepository.Remove(answerId);
-            
+
             this.answerRepository.SaveChanges();
         }
 
         /// <summary>
-        /// Adds the answer.
+        ///     Adds the answer.
         /// </summary>
         /// <param name="answerToCreate">The answer to create.</param>
         /// <returns></returns>
@@ -59,7 +58,7 @@ namespace MyContractsGenerator.Business
         public answer AddAnswer(answer answerToCreate)
         {
             Requires.ArgumentNotNull(answerToCreate, "answerToCreate");
-            
+
             answer dbAnswer = this.answerRepository.Add(answerToCreate);
             this.answerRepository.SaveChanges();
 
@@ -67,7 +66,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Updates the answer.
+        ///     Updates the answer.
         /// </summary>
         /// <param name="answerToUpdate">The answer to update.</param>
         public void UpdateAnswer(answer answerToUpdate)
@@ -86,7 +85,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Gets all.
+        ///     Gets all.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
@@ -96,7 +95,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Adds the answers.
+        ///     Adds the answers.
         /// </summary>
         /// <param name="answers">The answers.</param>
         /// <exception cref="System.NotImplementedException"></exception>
@@ -104,10 +103,7 @@ namespace MyContractsGenerator.Business
         {
             Requires.ArgumentNotNull(answers, "answers");
 
-            answers.ToList().ForEach(a =>
-            {
-                this.answerRepository.Add(a);
-            });
+            answers.ToList().ForEach(a => { this.answerRepository.Add(a); });
 
             this.answerRepository.SaveChanges();
         }

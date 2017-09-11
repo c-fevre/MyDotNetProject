@@ -1,20 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using MyContractsGenerator.Common.Validation;
-using MyContractsGenerator.Common.I18N;
-using Microsoft.Ajax.Utilities;
 using MyContractsGenerator.Common;
+using MyContractsGenerator.Common.I18N;
 using MyContractsGenerator.Common.PasswordHelper;
 using MyContractsGenerator.Domain;
-using MyContractsGenerator.WebUI.Models.administratorModels;
 using MyContractsGenerator.Interfaces.InterfacesServices;
-using MyContractsGenerator.WebUI.Common;
+using MyContractsGenerator.WebUI.Models.administratorModels;
 
 namespace MyContractsGenerator.WebUI.Controllers
 {
@@ -65,13 +60,13 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return this.View();
             }
 
-
             administrator connectedUser = this.administratorService.GetByEmail(email);
             if (connectedUser == null)
             {
                 this.ModelState.AddModelError("Password", Resources.Login_InvalidUserNameOrPassword);
                 return this.View();
             }
+
             if (connectedUser.password != ShaHashPassword.GetSha256ResultString(password))
             {
                 this.ModelState.AddModelError("Password", Resources.Login_InvalidUserNameOrPassword);
@@ -85,7 +80,9 @@ namespace MyContractsGenerator.WebUI.Controllers
                     new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
                               "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"),
                     new Claim(ClaimTypes.Name, connectedUser.email),
-                    connectedUser.is_super_admin ? new Claim(ClaimTypes.Role, AppConstants.SuperAdminRoleLabel) : new Claim(ClaimTypes.Role, AppConstants.AdminRoleLabel)
+                    connectedUser.is_super_admin
+                        ? new Claim(ClaimTypes.Role, AppConstants.SuperAdminRoleLabel)
+                        : new Claim(ClaimTypes.Role, AppConstants.AdminRoleLabel)
                 };
 
             var ident = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
@@ -94,8 +91,8 @@ namespace MyContractsGenerator.WebUI.Controllers
             //CultureInfo userCulture = CultureInfo.CreateSpecificCulture(connectedUser.applicationlanguage.culturename);
             //AppSession.UserCultureInfo = userCulture;
 
-            this.HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties { IsPersistent = false }, ident);
-
+            this.HttpContext.GetOwinContext().Authentication.SignIn(
+                new AuthenticationProperties { IsPersistent = false }, ident);
 
             return this.RedirectToAction("Index", "Role");
         }

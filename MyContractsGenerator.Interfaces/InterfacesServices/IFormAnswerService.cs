@@ -6,7 +6,7 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
     public interface IFormAnswerService
     {
         /// <summary>
-        /// Gets all.
+        ///     Gets all.
         /// </summary>
         /// <returns></returns>
         IList<form_answer> GetAll();
@@ -25,20 +25,20 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         void DeleteFormAnswer(int formAnswerId);
 
         /// <summary>
-        /// Updates the form_answer.
+        ///     Updates the form_answer.
         /// </summary>
         /// <param name="formAnswerToUpdate">The form_answer to update.</param>
         void UpdateFormAnswer(form_answer formAnswerToUpdate);
 
         /// <summary>
-        /// Adds the form_answer.
+        ///     Adds the form_answer.
         /// </summary>
         /// <param name="formAnswerToCreate">The form_answer to create.</param>
         /// <returns></returns>
         form_answer AddFormAnswer(form_answer formAnswerToCreate);
 
         /// <summary>
-        /// Gets all for collaborator.
+        ///     Gets all for collaborator.
         /// </summary>
         /// <param name="collaboratorId">The collaborator identifier.</param>
         /// <returns></returns>

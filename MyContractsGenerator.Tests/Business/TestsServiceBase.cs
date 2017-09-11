@@ -6,22 +6,22 @@ using MyContractsGenerator.Interfaces.InterfacesServices;
 namespace MyContractsGenerator.Tests.Business
 {
     /// <summary>
-    /// Classe de base pour tests de la couche service
+    ///     Classe de base pour tests de la couche service
     /// </summary>
-    public abstract class TestsServiceBase<TEntity,TService>
-        where TEntity : BaseEntity
-        where TService : IService<TEntity>
+    public abstract class TestsServiceBase<TEntity, TService>
+    where TEntity : BaseEntity
+    where TService : IService<TEntity>
     {
-        protected IUnityContainer unityContainer;
         protected TService service;
+        protected IUnityContainer unityContainer;
 
         /// <summary>
-        /// Initialise Unity pour l'injection de dépendence
+        ///     Initialise Unity pour l'injection de dépendence
         /// </summary>
         protected virtual void Init()
         {
-            unityContainer = UnityConfig.GetConfiguredContainer();
-            service = unityContainer.Resolve<TService>();
+            this.unityContainer = UnityConfig.GetConfiguredContainer();
+            this.service = this.unityContainer.Resolve<TService>();
         }
     }
 }

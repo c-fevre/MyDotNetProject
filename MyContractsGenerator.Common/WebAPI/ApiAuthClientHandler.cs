@@ -22,7 +22,8 @@ namespace MyContractsGenerator.Common.WebAPI
             this.clientKey = clientKey;
         }
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+                                                               CancellationToken cancellationToken)
         {
             ApiAuthorization.SignRequest(this.clientIdentifier, this.clientKey, request);
             return base.SendAsync(request, cancellationToken);

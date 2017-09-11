@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,17 +19,17 @@ namespace MyContractsGenerator.WebUI.Controllers
     public class AdministratorController : BaseController
     {
         /// <summary>
-        /// The administrator service
+        ///     The administrator service
         /// </summary>
         private readonly IAdministratorService administratorService;
 
         /// <summary>
-        /// The administrator service
+        ///     The administrator service
         /// </summary>
         private readonly IMailService mailService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AdministratorController"/> class.
+        ///     Initializes a new instance of the <see cref="AdministratorController" /> class.
         /// </summary>
         /// <param name="administratorService">The administrator service.</param>
         /// <param name="mailService">The mail service.</param>
@@ -52,16 +50,18 @@ namespace MyContractsGenerator.WebUI.Controllers
             this.PopulateAdministratorMainModel(model);
 
             //display a notification if an administrator has been deleted
-            if (this.TempData["DeleteAdministratorId"] == null || (int)this.TempData["DeleteAdministratorId"] <= 0)
+            if (this.TempData["DeleteAdministratorId"] == null || (int) this.TempData["DeleteAdministratorId"] <= 0)
             {
                 return this.View(model);
             }
 
-            administrator deleteAdministrator = this.administratorService.GetAdministratorById((int)this.TempData["DeleteAdministratorId"]);
+            administrator deleteAdministrator =
+                this.administratorService.GetAdministratorById((int) this.TempData["DeleteAdministratorId"]);
             NotificationModel notificationModel = new NotificationModel
             {
                 Title =
-                    string.Format(Resources.Administrator_RemoveNotification_Message, deleteAdministrator.lastname, deleteAdministrator.firstname)
+                    string.Format(Resources.Administrator_RemoveNotification_Message, deleteAdministrator.lastname,
+                                  deleteAdministrator.firstname)
             };
             model.Notifications.Add(notificationModel);
 
@@ -77,8 +77,11 @@ namespace MyContractsGenerator.WebUI.Controllers
             //select by default the element of the list
             if (id == 0)
             {
-                administrator defaultSelectedAdministrator = this.administratorService.GetActiveAdministrators().FirstOrDefault();
-                return defaultSelectedAdministrator == null ? this.RedirectToAction("Index") : this.RedirectToAction("Edit", new { defaultSelectedAdministrator.id });
+                administrator defaultSelectedAdministrator =
+                    this.administratorService.GetActiveAdministrators().FirstOrDefault();
+                return defaultSelectedAdministrator == null
+                    ? this.RedirectToAction("Index")
+                    : this.RedirectToAction("Edit", new { defaultSelectedAdministrator.id });
             }
 
             AdministratorMainModel model = new AdministratorMainModel();
@@ -93,7 +96,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             //display a notification if an administrator has been deleted
-            if (this.TempData["AdministratorCreated"] != null && (bool)this.TempData["AdministratorCreated"])
+            if (this.TempData["AdministratorCreated"] != null && (bool) this.TempData["AdministratorCreated"])
             {
                 this.PushNotification(model,
                                       string.Format(Resources.Administrator_Added,
@@ -103,7 +106,8 @@ namespace MyContractsGenerator.WebUI.Controllers
             else if (this.TempData["NewAdministratorPasswordGenerated"] != null)
             {
                 administrator dbAdministrator =
-                    this.administratorService.GetAdministratorById((int)this.TempData["NewAdministratorPasswordGenerated"]);
+                    this.administratorService.GetAdministratorById(
+                        (int) this.TempData["NewAdministratorPasswordGenerated"]);
                 this.PushNotification(model,
                                       string.Format(Resources.Administrator_NewPasswordGenerated,
                                                     $"{dbAdministrator.firstname} {dbAdministrator.lastname}"),
@@ -126,14 +130,16 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return this.ErrorOnEdit(model);
             }
 
-            administrator existingAdministrator = this.administratorService.GetAdministratorById(model.EditedAdministrator.Id);
+            administrator existingAdministrator =
+                this.administratorService.GetAdministratorById(model.EditedAdministrator.Id);
             if (existingAdministrator == null)
             {
                 return this.ErrorOnEdit(model);
             }
 
             //Verify if the email is already used
-            if (this.administratorService.IsThisEmailAlreadyExists(model.EditedAdministrator.Email, model.EditedAdministrator.Id))
+            if (this.administratorService.IsThisEmailAlreadyExists(model.EditedAdministrator.Email,
+                                                                   model.EditedAdministrator.Id))
             {
                 this.ModelState.AddModelError("EditedAdministrator.Email",
                                               Resources.Administrator_ErrorIncorrectEmailAlreadyUsed);
@@ -147,7 +153,9 @@ namespace MyContractsGenerator.WebUI.Controllers
             //Check infos
             ActionResult actionResult;
             if (this.CheckAdministratorInformations(model, existingAdministrator, out actionResult))
+            {
                 return actionResult;
+            }
 
             this.administratorService.Update(existingAdministrator);
             this.PopulateAdministratorMainModel(model);
@@ -155,16 +163,19 @@ namespace MyContractsGenerator.WebUI.Controllers
             if (model.EditedAdministrator.NewPassword != null &&
                 model.EditedAdministrator.NewPasswordConfirmation != null)
             {
-                this.mailService.SendPasswordChangedAdministrator(existingAdministrator, model.EditedAdministrator.NewPassword);
+                this.mailService.SendPasswordChangedAdministrator(existingAdministrator,
+                                                                  model.EditedAdministrator.NewPassword);
                 if (existingAdministrator.id == this.CurrentUserId)
                 {
-                    this.HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                    this.HttpContext.GetOwinContext().Authentication.SignOut(
+                        DefaultAuthenticationTypes.ApplicationCookie);
                 }
             }
 
             this.PushNotification(model,
                                   string.Format(Resources.Administrator_Edited,
-                                                $"{existingAdministrator.firstname} {existingAdministrator.lastname}"), "success");
+                                                $"{existingAdministrator.firstname} {existingAdministrator.lastname}"),
+                                  "success");
 
             return this.View("MyProfile", model);
         }
@@ -182,14 +193,16 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return this.ErrorOnEdit(model);
             }
 
-            administrator existingAdministrator = this.administratorService.GetAdministratorById(model.EditedAdministrator.Id);
+            administrator existingAdministrator =
+                this.administratorService.GetAdministratorById(model.EditedAdministrator.Id);
             if (existingAdministrator == null)
             {
                 return this.ErrorOnEdit(model);
             }
 
             //Verify if the email is already used
-            if (this.administratorService.IsThisEmailAlreadyExists(model.EditedAdministrator.Email, model.EditedAdministrator.Id))
+            if (this.administratorService.IsThisEmailAlreadyExists(model.EditedAdministrator.Email,
+                                                                   model.EditedAdministrator.Id))
             {
                 this.ModelState.AddModelError("EditedAdministrator.Email",
                                               Resources.Administrator_ErrorIncorrectEmailAlreadyUsed);
@@ -203,7 +216,9 @@ namespace MyContractsGenerator.WebUI.Controllers
             //Check infos
             ActionResult actionResult;
             if (this.CheckAdministratorInformations(model, existingAdministrator, out actionResult))
+            {
                 return actionResult;
+            }
 
             this.administratorService.Update(existingAdministrator);
             this.PopulateAdministratorMainModel(model);
@@ -211,22 +226,25 @@ namespace MyContractsGenerator.WebUI.Controllers
             if (model.EditedAdministrator.NewPassword != null &&
                 model.EditedAdministrator.NewPasswordConfirmation != null)
             {
-                this.mailService.SendPasswordChangedAdministrator(existingAdministrator, model.EditedAdministrator.NewPassword);
+                this.mailService.SendPasswordChangedAdministrator(existingAdministrator,
+                                                                  model.EditedAdministrator.NewPassword);
                 if (existingAdministrator.id == this.CurrentUserId)
                 {
-                    this.HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                    this.HttpContext.GetOwinContext().Authentication.SignOut(
+                        DefaultAuthenticationTypes.ApplicationCookie);
                 }
             }
 
             this.PushNotification(model,
                                   string.Format(Resources.Administrator_Edited,
-                                                $"{existingAdministrator.firstname} {existingAdministrator.lastname}"), "success");
+                                                $"{existingAdministrator.firstname} {existingAdministrator.lastname}"),
+                                  "success");
 
             return this.View(model);
         }
 
         /// <summary>
-        /// Checks the administrator informations.
+        ///     Checks the administrator informations.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <param name="existingAdministrator">The existing administrator.</param>
@@ -237,7 +255,8 @@ namespace MyContractsGenerator.WebUI.Controllers
         {
             actionResult = null;
 
-            if (model.EditedAdministrator.NewPassword != null && model.EditedAdministrator.NewPasswordConfirmation != null &&
+            if (model.EditedAdministrator.NewPassword != null &&
+                model.EditedAdministrator.NewPasswordConfirmation != null &&
                 model.EditedAdministrator.NewPassword != model.EditedAdministrator.NewPasswordConfirmation)
             {
                 this.ModelState.AddModelError("EditedAdministrator.NewPasswordConfirmation",
@@ -277,7 +296,8 @@ namespace MyContractsGenerator.WebUI.Controllers
             if (model.EditedAdministrator.NewPassword != null &&
                 model.EditedAdministrator.NewPasswordConfirmation != null)
             {
-                existingAdministrator.password = ShaHashPassword.GetSha256ResultString(model.EditedAdministrator.NewPassword);
+                existingAdministrator.password =
+                    ShaHashPassword.GetSha256ResultString(model.EditedAdministrator.NewPassword);
             }
             return false;
         }
@@ -304,7 +324,7 @@ namespace MyContractsGenerator.WebUI.Controllers
         {
             Requires.ArgumentNotNull(model, "model");
             Requires.ArgumentNotNull(model.EditedAdministrator.Id, "administratorId");
-            
+
             this.administratorService.ResetPassword(model.EditedAdministrator.Id);
 
             this.TempData["NewAdministratorPasswordGenerated"] = model.EditedAdministrator.Id;

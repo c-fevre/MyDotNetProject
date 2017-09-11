@@ -12,7 +12,7 @@ namespace MyContractsGenerator.Common.Validation
     public static class Requires
     {
         /// <summary>
-        /// Throws exception when Argument is null.
+        ///     Throws exception when Argument is null.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="value">The value.</param>
@@ -26,7 +26,7 @@ namespace MyContractsGenerator.Common.Validation
         }
 
         /// <summary>
-        /// Throws exception when Argument is not greater than zero.
+        ///     Throws exception when Argument is not greater than zero.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="name"></param>
@@ -39,7 +39,7 @@ namespace MyContractsGenerator.Common.Validation
         }
 
         /// <summary>
-        /// Throws exception when String argument is null or empty or white space.
+        ///     Throws exception when String argument is null or empty or white space.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="value">The value.</param>

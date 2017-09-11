@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using MyContractsGenerator.Core.Enum;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.WebUI.Models.FormAnswerModels;
@@ -10,7 +8,6 @@ using MyContractsGenerator.WebUI.Models.QuestionModels;
 namespace MyContractsGenerator.WebUI.Mapping
 {
     /// <summary>
-    /// 
     /// </summary>
     public static class FormAnswerMap
     {
@@ -47,19 +44,18 @@ namespace MyContractsGenerator.WebUI.Mapping
             {
                 if (a.question != null)
                 {
-
                     QuestionModel questionModel = new QuestionModel
                     {
                         Id = a.question_id,
                         Label = a.question.label,
                         Order = a.question.order,
-                        Type = EnumEx.GetValueFromDescription<QuestionType.QuestionTypeEnum>(a.question.question_type.label),
+                        Type =
+                            EnumEx.GetValueFromDescription<QuestionType.QuestionTypeEnum>(a.question.question_type.label),
                         Value = a.answer_value
                     };
                     formAnswerModel.QuestionsAnswers.Add(questionModel);
                 }
             });
-
 
             return formAnswerModel;
         }
@@ -75,16 +71,12 @@ namespace MyContractsGenerator.WebUI.Mapping
 
             if (formAnswers.Any())
             {
-                formAnswers.ToList().ForEach(c =>
-                {
-                    models.Add(MapItem(c));
-                });
+                formAnswers.ToList().ForEach(c => { models.Add(MapItem(c)); });
             }
 
             return models;
         }
 
         #endregion
-
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using MyContractsGenerator.Common.PasswordHelper;
+﻿using System.Collections.Generic;
 using MyContractsGenerator.WebUI.Models.BaseModels;
 using MyContractsGenerator.WebUI.Models.CollaboratorModels;
 using MyContractsGenerator.WebUI.Models.RoleModels;
@@ -12,18 +8,18 @@ namespace MyContractsGenerator.WebUI.Models.FormModels
     public class FormMailingModel : BaseModel
     {
         /// <summary>
-        /// Gets or sets the role.
+        ///     Gets or sets the role.
         /// </summary>
         /// <value>
-        /// The role.
+        ///     The role.
         /// </value>
         public RoleModel Role { get; set; }
 
         /// <summary>
-        /// Gets or sets the collaborators.
+        ///     Gets or sets the collaborators.
         /// </summary>
         /// <value>
-        /// The collaborators.
+        ///     The collaborators.
         /// </value>
         public IList<CollaboratorModel> Collaborators { get; set; }
     }

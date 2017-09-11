@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.WebUI.Models.RoleModels;
@@ -35,7 +33,7 @@ namespace MyContractsGenerator.WebUI.Mapping
         }
 
         /// <summary>
-        /// Maps the items to select list items.
+        ///     Maps the items to select list items.
         /// </summary>
         /// <param name="domains">The domains.</param>
         /// <returns></returns>
@@ -54,6 +52,7 @@ namespace MyContractsGenerator.WebUI.Mapping
 
             return models;
         }
+
         /// <summary>
         ///     Transforms a IEnumerable<roles> to a IEnumerable<RoleModel>
         /// </summary>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using MyContractsGenerator.Common;
@@ -10,7 +9,6 @@ using MyContractsGenerator.Common.PasswordHelper;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.Interfaces.InterfacesServices;
 using MyContractsGenerator.WebUI.Mapping;
-using MyContractsGenerator.WebUI.Models.FormAnswerModels;
 using MyContractsGenerator.WebUI.Models.FormModels;
 using MyContractsGenerator.WebUI.Models.NotificationModels;
 using WebGrease.Css.Extensions;
@@ -21,39 +19,41 @@ namespace MyContractsGenerator.WebUI.Controllers
     public class FormController : BaseController
     {
         /// <summary>
-        /// The collaborator service
+        ///     The collaborator service
         /// </summary>
         private readonly ICollaboratorService collaboratorService;
 
         /// <summary>
-        /// The collaborator service
+        ///     The collaborator service
         /// </summary>
         private readonly IFormAnswerService formAnswerService;
 
         /// <summary>
-        /// The role service
-        /// </summary>
-        private readonly IRoleService roleService;
-
-        /// <summary>
-        /// The question service
-        /// </summary>
-        private readonly IQuestionService questionService;
-
-        /// <summary>
-        /// The mail service
+        ///     The mail service
         /// </summary>
         private readonly IMailService mailService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FormController"/> class.
+        ///     The question service
+        /// </summary>
+        private readonly IQuestionService questionService;
+
+        /// <summary>
+        ///     The role service
+        /// </summary>
+        private readonly IRoleService roleService;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="FormController" /> class.
         /// </summary>
         /// <param name="collaboratorService">The collaborator service.</param>
         /// <param name="roleService">The role service.</param>
         /// <param name="formAnswerService">The form answer service.</param>
         /// <param name="questionService">The question service.</param>
         /// <param name="mailService">The mail service.</param>
-        public FormController(ICollaboratorService collaboratorService, IRoleService roleService, IFormAnswerService formAnswerService, IQuestionService questionService, IMailService mailService)
+        public FormController(ICollaboratorService collaboratorService, IRoleService roleService,
+                              IFormAnswerService formAnswerService, IQuestionService questionService,
+                              IMailService mailService)
         {
             this.collaboratorService = collaboratorService;
             this.roleService = roleService;
@@ -73,7 +73,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return this.View(model);
             }
 
-            collaborator collab = this.collaboratorService.GetById((int)this.TempData["MailedCollaboratorId"]);
+            collaborator collab = this.collaboratorService.GetById((int) this.TempData["MailedCollaboratorId"]);
             NotificationModel notificationModel = new NotificationModel
             {
                 Title =
@@ -95,15 +95,17 @@ namespace MyContractsGenerator.WebUI.Controllers
         {
             int adminId = Convert.ToInt32(this.User.Identity.GetUserId());
             collaborator mailTarget = this.collaboratorService.GetById(collaboratorId);
-            form_answer lastFormAnswer = mailTarget.form_answer.Where(fa => !fa.replied).FirstOrDefault(fa=> fa.role.id.Equals(roleId));
+            form_answer lastFormAnswer =
+                mailTarget.form_answer.Where(fa => !fa.replied).FirstOrDefault(fa => fa.role.id.Equals(roleId));
 
             if (lastFormAnswer != null)
             {
                 string formUrl =
-                        $"{GlobalAppSettings.ApplicationBaseUrl}{this.Url.Action("WhoAreYou", "CollaboratorForm", new { c = ShaHashPassword.GetSha256ResultString(mailTarget.id.ToString()), fa = ShaHashPassword.GetSha256ResultString(lastFormAnswer.id.ToString()) })}";
+                    $"{GlobalAppSettings.ApplicationBaseUrl}{this.Url.Action("WhoAreYou", "CollaboratorForm", new { c = ShaHashPassword.GetSha256ResultString(mailTarget.id.ToString()), fa = ShaHashPassword.GetSha256ResultString(lastFormAnswer.id.ToString()) })}";
 
                 lastFormAnswer.password = PasswordGenerator.GeneratePassword(8, 4);
-                this.mailService.SendFormToCollaborator(mailTarget, formUrl, adminId, lastFormAnswer.password,lastFormAnswer.last_collaborator_mail_time);
+                this.mailService.SendFormToCollaborator(mailTarget, formUrl, adminId, lastFormAnswer.password,
+                                                        lastFormAnswer.last_collaborator_mail_time);
 
                 lastFormAnswer.password = ShaHashPassword.GetSha256ResultString(lastFormAnswer.password);
                 lastFormAnswer.last_update = DateTime.Now;
@@ -129,7 +131,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             role linkedRole = this.roleService.GetById(roleId);
 
             string tempPassword = PasswordGenerator.GeneratePassword(8, 4);
-            
+
             // TODO Check information, Dynamic forms
             form_answer newFormAnswer = new form_answer
             {
@@ -146,10 +148,10 @@ namespace MyContractsGenerator.WebUI.Controllers
             form_answer dbFormAnswer = this.formAnswerService.AddFormAnswer(newFormAnswer);
 
             string formUrl =
-                    $"{GlobalAppSettings.ApplicationBaseUrl}{this.Url.Action("WhoAreYou", "CollaboratorForm", new { c = ShaHashPassword.GetSha256ResultString(mailTarget.id.ToString()), fa = ShaHashPassword.GetSha256ResultString(dbFormAnswer.id.ToString()) })}";
+                $"{GlobalAppSettings.ApplicationBaseUrl}{this.Url.Action("WhoAreYou", "CollaboratorForm", new { c = ShaHashPassword.GetSha256ResultString(mailTarget.id.ToString()), fa = ShaHashPassword.GetSha256ResultString(dbFormAnswer.id.ToString()) })}";
 
             this.mailService.SendFormToCollaborator(mailTarget, formUrl, adminId, tempPassword, DateTime.MinValue);
-            
+
             this.TempData["MailedCollaboratorId"] = collaboratorId;
 
             return this.RedirectToAction("Index");
@@ -170,7 +172,7 @@ namespace MyContractsGenerator.WebUI.Controllers
         }
 
         /// <summary>
-        /// Populates the answers model.
+        ///     Populates the answers model.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <param name="collaboratorId">The collaborator identifier.</param>
@@ -179,7 +181,8 @@ namespace MyContractsGenerator.WebUI.Controllers
         {
             collaborator collab = this.collaboratorService.GetById(collaboratorId);
             role role = this.roleService.GetById(roleId);
-            IList<form_answer> collabFormAnswers = this.formAnswerService.GetAllForCollaboratorAndRole(collaboratorId, roleId);
+            IList<form_answer> collabFormAnswers = this.formAnswerService.GetAllForCollaboratorAndRole(collaboratorId,
+                                                                                                       roleId);
 
             model.Collaborator = CollaboratorMap.MapItem(collab);
             model.FormAnswers = FormAnswerMap.MapItems(collabFormAnswers);
@@ -187,7 +190,7 @@ namespace MyContractsGenerator.WebUI.Controllers
         }
 
         /// <summary>
-        /// Populates the form main model.
+        ///     Populates the form main model.
         /// </summary>
         /// <param name="model">The model.</param>
         private void PopulateFormMainModel(FormMainModel model)

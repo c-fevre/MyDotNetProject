@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MyContractsGenerator.Interfaces.InterfacesRepo;
 
 namespace MyContractsGenerator.DAL

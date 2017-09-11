@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using MyContractsGenerator.DAL;
 using MyContractsGenerator.Domain;
 
 namespace MyContractsGenerator.Interfaces.InterfacesServices
@@ -55,19 +54,19 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         void ResetPassword(int passwordOwneradministratorId);
 
         /// <summary>
-        /// Updates the administrator.
+        ///     Updates the administrator.
         /// </summary>
         /// <param name="administratorToUpdate">The administrator to update.</param>
         void Update(administrator administratorToUpdate);
 
         /// <summary>
-        /// Deletes the specified administrator identifier.
+        ///     Deletes the specified administrator identifier.
         /// </summary>
         /// <param name="administratorId">The administrator identifier.</param>
         void Delete(int administratorId);
 
         /// <summary>
-        /// Adds the specified administrator to create.
+        ///     Adds the specified administrator to create.
         /// </summary>
         /// <param name="administratorToCreate">The administrator to create.</param>
         /// <returns></returns>

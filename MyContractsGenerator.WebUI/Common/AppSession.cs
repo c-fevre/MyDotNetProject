@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Web;
 using MyContractsGenerator.WebUI.Models.NotificationModels;
@@ -11,13 +10,12 @@ namespace MyContractsGenerator.WebUI.Common
     /// </summary>
     public static class AppSession
     {
-
         /// <summary>
         ///     List of userNotifications
         /// </summary>
         public static List<UserNotificationModel> UserNotifications
         {
-            get { return GetWithDefault("UserNotifications", (List<UserNotificationModel>)null); }
+            get { return GetWithDefault("UserNotifications", (List<UserNotificationModel>) null); }
             set { SetValue("UserNotifications", value); }
         }
 
@@ -37,7 +35,7 @@ namespace MyContractsGenerator.WebUI.Common
                 return defaultValue;
             }
 
-            return (T)HttpContext.Current.Session[name];
+            return (T) HttpContext.Current.Session[name];
         }
 
         private static void SetValue(string name, object value)

@@ -6,11 +6,12 @@
 // </summary>
 //------------------------------------------------------------------------------
 using System.Linq;
-using System.Web.Mvc;
 using System.Web.Http;
+using System.Web.Mvc;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(MyContractsGenerator.Core.Unity.UnityWebActivator), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(MyContractsGenerator.Core.Unity.UnityWebActivator), "Shutdown")]
+[assembly:
+    WebActivatorEx.ApplicationShutdownMethod(typeof(MyContractsGenerator.Core.Unity.UnityWebActivator), "Shutdown")]
 
 namespace MyContractsGenerator.Core.Unity
 {
@@ -18,7 +19,7 @@ namespace MyContractsGenerator.Core.Unity
     public static class UnityWebActivator
     {
         /// <summary>Integrates Unity when the application starts.</summary>
-        public static void Start() 
+        public static void Start()
         {
             var container = UnityConfig.GetConfiguredContainer(true);
 
@@ -26,7 +27,8 @@ namespace MyContractsGenerator.Core.Unity
             FilterProviders.Providers.Add(new Microsoft.Practices.Unity.Mvc.UnityFilterAttributeFilterProvider(container));
 
             DependencyResolver.SetResolver(new Microsoft.Practices.Unity.Mvc.UnityDependencyResolver(container));
-            GlobalConfiguration.Configuration.DependencyResolver = new global::Unity.WebApi.UnityDependencyResolver(container);
+            GlobalConfiguration.Configuration.DependencyResolver =
+                new global::Unity.WebApi.UnityDependencyResolver(container);
 
             // TODO: Uncomment if you want to use PerRequestLifetimeManager
             // Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(UnityPerRequestHttpModule));

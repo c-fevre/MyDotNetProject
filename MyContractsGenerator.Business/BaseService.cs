@@ -9,7 +9,7 @@
 namespace MyContractsGenerator.Business
 {
     /// <summary>
-    /// Classe de base pour les services
+    ///     Classe de base pour les services
     /// </summary>
     public class BaseService
     {

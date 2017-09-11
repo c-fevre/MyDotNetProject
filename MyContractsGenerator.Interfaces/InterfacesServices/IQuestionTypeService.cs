@@ -6,7 +6,7 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
     public interface IQuestionTypeService
     {
         /// <summary>
-        /// Gets all.
+        ///     Gets all.
         /// </summary>
         /// <returns></returns>
         IList<question_type> GetAll();
@@ -25,13 +25,13 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         void DeleteQuestionType(int question_typeId);
 
         /// <summary>
-        /// Updates the question_type.
+        ///     Updates the question_type.
         /// </summary>
         /// <param name="question_typeToUpdate">The question_type to update.</param>
         void UpdateQuestionType(question_type question_typeToUpdate);
 
         /// <summary>
-        /// Adds the question_type.
+        ///     Adds the question_type.
         /// </summary>
         /// <param name="question_typeToCreate">The question_type to create.</param>
         /// <returns></returns>

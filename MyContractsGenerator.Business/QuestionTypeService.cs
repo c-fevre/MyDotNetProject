@@ -3,7 +3,6 @@ using System.Linq;
 using MyContractsGenerator.Common.Validation;
 using MyContractsGenerator.DAL.Repositories;
 using MyContractsGenerator.Domain;
-using MyContractsGenerator.Interfaces.InterfacesRepo;
 using MyContractsGenerator.Interfaces.InterfacesServices;
 
 namespace MyContractsGenerator.Business
@@ -15,21 +14,21 @@ namespace MyContractsGenerator.Business
     public class QuestionTypeService : BaseService, IQuestionTypeService
     {
         /// <summary>
-        /// The questionType repository
+        ///     The questionType repository
         /// </summary>
         private readonly IQuestionTypeRepository questionTypeRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuestionTypeService"/> class.
+        ///     Initializes a new instance of the <see cref="QuestionTypeService" /> class.
         /// </summary>
         /// <param name="questionTypeRepository">The questionType repository.</param>
         public QuestionTypeService(IQuestionTypeRepository questionTypeRepository)
         {
             this.questionTypeRepository = questionTypeRepository;
         }
-        
+
         /// <summary>
-        /// Gets questionType by Id
+        ///     Gets questionType by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -37,21 +36,21 @@ namespace MyContractsGenerator.Business
         {
             return this.questionTypeRepository.GetById(id);
         }
-        
+
         /// <summary>
-        /// delete logically the questionType
+        ///     delete logically the questionType
         /// </summary>
         /// <param name="questionTypeId"></param>
         public void DeleteQuestionType(int questionTypeId)
         {
             Requires.ArgumentGreaterThanZero(questionTypeId, "QuestionType Id");
             this.questionTypeRepository.Remove(questionTypeId);
-            
+
             this.questionTypeRepository.SaveChanges();
         }
 
         /// <summary>
-        /// Adds the questionType.
+        ///     Adds the questionType.
         /// </summary>
         /// <param name="questionTypeToCreate">The questionType to create.</param>
         /// <returns></returns>
@@ -67,7 +66,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Updates the questionType.
+        ///     Updates the questionType.
         /// </summary>
         /// <param name="questionTypeToUpdate">The questionType to update.</param>
         public void UpdateQuestionType(question_type questionTypeToUpdate)
@@ -86,7 +85,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Gets all.
+        ///     Gets all.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>

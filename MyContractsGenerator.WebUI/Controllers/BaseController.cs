@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using MyContractsGenerator.Common.Validation;
 using MyContractsGenerator.WebUI.Common;
-using MyContractsGenerator.WebUI.Models;
 using MyContractsGenerator.WebUI.Models.BaseModels;
 using MyContractsGenerator.WebUI.Models.NotificationModels;
 
@@ -37,10 +33,10 @@ namespace MyContractsGenerator.WebUI.Controllers
             var res = filterContext.Result;
             if (res is ViewResult)
             {
-                var model = ((ViewResult)res).Model;
+                var model = ((ViewResult) res).Model;
                 if (model is BaseModel)
                 {
-                    var baseModel = (BaseModel)model;
+                    var baseModel = (BaseModel) model;
 
                     if (AppSession.UserNotifications != null)
                     {
@@ -65,7 +61,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             //Add the notification
-            ((List<NotificationModel>)this.TempData["Notifications"]).Add(notificationToAdd);
+            ((List<NotificationModel>) this.TempData["Notifications"]).Add(notificationToAdd);
         }
 
         /// <summary>
@@ -81,7 +77,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             //Add the notification
-            ((List<UserNotificationModel>)this.Session["UserNotifications"]).Add(userNotificationToAdd);
+            ((List<UserNotificationModel>) this.Session["UserNotifications"]).Add(userNotificationToAdd);
         }
 
         /// <summary>
@@ -168,7 +164,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
             else
             {
-                model.Notifications = (List<NotificationModel>)this.TempData["Notifications"];
+                model.Notifications = (List<NotificationModel>) this.TempData["Notifications"];
             }
         }
     }

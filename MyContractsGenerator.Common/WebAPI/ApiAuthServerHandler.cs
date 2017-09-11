@@ -14,7 +14,8 @@ namespace MyContractsGenerator.Common.WebAPI
 {
     public class ApiAuthServerHandler : DelegatingHandler
     {
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+                                                                     CancellationToken cancellationToken)
         {
             bool requestIsValid = ApiAuthorization.CheckRequest(request, this.GetClientKey);
 
@@ -34,8 +35,10 @@ namespace MyContractsGenerator.Common.WebAPI
         {
             switch (clientIdentifier)
             {
-                case "theid": return new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
-                default: return null;
+                case "theid":
+                    return new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+                default:
+                    return null;
             }
         }
     }

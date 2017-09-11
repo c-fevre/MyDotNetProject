@@ -1,36 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using MyContractsGenerator.Common.I18N;
 using MyContractsGenerator.WebUI.Models.BaseModels;
-using MyContractsGenerator.WebUI.Models.FormAnswerModels;
-using MyContractsGenerator.WebUI.Models.RoleModels;
 
 namespace MyContractsGenerator.WebUI.Models.AdministratorModels
 {
     public class AdministratorModel : BaseModel
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        ///     Gets or sets the identifier.
         /// </summary>
         /// <value>
-        /// The identifier.
+        ///     The identifier.
         /// </value>
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the organization identifier.
+        ///     Gets or sets the organization identifier.
         /// </summary>
         /// <value>
-        /// The organization identifier.
+        ///     The organization identifier.
         /// </value>
         public int OrganizationId { get; set; }
 
         /// <summary>
-        /// Gets or sets the last name.
+        ///     Gets or sets the last name.
         /// </summary>
         /// <value>
-        /// The last name.
+        ///     The last name.
         /// </value>
         [Required(ErrorMessageResourceName = "Shared_RequiredField", ErrorMessageResourceType = typeof(Resources))]
         [Display(Name = "Administrator_LastName", ResourceType = typeof(Resources))]
@@ -39,10 +35,10 @@ namespace MyContractsGenerator.WebUI.Models.AdministratorModels
         public string LastName { get; set; }
 
         /// <summary>
-        /// Gets or sets the first name.
+        ///     Gets or sets the first name.
         /// </summary>
         /// <value>
-        /// The first name.
+        ///     The first name.
         /// </value>
         [Required(ErrorMessageResourceName = "Shared_RequiredField", ErrorMessageResourceType = typeof(Resources))]
         [Display(Name = "Administrator_FirstName", ResourceType = typeof(Resources))]
@@ -51,10 +47,10 @@ namespace MyContractsGenerator.WebUI.Models.AdministratorModels
         public string FirstName { get; set; }
 
         /// <summary>
-        /// Gets or sets the email.
+        ///     Gets or sets the email.
         /// </summary>
         /// <value>
-        /// The email.
+        ///     The email.
         /// </value>
         [Required(ErrorMessageResourceName = "Shared_RequiredField", ErrorMessageResourceType = typeof(Resources))]
         [Display(Name = "Administrator_Email", ResourceType = typeof(Resources))]
@@ -65,27 +61,27 @@ namespace MyContractsGenerator.WebUI.Models.AdministratorModels
         public string Email { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is active.
+        ///     Gets or sets a value indicating whether this instance is active.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance is active; otherwise, <c>false</c>.
         /// </value>
         public bool IsActive { get; set; }
 
         /// <summary>
-        /// Gets or sets the current password.
+        ///     Gets or sets the current password.
         /// </summary>
         /// <value>
-        /// The current password.
+        ///     The current password.
         /// </value>
         [Display(Name = "Administrator_CurrentPassword", ResourceType = typeof(Resources))]
         public string CurrentPassword { get; set; }
 
         /// <summary>
-        /// Gets or sets the reset password.
+        ///     Gets or sets the reset password.
         /// </summary>
         /// <value>
-        /// The reset password.
+        ///     The reset password.
         /// </value>
         [Display(Name = "Administrator_NewPassword", ResourceType = typeof(Resources))]
         [StringLength(40, MinimumLength = 4, ErrorMessageResourceName = "Shared_MessageError_MinAndMaxLength",
@@ -93,16 +89,14 @@ namespace MyContractsGenerator.WebUI.Models.AdministratorModels
         public string NewPassword { get; set; }
 
         /// <summary>
-        /// Gets or sets the reset password confirmation.
+        ///     Gets or sets the reset password confirmation.
         /// </summary>
         /// <value>
-        /// The reset password confirmation.
+        ///     The reset password confirmation.
         /// </value>
         [Display(Name = "Administrator_NewPasswordConfirmation", ResourceType = typeof(Resources))]
         [StringLength(40, MinimumLength = 4, ErrorMessageResourceName = "Shared_MessageError_MinAndMaxLength",
             ErrorMessageResourceType = typeof(Resources))]
         public string NewPasswordConfirmation { get; set; }
-
-
     }
 }

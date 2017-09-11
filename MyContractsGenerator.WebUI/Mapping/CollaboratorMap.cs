@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
-using System.Web;
-using MyContractsGenerator.Common.PasswordHelper;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.WebUI.Models.CollaboratorModels;
-using MyContractsGenerator.WebUI.Models.FormAnswerModels;
-using WebGrease.Css.Extensions;
 
 namespace MyContractsGenerator.WebUI.Mapping
 {
@@ -34,9 +28,9 @@ namespace MyContractsGenerator.WebUI.Mapping
                 FirstName = collaborator.firstname,
                 Email = collaborator.email,
                 IsActive = collaborator.active,
-                LinkedRolesIds = RoleMap.MapItems(collaborator.roles).Select(r => r.Id).ToList(),
+                LinkedRolesIds = RoleMap.MapItems(collaborator.roles).Select(r => r.Id).ToList()
             };
-            
+
             return collaboratorModel;
         }
 
@@ -51,10 +45,7 @@ namespace MyContractsGenerator.WebUI.Mapping
 
             if (collaborators.Any())
             {
-                collaborators.ToList().ForEach(c =>
-                {
-                    models.Add(MapItem(c));
-                });
+                collaborators.ToList().ForEach(c => { models.Add(MapItem(c)); });
             }
 
             return models;

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using MyContractsGenerator.WebUI.Models.BaseModels;
 
 namespace MyContractsGenerator.WebUI.Models.RoleModels
@@ -9,18 +6,18 @@ namespace MyContractsGenerator.WebUI.Models.RoleModels
     public class RoleMainModel : BaseModel
     {
         /// <summary>
-        /// Gets or sets the roles.
+        ///     Gets or sets the roles.
         /// </summary>
         /// <value>
-        /// The roles.
+        ///     The roles.
         /// </value>
         public IList<RoleModel> Roles { get; set; }
 
         /// <summary>
-        /// Gets or sets the edited role.
+        ///     Gets or sets the edited role.
         /// </summary>
         /// <value>
-        /// The edited role.
+        ///     The edited role.
         /// </value>
         public RoleModel EditedRole { get; set; }
     }

@@ -2,6 +2,7 @@
 using System.Linq;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.WebUI.Models.AdministratorModels;
+
 namespace MyContractsGenerator.WebUI.Mapping
 {
     public static class AdministratorMap
@@ -28,9 +29,8 @@ namespace MyContractsGenerator.WebUI.Mapping
                 Email = administrator.email,
                 IsActive = administrator.active,
                 OrganizationId = administrator.organization_id
-                
             };
-            
+
             return administratorModel;
         }
 
@@ -45,10 +45,7 @@ namespace MyContractsGenerator.WebUI.Mapping
 
             if (administrators.Any())
             {
-                administrators.ToList().ForEach(c =>
-                {
-                    models.Add(MapItem(c));
-                });
+                administrators.ToList().ForEach(c => { models.Add(MapItem(c)); });
             }
 
             return models;

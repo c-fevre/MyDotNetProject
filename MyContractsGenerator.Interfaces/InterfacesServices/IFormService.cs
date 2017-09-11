@@ -6,7 +6,7 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
     public interface IFormService
     {
         /// <summary>
-        /// Gets all.
+        ///     Gets all.
         /// </summary>
         /// <returns></returns>
         IList<form> GetAll();
@@ -25,13 +25,13 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         void DeleteForm(int formId);
 
         /// <summary>
-        /// Updates the form.
+        ///     Updates the form.
         /// </summary>
         /// <param name="formToUpdate">The form to update.</param>
         void UpdateForm(form formToUpdate);
 
         /// <summary>
-        /// Adds the form.
+        ///     Adds the form.
         /// </summary>
         /// <param name="formToCreate">The form to create.</param>
         /// <returns></returns>

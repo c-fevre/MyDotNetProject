@@ -14,13 +14,13 @@ namespace MyContractsGenerator.DAL.Repositories
         new question GetById(int id);
 
         /// <summary>
-        /// Gets all.
+        ///     Gets all.
         /// </summary>
         /// <returns></returns>
         IEnumerable<question> GetAll();
 
         /// <summary>
-        /// Gets all by form identifier.
+        ///     Gets all by form identifier.
         /// </summary>
         /// <param name="formId">The form identifier.</param>
         /// <returns></returns>

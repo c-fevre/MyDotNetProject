@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using MyContractsGenerator.Interfaces.InterfacesRepo;
 using MyContractsGenerator.Domain;
+using MyContractsGenerator.Interfaces.InterfacesRepo;
 
 namespace MyContractsGenerator.DAL.Repositories
 {
@@ -17,22 +16,22 @@ namespace MyContractsGenerator.DAL.Repositories
         }
 
         /// <summary>
-        /// Get an entity by identifier
+        ///     Get an entity by identifier
         /// </summary>
         /// <param name="id">the identifier</param>
         /// <returns>
-        /// the entity or null
+        ///     the entity or null
         /// </returns>
         answer IBaseRepository<answer>.GetById(int id)
         {
             return this.Table
-                .Include(d => d.question)
-                .Include(d => d.form_answer)
-                .SingleOrDefault(d => d.id == id);
+                       .Include(d => d.question)
+                       .Include(d => d.form_answer)
+                       .SingleOrDefault(d => d.id == id);
         }
 
         /// <summary>
-        /// Gets all.
+        ///     Gets all.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<answer> GetAll()

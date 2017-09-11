@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using MyContractsGenerator.Common.Validation;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.Interfaces.InterfacesRepo;
@@ -15,27 +14,28 @@ namespace MyContractsGenerator.Business
     public class CollaboratorService : BaseService, ICollaboratorService
     {
         /// <summary>
-        /// The collaborator repository
+        ///     The collaborator repository
         /// </summary>
         private readonly ICollaboratorRepository collaboratorRepository;
 
         /// <summary>
-        /// The mail service
+        ///     The mail service
         /// </summary>
         private readonly IMailService mailService;
 
         /// <summary>
-        /// The role service
+        ///     The role service
         /// </summary>
         private readonly IRoleService roleService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CollaboratorService"/> class.
+        ///     Initializes a new instance of the <see cref="CollaboratorService" /> class.
         /// </summary>
         /// <param name="collaboratorRepository">The collaborator repository.</param>
         /// <param name="mailService">The mail service.</param>
         /// <param name="roleService">The role service.</param>
-        public CollaboratorService(ICollaboratorRepository collaboratorRepository, IMailService mailService, IRoleService roleService)
+        public CollaboratorService(ICollaboratorRepository collaboratorRepository, IMailService mailService,
+                                   IRoleService roleService)
         {
             this.collaboratorRepository = collaboratorRepository;
             this.mailService = mailService;
@@ -43,7 +43,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Gets administrator by login
+        ///     Gets administrator by login
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
@@ -53,7 +53,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Gets administrator by Id
+        ///     Gets administrator by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -63,11 +63,11 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Check if this email is already used be an active administrator
+        ///     Check if this email is already used be an active administrator
         /// </summary>
         /// <param name="email"></param>
         /// <returns>
-        /// true: this email is already used be an active administrator
+        ///     true: this email is already used be an active administrator
         /// </returns>
         public bool IsThisEmailAlreadyExists(string email)
         {
@@ -75,12 +75,12 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Determines whether [is this email already exists] [the specified email address].
+        ///     Determines whether [is this email already exists] [the specified email address].
         /// </summary>
         /// <param name="email">The email address.</param>
         /// <param name="currentCollaboratorId">The identifier.</param>
         /// <returns>
-        /// <c>true</c> if [is this email already exists] [the specified email address]; otherwise, <c>false</c>.
+        ///     <c>true</c> if [is this email already exists] [the specified email address]; otherwise, <c>false</c>.
         /// </returns>
         /// <exception cref="System.NotImplementedException"></exception>
         public bool IsThisEmailAlreadyExists(string email, int currentCollaboratorId)
@@ -101,7 +101,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// delete logically the user
+        ///     delete logically the user
         /// </summary>
         /// <param name="collaboratorId"></param>
         public void DeleteCollaborator(int collaboratorId)
@@ -114,12 +114,12 @@ namespace MyContractsGenerator.Business
             //Desaffect all collaborators
             IEnumerable<int> emptyRoleList = new List<int>();
             this.roleService.AffectToRole(emptyRoleList, dbCollaborator.id);
-            
+
             this.collaboratorRepository.SaveChanges();
         }
 
         /// <summary>
-        /// Adds the collaborator.
+        ///     Adds the collaborator.
         /// </summary>
         /// <param name="collaboratorToCreate">The collaborator to create.</param>
         /// <returns></returns>
@@ -137,7 +137,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Updates the collaborator.
+        ///     Updates the collaborator.
         /// </summary>
         /// <param name="collaboratorToUpdate">The collaborator to update.</param>
         public void UpdateCollaborator(collaborator collaboratorToUpdate)
@@ -151,7 +151,7 @@ namespace MyContractsGenerator.Business
             dbUser.email = collaboratorToUpdate.email;
             dbUser.firstname = collaboratorToUpdate.firstname;
             dbUser.lastname = collaboratorToUpdate.lastname;
-            
+
             this.collaboratorRepository.Update(dbUser);
             this.collaboratorRepository.SaveChanges();
         }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using MyContractsGenerator.DAL;
+﻿using System.Collections.Generic;
 using MyContractsGenerator.Domain;
 
 namespace MyContractsGenerator.Interfaces.InterfacesRepo
@@ -26,6 +24,5 @@ namespace MyContractsGenerator.Interfaces.InterfacesRepo
         /// </summary>
         /// <returns></returns>
         IList<administrator> GetActiveAdministrators();
-        
     }
 }

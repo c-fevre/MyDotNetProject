@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MyContractsGenerator.Common.PasswordHelper;
 using MyContractsGenerator.Common.Validation;
 using MyContractsGenerator.Domain;
@@ -13,8 +10,8 @@ namespace MyContractsGenerator.Business
 {
     public class AdministratorService : BaseService, IAdministratorService
     {
-        private readonly IMailService mailService;
         private readonly IAdministratorRepository administratorRepository;
+        private readonly IMailService mailService;
 
         /// <summary>
         ///     Constructor
@@ -66,7 +63,7 @@ namespace MyContractsGenerator.Business
         {
             return this.administratorRepository.GetActiveAdministrators();
         }
-        
+
         /// <summary>
         ///     Gets administrator by Id
         /// </summary>
@@ -145,7 +142,8 @@ namespace MyContractsGenerator.Business
         /// <returns>true: this email is already used be an active administrator</returns>
         public bool IsThisEmailAlreadyExists(string email)
         {
-            IList<administrator> administrators = this.administratorRepository.GetActiveAdministrators().Where(a => a.email.Equals(email)).ToList();
+            IList<administrator> administrators =
+                this.administratorRepository.GetActiveAdministrators().Where(a => a.email.Equals(email)).ToList();
             return !(administrators == null || administrators.Count == 0);
         }
 
@@ -161,7 +159,6 @@ namespace MyContractsGenerator.Business
 
             return administrators.Any(administrator => administrator.id != administratorId);
         }
-        
 
         /// <summary>
         ///     Reset administrator password and send the generated password by mail

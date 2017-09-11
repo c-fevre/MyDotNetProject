@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using MyContractsGenerator.Common.I18N;
 using MyContractsGenerator.WebUI.Models.BaseModels;
 using MyContractsGenerator.WebUI.Models.FormAnswerModels;
-using MyContractsGenerator.WebUI.Models.RoleModels;
 
 namespace MyContractsGenerator.WebUI.Models.CollaboratorModels
 {
     public class CollaboratorModel : BaseModel
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        ///     Gets or sets the identifier.
         /// </summary>
         /// <value>
-        /// The identifier.
+        ///     The identifier.
         /// </value>
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the last name.
+        ///     Gets or sets the last name.
         /// </summary>
         /// <value>
-        /// The last name.
+        ///     The last name.
         /// </value>
         [Required(ErrorMessageResourceName = "Shared_RequiredField", ErrorMessageResourceType = typeof(Resources))]
         [Display(Name = "Collaborator_LastName", ResourceType = typeof(Resources))]
@@ -31,10 +29,10 @@ namespace MyContractsGenerator.WebUI.Models.CollaboratorModels
         public string LastName { get; set; }
 
         /// <summary>
-        /// Gets or sets the first name.
+        ///     Gets or sets the first name.
         /// </summary>
         /// <value>
-        /// The first name.
+        ///     The first name.
         /// </value>
         [Required(ErrorMessageResourceName = "Shared_RequiredField", ErrorMessageResourceType = typeof(Resources))]
         [Display(Name = "Collaborator_FirstName", ResourceType = typeof(Resources))]
@@ -43,10 +41,10 @@ namespace MyContractsGenerator.WebUI.Models.CollaboratorModels
         public string FirstName { get; set; }
 
         /// <summary>
-        /// Gets or sets the email.
+        ///     Gets or sets the email.
         /// </summary>
         /// <value>
-        /// The email.
+        ///     The email.
         /// </value>
         [Required(ErrorMessageResourceName = "Shared_RequiredField", ErrorMessageResourceType = typeof(Resources))]
         [Display(Name = "Collaborator_Email", ResourceType = typeof(Resources))]
@@ -57,29 +55,28 @@ namespace MyContractsGenerator.WebUI.Models.CollaboratorModels
         public string Email { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is active.
+        ///     Gets or sets a value indicating whether this instance is active.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance is active; otherwise, <c>false</c>.
         /// </value>
         public bool IsActive { get; set; }
 
         /// <summary>
-        /// Gets or sets the linked roles.
+        ///     Gets or sets the linked roles.
         /// </summary>
         /// <value>
-        /// The linked roles.
+        ///     The linked roles.
         /// </value>
         [Display(Name = "Collaborator_Role", ResourceType = typeof(Resources))]
         public IEnumerable<int> LinkedRolesIds { get; set; }
 
         /// <summary>
-        /// Gets or sets the form answers.
+        ///     Gets or sets the form answers.
         /// </summary>
         /// <value>
-        /// The form answers.
+        ///     The form answers.
         /// </value>
-        public IList<FormAnswerModel> FormAnswers{ get; set; }
-
+        public IList<FormAnswerModel> FormAnswers { get; set; }
     }
 }

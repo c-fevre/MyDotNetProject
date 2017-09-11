@@ -1,6 +1,6 @@
-﻿using MyContractsGenerator.Common.WebAPI;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Web.Http;
+using MyContractsGenerator.Common.WebAPI;
 
 namespace MyContractsGenerator.WebAPI
 {

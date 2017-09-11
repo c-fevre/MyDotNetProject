@@ -9,7 +9,7 @@ namespace MyContractsGenerator.Common
         {
             get { return Get<int>("ImageUploadMinSizeBytes"); }
         }
-        
+
         public static int ImageUploadMaxSizeBytes
         {
             get { return Get<int>("ImageUploadMaxSizeBytes"); }
@@ -34,7 +34,7 @@ namespace MyContractsGenerator.Common
                 throw new ApplicationException(string.Format("AppSetting {0} absent", name));
             }
 
-            return (T)Convert.ChangeType(ConfigurationManager.AppSettings[name], typeof(T));
+            return (T) Convert.ChangeType(ConfigurationManager.AppSettings[name], typeof(T));
         }
 
         private static T GetWithDefault<T>(string name, T defaultValue)
@@ -44,7 +44,7 @@ namespace MyContractsGenerator.Common
                 return defaultValue;
             }
 
-            return (T)Convert.ChangeType(ConfigurationManager.AppSettings[name], typeof(T));
+            return (T) Convert.ChangeType(ConfigurationManager.AppSettings[name], typeof(T));
         }
 
         #endregion

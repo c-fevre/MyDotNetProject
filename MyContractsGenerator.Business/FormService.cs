@@ -3,7 +3,6 @@ using System.Linq;
 using MyContractsGenerator.Common.Validation;
 using MyContractsGenerator.DAL.Repositories;
 using MyContractsGenerator.Domain;
-using MyContractsGenerator.Interfaces.InterfacesRepo;
 using MyContractsGenerator.Interfaces.InterfacesServices;
 
 namespace MyContractsGenerator.Business
@@ -15,21 +14,21 @@ namespace MyContractsGenerator.Business
     public class FormService : BaseService, IFormService
     {
         /// <summary>
-        /// The form repository
+        ///     The form repository
         /// </summary>
         private readonly IFormRepository formRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FormService"/> class.
+        ///     Initializes a new instance of the <see cref="FormService" /> class.
         /// </summary>
         /// <param name="formRepository">The form repository.</param>
         public FormService(IFormRepository formRepository)
         {
             this.formRepository = formRepository;
         }
-        
+
         /// <summary>
-        /// Gets form by Id
+        ///     Gets form by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -37,21 +36,21 @@ namespace MyContractsGenerator.Business
         {
             return this.formRepository.GetById(id);
         }
-        
+
         /// <summary>
-        /// delete logically the form
+        ///     delete logically the form
         /// </summary>
         /// <param name="formId"></param>
         public void DeleteForm(int formId)
         {
             Requires.ArgumentGreaterThanZero(formId, "Form Answer Id");
             this.formRepository.Remove(formId);
-            
+
             this.formRepository.SaveChanges();
         }
 
         /// <summary>
-        /// Adds the form.
+        ///     Adds the form.
         /// </summary>
         /// <param name="formToCreate">The form to create.</param>
         /// <returns></returns>
@@ -67,7 +66,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Updates the form.
+        ///     Updates the form.
         /// </summary>
         /// <param name="formToUpdate">The form to update.</param>
         public void UpdateForm(form formToUpdate)
@@ -86,7 +85,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Gets all.
+        ///     Gets all.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>

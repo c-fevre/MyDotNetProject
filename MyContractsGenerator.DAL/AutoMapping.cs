@@ -7,19 +7,18 @@
 //------------------------------------------------------------------------------
 using System.Text.RegularExpressions;
 using AutoMapper;
-using MyContractsGenerator.Domain;
 
 namespace MyContractsGenerator.DAL
 {
     /// <summary>
-    /// Classe de Mapping entre les entités de domaine et les tables
+    ///     Classe de Mapping entre les entités de domaine et les tables
     /// </summary>
     public static class AutoMapping
     {
         internal static IMapper Mapper { get; private set; }
 
         /// <summary>
-        /// Configuration du mapping
+        ///     Configuration du mapping
         /// </summary>
         public static void Configure()
         {
@@ -61,6 +60,7 @@ namespace MyContractsGenerator.DAL
         private class UpperUnderscoreNamingConvention : INamingConvention
         {
             public Regex SplittingExpression { get; } = new Regex(@"[p{Lu}0-9]+(?=_?)");
+
             public string SeparatorCharacter { get; } = "_";
 
             public string ReplaceValue(Match match)

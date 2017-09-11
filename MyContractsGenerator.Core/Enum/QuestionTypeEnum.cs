@@ -1,33 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace MyContractsGenerator.Core.Enum
 {
     /// <summary>
-    /// 
     /// </summary>
     public static class QuestionType
     {
         /// <summary>
-        /// 
         /// </summary>
         public enum QuestionTypeEnum
         {
-            [Description("text")]
-            Text,
+            [Description("text")] Text,
 
-            [Description("numeric")]
-            Numeric,
+            [Description("numeric")] Numeric,
 
-            [Description("boolean")]
-            Boolean,
+            [Description("boolean")] Boolean,
 
-            [Description("date")]
-            Datetime
+            [Description("date")] Datetime
         }
-      }
+    }
 }

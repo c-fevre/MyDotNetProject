@@ -6,7 +6,7 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
     public interface IQuestionService
     {
         /// <summary>
-        /// Gets all.
+        ///     Gets all.
         /// </summary>
         /// <returns></returns>
         IList<question> GetAll();
@@ -17,7 +17,6 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         /// <param name="id"></param>
         /// <returns></returns>
         question GetById(int id);
-        
 
         /// <summary>
         ///     delete logically the question
@@ -26,20 +25,20 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         void DeleteQuestion(int questionId);
 
         /// <summary>
-        /// Updates the question.
+        ///     Updates the question.
         /// </summary>
         /// <param name="questionToUpdate">The question to update.</param>
         void UpdateQuestion(question questionToUpdate);
 
         /// <summary>
-        /// Adds the question.
+        ///     Adds the question.
         /// </summary>
         /// <param name="questionToCreate">The question to create.</param>
         /// <returns></returns>
         question AddQuestion(question questionToCreate);
 
         /// <summary>
-        /// Gets the questions by form identifier.
+        ///     Gets the questions by form identifier.
         /// </summary>
         /// <param name="formId">The form identifier.</param>
         /// <returns></returns>

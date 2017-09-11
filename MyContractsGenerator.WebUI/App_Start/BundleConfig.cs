@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace MyContractsGenerator.WebUI
 {
@@ -33,8 +32,6 @@ namespace MyContractsGenerator.WebUI
                             "~/Content/jquery-ui.theme.css",
                             "~/Content/bootstrap-table.css",
                             "~/Content/icomoon.css").ForceOrdered());
-
-
         }
     }
 }

@@ -14,7 +14,7 @@ namespace MyContractsGenerator.DAL.Repositories
         new answer GetById(int id);
 
         /// <summary>
-        /// Gets all.
+        ///     Gets all.
         /// </summary>
         /// <returns></returns>
         IEnumerable<answer> GetAll();

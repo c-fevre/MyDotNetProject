@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MyContractsGenerator.Common.Validation;
-using MyContractsGenerator.DAL;
 using MyContractsGenerator.DAL.Repositories;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.Interfaces.InterfacesRepo;
@@ -15,17 +11,17 @@ namespace MyContractsGenerator.Business
     public class RoleService : BaseService, IRoleService
     {
         /// <summary>
-        /// The collaborator repository
-        /// </summary>
-        private readonly IRoleRepository roleRepository;
-
-        /// <summary>
-        /// The collaborator repository
+        ///     The collaborator repository
         /// </summary>
         private readonly ICollaboratorRepository collaboratorRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RoleService"/> class.
+        ///     The collaborator repository
+        /// </summary>
+        private readonly IRoleRepository roleRepository;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="RoleService" /> class.
         /// </summary>
         /// <param name="roleRepository">The role repository.</param>
         /// <param name="collaboratorRepository">The collaborator repository.</param>
@@ -36,7 +32,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Gets administrator by Id
+        ///     Gets administrator by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -53,16 +49,13 @@ namespace MyContractsGenerator.Business
             dbRole.active = false;
 
             //Desaffect all collaborators
-            dbRole.collaborators.ToList().ForEach(c =>
-            {
-                this.DesaffectToRole(dbRole.id, c.id);
-            });
+            dbRole.collaborators.ToList().ForEach(c => { this.DesaffectToRole(dbRole.id, c.id); });
 
             this.roleRepository.SaveChanges();
         }
 
         /// <summary>
-        /// Updates the role.
+        ///     Updates the role.
         /// </summary>
         /// <param name="roleToUpdate">The role to update.</param>
         /// <exception cref="System.NotImplementedException"></exception>
@@ -76,13 +69,13 @@ namespace MyContractsGenerator.Business
 
             dbRole.label = roleToUpdate.label;
             dbRole.active = roleToUpdate.active;
-            
+
             this.roleRepository.Update(dbRole);
             this.roleRepository.SaveChanges();
         }
 
         /// <summary>
-        /// Adds the role.
+        ///     Adds the role.
         /// </summary>
         /// <param name="roleToCreate">The role to create.</param>
         /// <returns></returns>
@@ -100,11 +93,11 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Determines whether [is this label already exists] [the specified label].
+        ///     Determines whether [is this label already exists] [the specified label].
         /// </summary>
         /// <param name="label">The label.</param>
         /// <returns>
-        /// <c>true</c> if [is this label already exists] [the specified label]; otherwise, <c>false</c>.
+        ///     <c>true</c> if [is this label already exists] [the specified label]; otherwise, <c>false</c>.
         /// </returns>
         /// <exception cref="System.NotImplementedException"></exception>
         public bool IsThisLabelAlreadyExists(string label)
@@ -113,12 +106,12 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Determines whether [is this label already exists] [the specified label].
+        ///     Determines whether [is this label already exists] [the specified label].
         /// </summary>
         /// <param name="label">The label.</param>
         /// <param name="currentLabel">The current label.</param>
         /// <returns>
-        /// <c>true</c> if [is this label already exists] [the specified label]; otherwise, <c>false</c>.
+        ///     <c>true</c> if [is this label already exists] [the specified label]; otherwise, <c>false</c>.
         /// </returns>
         /// <exception cref="System.NotImplementedException"></exception>
         public bool IsThisLabelAlreadyExists(string label, int currentId)
@@ -134,7 +127,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Gets roles
+        ///     Gets roles
         /// </summary>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
@@ -144,7 +137,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Affects to role.
+        ///     Affects to role.
         /// </summary>
         /// <param name="editedCollaboratorLinkedRolesIds">The edited collaborator linked roles ids.</param>
         /// <param name="editedCollaboratorId">The edited collaborator identifier.</param>
@@ -160,7 +153,6 @@ namespace MyContractsGenerator.Business
 
             IList<role> roleIdsAlreadyAffected =
                 this.GetAllActive().Where(r => r.collaborators.Any(c => c.id.Equals(editedCollaboratorId))).ToList();
-
 
             var alreadyAffectedRolesIds = new HashSet<int>();
             foreach (var alreadyAffectedRole in roleIdsAlreadyAffected)
@@ -186,7 +178,7 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        /// Affects to questionnaire model.
+        ///     Affects to questionnaire model.
         /// </summary>
         /// <param name="roleIdToAffect">The role identifier to affect.</param>
         /// <param name="editedCollaboratorId">The edited collaborator identifier.</param>
@@ -196,19 +188,19 @@ namespace MyContractsGenerator.Business
             Requires.ArgumentGreaterThanZero(editedCollaboratorId, "editedCollaboratorId");
 
             role roleToUpdate = this.roleRepository.GetById(roleIdToAffect);
-            
+
             collaborator newAffectation = this.collaboratorRepository.GetById(editedCollaboratorId);
             if (newAffectation != null)
             {
                 roleToUpdate.collaborators.Add(newAffectation);
             }
-            
+
             this.roleRepository.Update(roleToUpdate);
             this.roleRepository.SaveChanges();
         }
 
         /// <summary>
-        /// Desaffects to questionnaire model.
+        ///     Desaffects to questionnaire model.
         /// </summary>
         /// <param name="roleIdToDesaffect">The role identifier to desaffect.</param>
         /// <param name="editedCollaboratorId">The edited collaborator identifier.</param>
@@ -219,7 +211,7 @@ namespace MyContractsGenerator.Business
             collaborator collaboratorToUpdate =
                 this.collaboratorRepository.GetById(editedCollaboratorId);
 
-           //role roleToUpdate = this.roleRepository.GetById(roleIdToDesaffect);
+            //role roleToUpdate = this.roleRepository.GetById(roleIdToDesaffect);
 
             if (collaboratorToUpdate.roles.Any())
             {

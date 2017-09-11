@@ -16,45 +16,16 @@ using MyContractsGenerator.Interfaces.InterfacesServices;
 namespace MyContractsGenerator.Core.Unity
 {
     /// <summary>
-    /// Specifies the Unity configuration for the main container.
+    ///     Specifies the Unity configuration for the main container.
     /// </summary>
     public static class UnityConfig
     {
-        #region Unity Container
-        private static Lazy<IUnityContainer> container = new Lazy<IUnityContainer>(() =>
-        {
-            var container = new UnityContainer();
-            RegisterTypes(container);
-            return container;
-        });
-
-        private static Lazy<IUnityContainer> containerLife = new Lazy<IUnityContainer>(() =>
-        {
-            var container = new UnityContainer();
-            RegisterTypes(container, new PerRequestLifetimeManager());
-            return container;
-        });
-
-        /// <summary>
-        /// Gets the configured Unity container.
-        /// </summary>
-        public static IUnityContainer GetConfiguredContainer(bool withLifetimeManager = false)
-        {
-            if (!withLifetimeManager)
-            {
-                return container.Value;
-            }
-            else
-            {
-                return containerLife.Value;
-            }
-        }
-        #endregion
-
         /// <summary>Registers the type mappings with the Unity container.</summary>
         /// <param name="container">The unity container to configure.</param>
-        /// <remarks>There is no need to register concrete types such as controllers or API controllers (unless you want to 
-        /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
+        /// <remarks>
+        ///     There is no need to register concrete types such as controllers or API controllers (unless you want to
+        ///     change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.
+        /// </remarks>
         private static void RegisterTypes(IUnityContainer container, LifetimeManager lifetimeManager = null)
         {
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
@@ -68,7 +39,7 @@ namespace MyContractsGenerator.Core.Unity
             container.RegisterType<IFormAnswerRepository, FormAnswerRepository>();
             container.RegisterType<IFormRepository, FormRepository>();
             container.RegisterType<IQuestionRepository, QuestionRepository>();
-            container.RegisterType<IQuestionTypeRepository,IQuestionTypeRepository>();
+            container.RegisterType<IQuestionTypeRepository, IQuestionTypeRepository>();
 
             container.RegisterType<IAdministratorService, AdministratorService>();
             container.RegisterType<ICollaboratorService, CollaboratorService>();
@@ -78,7 +49,7 @@ namespace MyContractsGenerator.Core.Unity
             container.RegisterType<IFormService, FormService>();
             container.RegisterType<IQuestionService, QuestionService>();
             container.RegisterType<IQuestionTypeService, QuestionTypeService>();
-            
+
             container.RegisterType<IMailService, MailService>();
 
             if (null == lifetimeManager)
@@ -90,7 +61,38 @@ namespace MyContractsGenerator.Core.Unity
                 container.RegisterType<MyContractsGeneratorEntities>(lifetimeManager);
             }
 
-            DAL.AutoMapping.Configure();
+            AutoMapping.Configure();
         }
+
+        #region Unity Container
+
+        private static readonly Lazy<IUnityContainer> container = new Lazy<IUnityContainer>(() =>
+        {
+            var container = new UnityContainer();
+            RegisterTypes(container);
+            return container;
+        });
+
+        private static readonly Lazy<IUnityContainer> containerLife = new Lazy<IUnityContainer>(() =>
+        {
+            var container = new UnityContainer();
+            RegisterTypes(container, new PerRequestLifetimeManager());
+            return container;
+        });
+
+        /// <summary>
+        ///     Gets the configured Unity container.
+        /// </summary>
+        public static IUnityContainer GetConfiguredContainer(bool withLifetimeManager = false)
+        {
+            if (!withLifetimeManager)
+            {
+                return container.Value;
+            }
+
+            return containerLife.Value;
+        }
+
+        #endregion
     }
 }

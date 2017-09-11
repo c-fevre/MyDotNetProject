@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using MyContractsGenerator.Core.Enum;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.WebUI.Models.QuestionModels;
@@ -31,7 +29,7 @@ namespace MyContractsGenerator.WebUI.Mapping
                 Order = dbQuestion.order,
                 Type = EnumEx.GetValueFromDescription<QuestionType.QuestionTypeEnum>(dbQuestion.question_type.label),
                 Value = string.Empty
-        };
+            };
 
             return questionModel;
         }
@@ -47,17 +45,12 @@ namespace MyContractsGenerator.WebUI.Mapping
 
             if (questions.Any())
             {
-                questions.ToList().ForEach(c =>
-                {
-                    models.Add(MapItem(c));
-                });
+                questions.ToList().ForEach(c => { models.Add(MapItem(c)); });
             }
 
             return models;
         }
 
         #endregion
-
-
     }
 }
