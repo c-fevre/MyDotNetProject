@@ -32,16 +32,6 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        ///     Get role by Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public role GetById(int id)
-        {
-            return this.roleRepository.GetById(id);
-        }
-
-        /// <summary>
         /// delete logically the roles
         /// </summary>
         /// <param name="roleId"></param>
@@ -59,11 +49,11 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        ///     Updates the role.
+        /// Updates the role.
         /// </summary>
         /// <param name="roleToUpdate">The role to update.</param>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public void UpdateRole(role roleToUpdate)
+        /// <param name="organizationId"></param>
+        public void UpdateRole(role roleToUpdate, int organizationId)
         {
             var dbRole = this.roleRepository.GetById(roleToUpdate.id);
             if (dbRole == null)
@@ -73,112 +63,29 @@ namespace MyContractsGenerator.Business
 
             dbRole.label = roleToUpdate.label;
             dbRole.active = roleToUpdate.active;
+            dbRole.organization_id = organizationId;
 
             this.roleRepository.Update(dbRole);
             this.roleRepository.SaveChanges();
         }
 
         /// <summary>
-        ///     Adds the role.
+        /// Adds the role.
         /// </summary>
         /// <param name="roleToCreate">The role to create.</param>
+        /// <param name="organizationId"></param>
         /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public role AddRole(role roleToCreate)
+        public role AddRole(role roleToCreate, int organizationId)
         {
             Requires.ArgumentNotNull(roleToCreate, "collaboratorToCreate");
 
             roleToCreate.active = true;
+            roleToCreate.organization_id = organizationId;
 
             role dbUser = this.roleRepository.Add(roleToCreate);
             this.roleRepository.SaveChanges();
 
             return dbUser;
-        }
-
-        /// <summary>
-        ///     Determines whether [is this label already exists] [the specified label].
-        /// </summary>
-        /// <param name="label">The label.</param>
-        /// <returns>
-        ///     <c>true</c> if [is this label already exists] [the specified label]; otherwise, <c>false</c>.
-        /// </returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public bool IsThisLabelAlreadyExists(string label)
-        {
-            return this.roleRepository.GetAllActive().Any(r => r.label == label);
-        }
-
-        /// <summary>
-        ///     Determines whether [is this label already exists] [the specified label].
-        /// </summary>
-        /// <param name="label">The label.</param>
-        /// <param name="currentLabel">The current label.</param>
-        /// <returns>
-        ///     <c>true</c> if [is this label already exists] [the specified label]; otherwise, <c>false</c>.
-        /// </returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public bool IsThisLabelAlreadyExists(string label, int currentId)
-        {
-            role result = this.roleRepository.GetAllActive().SingleOrDefault(r => r.label == label);
-
-            if (result == null)
-            {
-                return false;
-            }
-
-            return !result.id.Equals(currentId);
-        }
-
-        /// <summary>
-        ///     Gets roles
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public IList<role> GetAllActive()
-        {
-            return this.roleRepository.GetAllActive().ToList();
-        }
-
-        /// <summary>
-        ///     Affects to role.
-        /// </summary>
-        /// <param name="editedCollaboratorLinkedRolesIds">The edited collaborator linked roles ids.</param>
-        /// <param name="editedCollaboratorId">The edited collaborator identifier.</param>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public void AffectToRole(IEnumerable<int> editedCollaboratorLinkedRolesIds, int editedCollaboratorId)
-        {
-            Requires.ArgumentGreaterThanZero(editedCollaboratorId, "editedCollaboratorId");
-            Requires.ArgumentNotNull(editedCollaboratorLinkedRolesIds, "editedCollaboratorLinkedRolesIds");
-            foreach (var roleId in editedCollaboratorLinkedRolesIds)
-            {
-                Requires.ArgumentGreaterThanZero(roleId, "roleId");
-            }
-
-            IList<role> roleIdsAlreadyAffected =
-                this.GetAllActive().Where(r => r.collaborators.Any(c => c.id.Equals(editedCollaboratorId))).ToList();
-
-            var alreadyAffectedRolesIds = new HashSet<int>();
-            foreach (var alreadyAffectedRole in roleIdsAlreadyAffected)
-            {
-                alreadyAffectedRolesIds.Add(alreadyAffectedRole.id);
-            }
-
-            //Role to desaffect
-            HashSet<int> roleIdsToDesaffect =
-                new HashSet<int>(alreadyAffectedRolesIds.Where(i => !editedCollaboratorLinkedRolesIds.Contains(i)));
-            foreach (var roleIdToDesaffect in roleIdsToDesaffect)
-            {
-                this.DesaffectToRole(roleIdToDesaffect, editedCollaboratorId);
-            }
-
-            //Modalities to affect
-            HashSet<int> roleIdsToAffect =
-                new HashSet<int>(editedCollaboratorLinkedRolesIds.Where(i => !alreadyAffectedRolesIds.Contains(i)));
-            foreach (var roleIdToAffect in roleIdsToAffect)
-            {
-                this.AffectToRole(roleIdToAffect, editedCollaboratorId);
-            }
         }
 
         /// <summary>
@@ -225,6 +132,95 @@ namespace MyContractsGenerator.Business
 
             this.collaboratorRepository.Update(collaboratorToUpdate);
             this.collaboratorRepository.SaveChanges();
+        }
+
+        /// <summary>
+        /// Gets the by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="organizationId">The organization identifier.</param>
+        /// <returns></returns>
+        public role GetById(int id, int organizationId)
+        {
+            return this.roleRepository.GetById(id, organizationId);
+        }
+
+        /// <summary>
+        /// Gets all active.
+        /// </summary>
+        /// <param name="organizationId">The organization identifier.</param>
+        /// <returns></returns>
+        public IList<role> GetAllActive(int organizationId)
+        {
+            return this.roleRepository.GetAllActive(organizationId).ToList();
+        }
+
+        /// <summary>
+        /// Determines whether [is this label already exists] [the specified label].
+        /// </summary>
+        /// <param name="label">The label.</param>
+        /// <param name="currentId">The current identifier.</param>
+        /// <param name="organizationId">The organization identifier.</param>
+        /// <returns>
+        /// <c>true</c> if [is this label already exists] [the specified label]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsThisLabelAlreadyExists(string label, int currentId, int organizationId)
+        {
+            return this.roleRepository.GetAllActive(organizationId).Where(r => r.id != currentId).Any(r => r.label == label);
+        }
+
+        /// <summary>
+        /// Determines whether [is this label already exists] [the specified label].
+        /// </summary>
+        /// <param name="label">The label.</param>
+        /// <param name="organizationId">The organization identifier.</param>
+        /// <returns>
+        /// <c>true</c> if [is this label already exists] [the specified label]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsThisLabelAlreadyExists(string label, int organizationId)
+        {
+            return this.roleRepository.GetAllActive(organizationId).Any(r => r.label == label);
+        }
+
+        /// <summary>
+        /// Affects to role.
+        /// </summary>
+        /// <param name="editedCollaboratorLinkedRolesIds">The edited collaborator linked roles ids.</param>
+        /// <param name="editedCollaboratorId">The edited collaborator identifier.</param>
+        /// <param name="organizationId"></param>
+        public void AffectToRole(IEnumerable<int> editedCollaboratorLinkedRolesIds, int editedCollaboratorId, int organizationId)
+        {
+            Requires.ArgumentGreaterThanZero(editedCollaboratorId, "editedCollaboratorId");
+            Requires.ArgumentNotNull(editedCollaboratorLinkedRolesIds, "editedCollaboratorLinkedRolesIds");
+            foreach (var roleId in editedCollaboratorLinkedRolesIds)
+            {
+                Requires.ArgumentGreaterThanZero(roleId, "roleId");
+            }
+
+            IList<role> roleIdsAlreadyAffected =
+                this.GetAllActive(organizationId).Where(r => r.collaborators.Any(c => c.id.Equals(editedCollaboratorId))).ToList();
+
+            var alreadyAffectedRolesIds = new HashSet<int>();
+            foreach (var alreadyAffectedRole in roleIdsAlreadyAffected)
+            {
+                alreadyAffectedRolesIds.Add(alreadyAffectedRole.id);
+            }
+
+            //Role to desaffect
+            HashSet<int> roleIdsToDesaffect =
+                new HashSet<int>(alreadyAffectedRolesIds.Where(i => !editedCollaboratorLinkedRolesIds.Contains(i)));
+            foreach (var roleIdToDesaffect in roleIdsToDesaffect)
+            {
+                this.DesaffectToRole(roleIdToDesaffect, editedCollaboratorId);
+            }
+
+            //Modalities to affect
+            HashSet<int> roleIdsToAffect =
+                new HashSet<int>(editedCollaboratorLinkedRolesIds.Where(i => !alreadyAffectedRolesIds.Contains(i)));
+            foreach (var roleIdToAffect in roleIdsToAffect)
+            {
+                this.AffectToRole(roleIdToAffect, editedCollaboratorId);
+            }
         }
     }
 }

@@ -28,7 +28,8 @@ namespace MyContractsGenerator.WebUI.Mapping
                 FirstName = administrator.firstname,
                 Email = administrator.email,
                 IsActive = administrator.active,
-                OrganizationId = administrator.organization_id
+                OrganizationId = administrator.organization_id,
+                IsRemovable = !administrator.is_super_admin
             };
 
             return administratorModel;

@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdministratorService.cs" />
+    <Compile Include="OrganizationService.cs" />
     <Compile Include="QuestionTypeService.cs" />
     <Compile Include="QuestionService.cs" />
     <Compile Include="FormAnswerService.cs" />

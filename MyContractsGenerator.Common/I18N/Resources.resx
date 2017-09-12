@@ -163,7 +163,7 @@
     <value>Connexion</value>
   </data>
   <data name="Login_InvalidUserNameOrPassword" xml:space="preserve">
-    <value>Invalid Login or Password</value>
+    <value>Invalid login or password</value>
   </data>
   <data name="Login_PageTitle" xml:space="preserve">
     <value>Login</value>
@@ -546,7 +546,7 @@ MyContractsGenerator Team</value>
     <value>Generate a new password</value>
   </data>
   <data name="Administrator_NewAdministratorPasswordBody" xml:space="preserve">
-    <value>Dear {0}, &lt;br/&gt;&lt;br/&gt; This email notify you a password change related to your MyContractsGenerator account ({1}). &lt;br/&gt;Your email (login) : {2} &lt;br/&gt;Your password : {2}&lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team.</value>
+    <value>Dear {0}, &lt;br/&gt;&lt;br/&gt; This email notify you a password change related to your MyContractsGenerator account ({1}). &lt;br/&gt;Your email (login) : {2} &lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team.</value>
   </data>
   <data name="Administrator_NewAdministratorPasswordTitle" xml:space="preserve">
     <value>MyContractsGenerator - Password Changed</value>
@@ -558,7 +558,7 @@ MyContractsGenerator Team</value>
     <value>Change administrator password (optionnal)</value>
   </data>
   <data name="Administrator_WelcomeNewAdministratorBody" xml:space="preserve">
-    <value>Welcome {0} ! &lt;br/&gt;&lt;br/&gt; You can now acces to the "MyContractsGenerator" application.&lt;br/&gt;URL : {1} &lt;br/&gt;Here are your credentials : &lt;br/&gt; Email (login) : {2}&lt;br/&gt;Password : {3} &lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team.</value>
+    <value>Welcome {0} ! &lt;br/&gt;&lt;br/&gt; You can now acces to the "MyContractsGenerator" application.&lt;br/&gt;URL : {1} &lt;br/&gt;Here are your credentials : &lt;br/&gt; Email (login) : {2}&lt;br/&gt;Password : &lt;b&gt;{3}&lt;/b&gt; &lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team.</value>
   </data>
   <data name="Administrator_WelcomeNewAdministratorTitle" xml:space="preserve">
     <value>MyContractsGenerator - Welcome !</value>
@@ -566,10 +566,64 @@ MyContractsGenerator Team</value>
   <data name="Email_Label" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="Organization_Label" xml:space="preserve">
+    <value>Compagny</value>
+  </data>
   <data name="Error_Message" xml:space="preserve">
     <value>An error occured, please try again or contact your administrator</value>
   </data>
   <data name="Error_Title" xml:space="preserve">
     <value>An error occured</value>
+  </data>
+  <data name="Organization_AddConfirmationMessage" xml:space="preserve">
+    <value>You are goin to add a new company to your application, do you want to continue ?</value>
+  </data>
+  <data name="Organization_Added" xml:space="preserve">
+    <value>Company "{0}" successfully created</value>
+  </data>
+  <data name="Organization_AddValidateButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Organization_CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Organization_CancelModal_Message" xml:space="preserve">
+    <value>Are you sure you want to cancel the modifications ?</value>
+  </data>
+  <data name="Organization_Edit" xml:space="preserve">
+    <value>Edit company</value>
+  </data>
+  <data name="Organization_Edited" xml:space="preserve">
+    <value>Company "{0}" successfully edited</value>
+  </data>
+  <data name="Organization_Modal_Header" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="Organization_New" xml:space="preserve">
+    <value>New company</value>
+  </data>
+  <data name="Organization_PageTitle" xml:space="preserve">
+    <value>Companies</value>
+  </data>
+  <data name="Organization_RemoveNotification_Message" xml:space="preserve">
+    <value>Company "{0}" has been removed</value>
+  </data>
+  <data name="Organization_SuppressionModal_Header" xml:space="preserve">
+    <value>Are you sure ?</value>
+  </data>
+  <data name="Organization_SuppressionModal_Message" xml:space="preserve">
+    <value>Are you sure you want to delete the company "{0}" ? All linked administrator will be unbinded, all access revoked.</value>
+  </data>
+  <data name="Organization_Tooltip_Remove" xml:space="preserve">
+    <value>Remove compagny</value>
+  </data>
+  <data name="Organization_ValidateButton" xml:space="preserve">
+    <value>Validate</value>
+  </data>
+  <data name="SuperAdministrator_MenuTitle" xml:space="preserve">
+    <value>Super Administrator</value>
+  </data>
+  <data name="Collaborator_Tooltip_RemoveUser" xml:space="preserve">
+    <value>Remove collaborator</value>
   </data>
 </root>

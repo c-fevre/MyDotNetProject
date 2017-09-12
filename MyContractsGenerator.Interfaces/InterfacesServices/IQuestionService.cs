@@ -6,12 +6,6 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
     public interface IQuestionService
     {
         /// <summary>
-        ///     Gets all.
-        /// </summary>
-        /// <returns></returns>
-        IList<question> GetAll();
-
-        /// <summary>
         ///     Gets question by Id
         /// </summary>
         /// <param name="id"></param>

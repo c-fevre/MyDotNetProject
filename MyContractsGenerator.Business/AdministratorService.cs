@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MyContractsGenerator.Common.PasswordHelper;
 using MyContractsGenerator.Common.Validation;
@@ -24,44 +25,22 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        ///     Get administrator by Email
+        /// Gets the by email.
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="email">The email.</param>
         /// <returns></returns>
         public administrator GetByEmail(string email)
         {
             return this.administratorRepository.GetByEmail(email);
         }
-
-        /// <summary>
-        ///     Gets Manipulator by login
-        /// </summary>
-        /// <param name="email"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        public administrator GetAdministratorByLogin(string email, string password)
-        {
-            var administrator = this.administratorRepository.GetByEmail(email);
-            if (administrator == null)
-            {
-                return null;
-            }
-
-            if (administrator.password != password)
-            {
-                return null;
-            }
-
-            return administrator;
-        }
-
+        
         /// <summary>
         ///     Gets all administrators
         /// </summary>
         /// <returns></returns>
-        public IList<administrator> GetActiveAdministrators()
+        public IList<administrator> GetActiveAdministrators(int organizationId)
         {
-            return this.administratorRepository.GetActiveAdministrators();
+            return this.administratorRepository.GetActiveAdministrators(organizationId).ToList();
         }
 
         /// <summary>
@@ -76,11 +55,11 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        ///     UpdateAdministrator
+        /// Updates the administrator.
         /// </summary>
-        /// <param name="administratorToUpdate"></param>
-        /// <param name="administratorDoingUpdate"></param>
-        public void Update(administrator administratorToUpdate)
+        /// <param name="administratorToUpdate">The administrator to update.</param>
+        /// <param name="organizationId">The organization identifier.</param>
+        public void Update(administrator administratorToUpdate, int organizationId)
         {
             Requires.ArgumentNotNull(administratorToUpdate, "administratorToUpdate");
 
@@ -94,7 +73,7 @@ namespace MyContractsGenerator.Business
             dbadministrator.firstname = administratorToUpdate.firstname;
             dbadministrator.lastname = administratorToUpdate.lastname;
             dbadministrator.active = administratorToUpdate.active;
-            dbadministrator.organization_id = administratorToUpdate.organization_id;
+            dbadministrator.organization_id = organizationId;
 
             if (!string.IsNullOrEmpty(administratorToUpdate.password))
             {
@@ -106,15 +85,17 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        ///     Addadministrator
+        /// Adds the specified administrator to create.
         /// </summary>
-        /// <param name="administratorToCreate"></param>
+        /// <param name="administratorToCreate">The administrator to create.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        public administrator Add(administrator administratorToCreate)
+        public administrator Add(administrator administratorToCreate, int organizationId)
         {
             Requires.ArgumentNotNull(administratorToCreate, "administratorToCreate");
 
             administratorToCreate.active = true;
+            administratorToCreate.organization_id = organizationId;
 
             administrator dbadministrator = this.administratorRepository.Add(administratorToCreate);
             this.administratorRepository.SaveChanges();
@@ -136,10 +117,12 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        ///     Check if this email is already used by an active administrator
+        /// Determines whether [is this email already exists] [the specified email].
         /// </summary>
-        /// <param name="email"></param>
-        /// <returns>true: this email is already used be an active administrator</returns>
+        /// <param name="email">The email.</param>
+        /// <returns>
+        /// <c>true</c> if [is this email already exists] [the specified email]; otherwise, <c>false</c>.
+        /// </returns>
         public bool IsThisEmailAlreadyExists(string email)
         {
             IList<administrator> administrators =
@@ -147,11 +130,14 @@ namespace MyContractsGenerator.Business
             return !(administrators == null || administrators.Count == 0);
         }
 
-        /// Check if this email is already used by an active administrator, excepted the administrator passed by parameter
+        /// <summary>
+        /// Determines whether [is this email already exists] [the specified email].
         /// </summary>
-        /// <param name="email"></param>
-        /// <param name="administratorId"></param>
-        /// <returns>true: this email is already used be an active administrator, excepted the administrator passed by parameter</returns>
+        /// <param name="email">The email.</param>
+        /// <param name="administratorId">The administrator identifier.</param>
+        /// <returns>
+        /// <c>true</c> if [is this email already exists] [the specified email]; otherwise, <c>false</c>.
+        /// </returns>
         public bool IsThisEmailAlreadyExists(string email, int administratorId)
         {
             IList<administrator> administrators =
@@ -161,10 +147,11 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        ///     Reset administrator password and send the generated password by mail
+        /// Reset administrator password and send the generated password by mail
         /// </summary>
         /// <param name="passwordOwneradministratorId"></param>
-        public void ResetPassword(int passwordOwneradministratorId)
+        /// <param name="organizationId">The organization identifier.</param>
+        public void ResetPassword(int passwordOwneradministratorId, int organizationId)
         {
             //Requires
             Requires.ArgumentGreaterThanZero(passwordOwneradministratorId, "passwordOwneradministratorId");
@@ -174,7 +161,7 @@ namespace MyContractsGenerator.Business
             //new password generation
             string clearPassword = PasswordGenerator.GeneratePassword(8, 4);
             administrator.password = ShaHashPassword.GetSha256ResultString(clearPassword);
-            this.Update(administrator);
+            this.Update(administrator, organizationId);
 
             //Send mail
             this.mailService.SendGeneratedPasswordAdministrator(administrator, clearPassword);

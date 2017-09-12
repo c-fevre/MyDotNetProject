@@ -23,6 +23,7 @@ namespace MyContractsGenerator.Domain
         }
     
         public int id { get; set; }
+        public int organization_id { get; set; }
         public string label { get; set; }
         public bool active { get; set; }
     
@@ -32,5 +33,6 @@ namespace MyContractsGenerator.Domain
         public virtual ICollection<form> forms { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<form_answer> form_answer { get; set; }
+        public virtual organization organization { get; set; }
     }
 }

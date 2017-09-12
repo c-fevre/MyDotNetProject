@@ -286,7 +286,7 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Dear {0}, &lt;br/&gt;&lt;br/&gt; This email notify you a password change related to your MyContractsGenerator account ({1}). &lt;br/&gt;Your email (login) : {2} &lt;br/&gt;Your password : {2}&lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team..
+        ///   Recherche une chaîne localisée semblable à Dear {0}, &lt;br/&gt;&lt;br/&gt; This email notify you a password change related to your MyContractsGenerator account ({1}). &lt;br/&gt;Your email (login) : {2} &lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team..
         /// </summary>
         public static string Administrator_NewAdministratorPasswordBody {
             get {
@@ -394,7 +394,7 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Welcome {0} ! &lt;br/&gt;&lt;br/&gt; You can now acces to the &quot;MyContractsGenerator&quot; application.&lt;br/&gt;URL : {1} &lt;br/&gt;Here are your credentials : &lt;br/&gt; Email (login) : {2}&lt;br/&gt;Password : {3} &lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team..
+        ///   Recherche une chaîne localisée semblable à Welcome {0} ! &lt;br/&gt;&lt;br/&gt; You can now acces to the &quot;MyContractsGenerator&quot; application.&lt;br/&gt;URL : {1} &lt;br/&gt;Here are your credentials : &lt;br/&gt; Email (login) : {2}&lt;br/&gt;Password : &lt;b&gt;{3}&lt;/b&gt; &lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team..
         /// </summary>
         public static string Administrator_WelcomeNewAdministratorBody {
             get {
@@ -625,6 +625,15 @@ namespace MyContractsGenerator.Common.I18N {
         public static string Collaborator_SuppressionModal_Message {
             get {
                 return ResourceManager.GetString("Collaborator_SuppressionModal_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Remove collaborator.
+        /// </summary>
+        public static string Collaborator_Tooltip_RemoveUser {
+            get {
+                return ResourceManager.GetString("Collaborator_Tooltip_RemoveUser", resourceCulture);
             }
         }
         
@@ -919,7 +928,7 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Invalid Login or Password.
+        ///   Recherche une chaîne localisée semblable à Invalid login or password.
         /// </summary>
         public static string Login_InvalidUserNameOrPassword {
             get {
@@ -1041,6 +1050,150 @@ namespace MyContractsGenerator.Common.I18N {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à You are goin to add a new company to your application, do you want to continue ?.
+        /// </summary>
+        public static string Organization_AddConfirmationMessage {
+            get {
+                return ResourceManager.GetString("Organization_AddConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Company &quot;{0}&quot; successfully created.
+        /// </summary>
+        public static string Organization_Added {
+            get {
+                return ResourceManager.GetString("Organization_Added", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Add.
+        /// </summary>
+        public static string Organization_AddValidateButton {
+            get {
+                return ResourceManager.GetString("Organization_AddValidateButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cancel.
+        /// </summary>
+        public static string Organization_CancelButton {
+            get {
+                return ResourceManager.GetString("Organization_CancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Are you sure you want to cancel the modifications ?.
+        /// </summary>
+        public static string Organization_CancelModal_Message {
+            get {
+                return ResourceManager.GetString("Organization_CancelModal_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Edit company.
+        /// </summary>
+        public static string Organization_Edit {
+            get {
+                return ResourceManager.GetString("Organization_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Company &quot;{0}&quot; successfully edited.
+        /// </summary>
+        public static string Organization_Edited {
+            get {
+                return ResourceManager.GetString("Organization_Edited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Compagny.
+        /// </summary>
+        public static string Organization_Label {
+            get {
+                return ResourceManager.GetString("Organization_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Company.
+        /// </summary>
+        public static string Organization_Modal_Header {
+            get {
+                return ResourceManager.GetString("Organization_Modal_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à New company.
+        /// </summary>
+        public static string Organization_New {
+            get {
+                return ResourceManager.GetString("Organization_New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Companies.
+        /// </summary>
+        public static string Organization_PageTitle {
+            get {
+                return ResourceManager.GetString("Organization_PageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Company &quot;{0}&quot; has been removed.
+        /// </summary>
+        public static string Organization_RemoveNotification_Message {
+            get {
+                return ResourceManager.GetString("Organization_RemoveNotification_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Are you sure ?.
+        /// </summary>
+        public static string Organization_SuppressionModal_Header {
+            get {
+                return ResourceManager.GetString("Organization_SuppressionModal_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Are you sure you want to delete the company &quot;{0}&quot; ? All linked administrator will be unbinded, all access revoked..
+        /// </summary>
+        public static string Organization_SuppressionModal_Message {
+            get {
+                return ResourceManager.GetString("Organization_SuppressionModal_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Remove compagny.
+        /// </summary>
+        public static string Organization_Tooltip_Remove {
+            get {
+                return ResourceManager.GetString("Organization_Tooltip_Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Validate.
+        /// </summary>
+        public static string Organization_ValidateButton {
+            get {
+                return ResourceManager.GetString("Organization_ValidateButton", resourceCulture);
             }
         }
         
@@ -1293,6 +1446,15 @@ namespace MyContractsGenerator.Common.I18N {
         public static string Shared_RequiredField {
             get {
                 return ResourceManager.GetString("Shared_RequiredField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Super Administrator.
+        /// </summary>
+        public static string SuperAdministrator_MenuTitle {
+            get {
+                return ResourceManager.GetString("SuperAdministrator_MenuTitle", resourceCulture);
             }
         }
         

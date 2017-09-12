@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InterfacesRepo\IAdministratorRepository.cs" />
+    <Compile Include="InterfacesRepo\IOrganizationRepository.cs" />
     <Compile Include="InterfacesRepo\IBaseRepository.cs" />
     <Compile Include="InterfacesRepo\ICollaboratorRepository.cs" />
     <Compile Include="InterfacesRepo\IDalTransactionScope.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="InterfacesRepo\IQuestionRepository.cs" />
     <Compile Include="InterfacesRepo\IQuestionTypeRepository.cs" />
     <Compile Include="InterfacesRepo\IRoleRepository.cs" />
+    <Compile Include="InterfacesServices\IOrganizationService.cs" />
     <Compile Include="InterfacesServices\IQuestionService.cs" />
     <Compile Include="InterfacesServices\IQuestionTypeService.cs" />
     <Compile Include="InterfacesServices\IFormService.cs" />

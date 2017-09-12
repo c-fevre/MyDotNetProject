@@ -9,7 +9,7 @@
 
 @using (Html.BeginForm("CheckForm", "CollaboratorForm", FormMethod.Post, new { id = "check-form" }))
 {
-    @Html.HiddenFor(m => m.c)
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.fa)
 
     @Html.HiddenFor(q => q.Form.Id)

@@ -27,7 +27,7 @@ namespace MyContractsGenerator.Domain
         public System.DateTime last_collaborator_mail_time { get; set; }
         public System.DateTime last_update { get; set; }
         public string password { get; set; }
-        public int admin_id { get; set; }
+        public int organization_id { get; set; }
         public int collaborator_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -35,6 +35,6 @@ namespace MyContractsGenerator.Domain
         public virtual collaborator collaborator { get; set; }
         public virtual form form { get; set; }
         public virtual role role { get; set; }
-        public virtual administrator administrator { get; set; }
+        public virtual organization organization { get; set; }
     }
 }

@@ -14,12 +14,6 @@ namespace MyContractsGenerator.Domain
     
     public partial class administrator
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public administrator()
-        {
-            this.form_answer = new HashSet<form_answer>();
-        }
-    
         public int id { get; set; }
         public string password { get; set; }
         public string lastname { get; set; }
@@ -29,7 +23,6 @@ namespace MyContractsGenerator.Domain
         public bool active { get; set; }
         public bool is_super_admin { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<form_answer> form_answer { get; set; }
+        public virtual organization organization { get; set; }
     }
 }

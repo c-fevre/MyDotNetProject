@@ -27,7 +27,7 @@
             </div>,
         newItemUrl: Url.Action("Create", "Administrator"),
         newItemText: Resources.Administrator_New,
-        userCanDeleteItem: (currentUserId, item) => true,
+        userCanDeleteItem: (currentUserId, item) => (item as AdministratorModel).IsRemovable,
         deleteTooltipText: Resources.Administrator_Tooltip_RemoveUser
          )
 }

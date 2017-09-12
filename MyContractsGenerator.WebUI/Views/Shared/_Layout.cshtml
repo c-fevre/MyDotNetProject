@@ -5,11 +5,11 @@
 <html>
 <head>
     @Styles.Render("~/Content/css")
-    <link rel="icon" href="@Url.Content("~/Content/images/favicon.ico")"/>
+    <link rel="icon" href="@Url.Content("~/Content/images/favicon.ico")" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="version" content="@GlobalAppSettings.ApplicationVersion">
     <title>@ViewBag.Title</title>
@@ -23,126 +23,122 @@
     <![endif]-->
 
 
-    <meta name="description" content="The description of my page"/>
+    <meta name="description" content="The description of my page" />
 </head>
 <body class="@(ViewBag.BodyClass != null ? ViewBag.BodyClass : "")">
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href='@Url.Action("Index", "Role")' class="pull-left">
-                <img src='@Url.Content("~/Content/images/white-logo.png")' class="top-logo"/>
-            </a>
-        </div>
-        <div class="navbar-collapse collapse ">
-            <ul class="nav navbar-nav" id="navBarMenu">
-                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Role" ? "active" : "")">@Html.ActionLink(Resources.Role_label, "Index", "Role", null, null)</li>
-                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Collaborator" ? "active" : "")">@Html.ActionLink(Resources.Collaborator_label, "Index", "Collaborator", null, null)</li>
-                @if (User.IsInRole(AppConstants.SuperAdminRoleLabel))
-                {
-                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Administrator" ? "active" : "")">@Html.ActionLink(Resources.Administrator_PageTitle, "Index", "Administrator", null, null)</li>
-                }
-                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Maling" ? "active" : "")">@Html.ActionLink(Resources.FormMailing_label, "Index", "Form", null, null)</li>
-            </ul>
-            @Html.Partial("_LoginPartial")
-        </div>
-    </div>
-</div>
-
-@* Diplay the leftMenu if the section is defined in the body of the page *@
-@if (IsSectionDefined("LeftMenuSection"))
-{
-    //with leftMenu
-    <div id="wrapper">
-        @RenderSection("LeftMenuSection", false)
-        <div class="page-content-wrapper">
-            <div id="pageContent" class="body-content container-fluid">
-                @RenderBody()
-            </div>
-        </div>
-    </div>
-}
-else
-{
-    //without leftMenu
-    <div class="container body-content">
-        @RenderBody()
-    </div>
-}
-
-
-<!-- Modal for logout -->
-<div class="modal fade" id="modalLogout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="@Resources.Button_Close">
-                    <span aria-hidden="true">&times;</span>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">@Resources.Administrator_Modal_Header</h4>
+                <a href='@Url.Action("Index", "Role")' class="pull-left">
+                    <img src='@Url.Content("~/Content/images/white-logo.png")' class="top-logo" />
+                </a>
             </div>
-            <div class="modal-body">
-                @Resources.Menu_LogoutConfirm
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">@Resources.Administrator_Modal_No</button>
-                <a class="btn btn-info" onclick="document.getElementById('logoutForm').submit();return false;" href="javascript://">@Resources.Administrator_Modal_Yes</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- AlertModal -->
-<div class="modal fade" id="alert-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close buttonNo" data-dismiss="modal" aria-label="@Resources.Modal_Close_Label">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">@Resources.Shared_ErrorModal_Header</h4>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-info buttonOk" data-dismiss="modal">@Resources.Shared_Button_Ok</button>
+            <div class="navbar-collapse collapse ">
+                <ul class="nav navbar-nav" id="navBarMenu">
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Role" ? "active" : "")">@Html.ActionLink(Resources.Role_label, "Index", "Role", null, null)</li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Collaborator" ? "active" : "")">@Html.ActionLink(Resources.Collaborator_label, "Index", "Collaborator", null, null)</li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Maling" ? "active" : "")">@Html.ActionLink(Resources.FormMailing_label, "Index", "Form", null, null)</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-</div>
 
-
-@Scripts.Render("~/bundles/js")
-
-@RenderSection("ScriptSection", false)
-@RenderSection("PageChangeChecker", false)
-<!--[if lte IE 8]>
-    @Scripts.Render("~/Scripts/Customs/custom-shared-ie8.js")
-<![endif]-->
-
-<script>
-    //tooltips doesn't appear without the following lines
-    $(document)
-        .ready(function() {
-            $("body").tooltip({ selector: '[data-toggle~=tooltip]', container: "body" });
-        });
-</script>
-
-@* Notification *@
-
-<div class="hidden" id="notificationHiddenDiv">
-    @if (Model is BaseModel)
+    @* Diplay the leftMenu if the section is defined in the body of the page *@
+    @if (IsSectionDefined("LeftMenuSection"))
     {
-        //Regular notification
-        foreach (NotificationModel oneNotification in Model.Notifications)
-        {
-            <div data-title="@oneNotification.Title" data-type="@oneNotification.Type" data-delay="@oneNotification.Delay"></div>
-        }
+        //with leftMenu
+        <div id="wrapper">
+            @RenderSection("LeftMenuSection", false)
+            <div class="page-content-wrapper">
+                <div id="pageContent" class="body-content container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
     }
-</div>
+    else
+    {
+        //without leftMenu
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+    }
+
+
+    <!-- Modal for logout -->
+    <div class="modal fade" id="modalLogout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="@Resources.Button_Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">@Resources.Administrator_Modal_Header</h4>
+                </div>
+                <div class="modal-body">
+                    @Resources.Menu_LogoutConfirm
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@Resources.Administrator_Modal_No</button>
+                    <a class="btn btn-info" onclick="document.getElementById('logoutForm').submit();return false;" href="javascript://">@Resources.Administrator_Modal_Yes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AlertModal -->
+    <div class="modal fade" id="alert-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close buttonNo" data-dismiss="modal" aria-label="@Resources.Modal_Close_Label">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">@Resources.Shared_ErrorModal_Header</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info buttonOk" data-dismiss="modal">@Resources.Shared_Button_Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/js")
+
+    @RenderSection("ScriptSection", false)
+    @RenderSection("PageChangeChecker", false)
+    <!--[if lte IE 8]>
+        @Scripts.Render("~/Scripts/Customs/custom-shared-ie8.js")
+    <![endif]-->
+
+    <script>
+        //tooltips doesn't appear without the following lines
+        $(document)
+            .ready(function () {
+                $("body").tooltip({ selector: '[data-toggle~=tooltip]', container: "body" });
+            });
+    </script>
+
+    @* Notification *@
+
+    <div class="hidden" id="notificationHiddenDiv">
+        @if (Model is BaseModel)
+        {
+            //Regular notification
+            foreach (NotificationModel oneNotification in Model.Notifications)
+            {
+                <div data-title="@oneNotification.Title" data-type="@oneNotification.Type" data-delay="@oneNotification.Delay"></div>
+            }
+        }
+    </div>
 </body>
 </html>

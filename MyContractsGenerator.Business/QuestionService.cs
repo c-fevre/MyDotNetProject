@@ -86,16 +86,6 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        ///     Gets all.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public IList<question> GetAll()
-        {
-            return this.questionRepository.GetAll().ToList();
-        }
-
-        /// <summary>
         ///     Gets the questions by form identifier.
         /// </summary>
         /// <param name="formId">The form identifier.</param>

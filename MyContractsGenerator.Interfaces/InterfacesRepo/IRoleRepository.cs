@@ -7,16 +7,18 @@ namespace MyContractsGenerator.DAL.Repositories
     public interface IRoleRepository : IBaseRepository<role>
     {
         /// <summary>
-        ///     Gets Administrator by Id
+        /// Gets the by identifier.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        new role GetById(int id);
+        new role GetById(int id, int organizationId);
 
         /// <summary>
-        ///     Gets all active.
+        /// Gets all active.
         /// </summary>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        IEnumerable<role> GetAllActive();
+        IEnumerable<role> GetAllActive(int organizationId);
     }
 }

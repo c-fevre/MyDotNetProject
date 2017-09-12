@@ -13,47 +13,54 @@ namespace MyContractsGenerator.DAL.Repositories
         }
 
         /// <summary>
-        ///     Get an entity by identifier
+        /// Gets the by identifier.
         /// </summary>
-        /// <param name="id">the identifier</param>
-        /// <returns>
-        ///     the entity or null
-        /// </returns>
-        public new collaborator GetById(int id)
+        /// <param name="id">The identifier.</param>
+        /// <param name="organizationId">The organization identifier.</param>
+        /// <returns></returns>
+        public new collaborator GetById(int id, int organizationId)
         {
             return this.Table
+                       .Include(d => d.organization)
                        .Include(d => d.roles)
                        .Include(u => u.form_answer)
                        .Include(u => u.form_answer.Select(fa => fa.role))
                        .Include(c => c.form_answer.Select(fa => fa.answers))
                        .Include(c => c.form_answer.Select(fa => fa.form))
+                       .Where(u => u.organization_id == organizationId)
+                       .Where(u => u.organization.active)
                        .Where(u => u.active)
                        .SingleOrDefault(d => d.id == id);
         }
 
         /// <summary>
-        ///     Gets administrator by Email
+        /// Gets the by email.
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="email">The email.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        public collaborator GetByEmail(string email)
+        public collaborator GetByEmail(string email, int organizationId)
         {
             return this.Table
+                       .Include(d => d.organization)
                        .Include(d => d.roles)
                        .Include(u => u.form_answer)
                        .Include(u => u.form_answer.Select(fa => fa.role))
+                       .Where(u => u.organization_id == organizationId)
+                       .Where(u => u.organization.active)
                        .Where(u => u.email == email)
                        .SingleOrDefault(u => u.active);
         }
 
-        public IEnumerable<collaborator> GetAllActive()
+        public IEnumerable<collaborator> GetAllActive(int organizationId)
         {
             return this.Table
-
-                       //.Include(d => d.applicationlanguage)
+                       .Include(d => d.organization)
                        .Include(d => d.roles)
                        .Include(u => u.form_answer)
                        .Include(u => u.form_answer.Select(fa => fa.role))
+                       .Where(u => u.organization_id == organizationId)
+                       .Where(u => u.organization.active)
                        .Where(u => u.active);
         }
     }

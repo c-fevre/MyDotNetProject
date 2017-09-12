@@ -29,6 +29,16 @@ namespace MyContractsGenerator.WebUI.Controllers
         private readonly IMailService mailService;
 
         /// <summary>
+        /// The current administrator identifier
+        /// </summary>
+        private readonly int currentAdministratorId;
+
+        /// <summary>
+        /// The current organization identifier
+        /// </summary>
+        private readonly int currentOrganizationId;
+
+        /// <summary>
         ///     Initializes a new instance of the <see cref="AdministratorController" /> class.
         /// </summary>
         /// <param name="administratorService">The administrator service.</param>
@@ -37,6 +47,9 @@ namespace MyContractsGenerator.WebUI.Controllers
         {
             this.administratorService = administratorService;
             this.mailService = mailService;
+
+            this.currentAdministratorId = int.Parse(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            this.currentOrganizationId = administratorService.GetAdministratorById(this.currentAdministratorId).organization_id;
         }
 
         /// <summary>
@@ -88,7 +101,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             administrator dbAdmin;
             if (!this.User.IsInRole(AppConstants.SuperAdminRoleLabel))
             {
-                dbAdmin = this.administratorService.GetAdministratorById(int.Parse(this.User.Identity.GetUserId()));
+                dbAdmin = this.administratorService.GetAdministratorById(this.currentAdministratorId);
                 model.EditedAdministrator = AdministratorMap.MapItem(dbAdmin);
 
                 return this.View("MyProfile", model);
@@ -159,7 +172,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return actionResult;
             }
 
-            this.administratorService.Update(existingAdministrator);
+            this.administratorService.Update(existingAdministrator, this.currentOrganizationId);
             this.PopulateAdministratorMainModel(model);
 
             if (model.EditedAdministrator.NewPassword != null &&
@@ -222,7 +235,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return actionResult;
             }
 
-            this.administratorService.Update(existingAdministrator);
+            this.administratorService.Update(existingAdministrator, this.currentOrganizationId);
             this.PopulateAdministratorMainModel(model);
 
             if (model.EditedAdministrator.NewPassword != null &&
@@ -330,7 +343,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             Requires.ArgumentNotNull(model, "model");
             Requires.ArgumentNotNull(model.EditedAdministrator.Id, "administratorId");
 
-            this.administratorService.ResetPassword(model.EditedAdministrator.Id);
+            this.administratorService.ResetPassword(model.EditedAdministrator.Id, this.currentOrganizationId);
 
             this.TempData["NewAdministratorPasswordGenerated"] = model.EditedAdministrator.Id;
 
@@ -352,7 +365,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             //Verify if the email is already used
-            if (this.administratorService.IsThisEmailAlreadyExists(model.EditedAdministrator.Email))
+            if (this.administratorService.IsThisEmailAlreadyExists(model.EditedAdministrator.Email, this.currentOrganizationId))
             {
                 this.ModelState.AddModelError("EditedAdministrator.Email",
                                               Resources.Administrator_ErrorIncorrectEmailAlreadyUsed);
@@ -371,7 +384,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 organization_id = 0
             };
 
-            administrator dbAdmin = this.administratorService.Add(newAdministrator);
+            administrator dbAdmin = this.administratorService.Add(newAdministrator, this.currentOrganizationId);
 
             this.PopulateAdministratorMainModel(model);
 
@@ -404,7 +417,7 @@ namespace MyContractsGenerator.WebUI.Controllers
         private void PopulateAdministratorMainModel(AdministratorMainModel model)
         {
             //Populate the active administrators
-            IList<administrator> administrators = this.administratorService.GetActiveAdministrators();
+            IList<administrator> administrators = this.administratorService.GetActiveAdministrators(this.currentOrganizationId);
 
             model.Administrators = AdministratorMap.MapItems(administrators);
         }

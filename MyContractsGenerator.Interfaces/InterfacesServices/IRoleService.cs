@@ -6,18 +6,19 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
     public interface IRoleService
     {
         /// <summary>
-        ///     Gets roles by Id
+        /// Gets the by identifier.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        role GetById(int id);
+        role GetById(int id, int organizationId);
 
         /// <summary>
-        ///     Gets roles
+        /// Gets all active.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        IList<role> GetAllActive();
+        IList<role> GetAllActive(int organizationId);
 
         /// <summary>
         ///     delete logically the roles
@@ -29,39 +30,41 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         ///     Updates the role.
         /// </summary>
         /// <param name="roleToUpdate">The role to update.</param>
-        void UpdateRole(role roleToUpdate);
+        void UpdateRole(role roleToUpdate, int organizationId);
 
         /// <summary>
         ///     Adds the role.
         /// </summary>
         /// <param name="roleToCreate">The role to create.</param>
         /// <returns></returns>
-        role AddRole(role roleToCreate);
+        role AddRole(role roleToCreate, int organizationId);
 
         /// <summary>
-        ///     Determines whether [is this label already exists] [the specified label].
+        /// Determines whether [is this label already exists] [the specified label].
         /// </summary>
         /// <param name="label">The label.</param>
+        /// <param name="currentId">The current identifier.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns>
-        ///     <c>true</c> if [is this label already exists] [the specified label]; otherwise, <c>false</c>.
+        ///   <c>true</c> if [is this label already exists] [the specified label]; otherwise, <c>false</c>.
         /// </returns>
-        bool IsThisLabelAlreadyExists(string label);
+        bool IsThisLabelAlreadyExists(string label, int currentId, int organizationId);
 
         /// <summary>
-        ///     Determines whether [is this label already exists] [the specified label].
+        /// Determines whether [is this label already exists] [the specified label].
         /// </summary>
         /// <param name="label">The label.</param>
-        /// <param name="currentId">The current id.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns>
-        ///     <c>true</c> if [is this label already exists] [the specified label]; otherwise, <c>false</c>.
+        ///   <c>true</c> if [is this label already exists] [the specified label]; otherwise, <c>false</c>.
         /// </returns>
-        bool IsThisLabelAlreadyExists(string label, int currentId);
+        bool IsThisLabelAlreadyExists(string label, int organizationId);
 
         /// <summary>
         ///     Affects to role.
         /// </summary>
         /// <param name="editedCollaboratorLinkedRolesIds">The edited collaborator linked roles ids.</param>
         /// <param name="editedCollaboratorId">The edited collaborator identifier.</param>
-        void AffectToRole(IEnumerable<int> editedCollaboratorLinkedRolesIds, int editedCollaboratorId);
+        void AffectToRole(IEnumerable<int> editedCollaboratorLinkedRolesIds, int editedCollaboratorId, int organizationId);
     }
 }

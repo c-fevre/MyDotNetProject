@@ -1,0 +1,49 @@
+﻿@using MyContractsGenerator.Common
+@using MyContractsGenerator.WebUI.Models.OrganizationModels
+@model MyContractsGenerator.WebUI.Models.OrganizationModels.OrganizationMainModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="contentSideBarSection">
+    @if (User.IsInRole(AppConstants.SuperAdminRoleLabel))
+    {
+        @RenderBody()
+    }
+</div>
+
+@section LeftMenuSection {
+    @Helpers.LeftMenu(
+        menuCss: "organizationLeftMenu",
+        itemIconCss: x => "glyphicon glyphicon-user",
+        items: Model.Organizations,
+        itemIsActive: x => Model.EditedOrganization != null && (x as OrganizationModel).Id == Model.EditedOrganization.Id,
+        itemActionUrl: x => Url.Action("Edit", "Organization", new { (x as OrganizationModel).Id }),
+        itemDisplay:
+            @<div>
+                <span class="text-uppercase">@( (item as OrganizationModel).Label)</span>
+            </div>,
+        newItemUrl: Url.Action("Create", "Organization"),
+        newItemText: Resources.Organization_New,
+        userCanDeleteItem: (currentUserId, item) => (item as OrganizationModel).IsRemovable,
+        deleteTooltipText: Resources.Organization_Tooltip_Remove
+         )
+}
+
+@section ScriptSection {
+
+    <script>
+        $(document).ready(function() {
+            var aspnet = {
+                messages: {
+                    beforeLeave: @Html.Raw(Json.Encode(Resources.Shared_BeforeLeave_Message)),
+                    nonSelectedText: @Html.Raw(Json.Encode(Resources.Role_MultiSelect_NonSelectedText))
+                }
+            };
+        });
+
+    </script>
+
+    @RenderSection("PageChangeChecker", false)
+}

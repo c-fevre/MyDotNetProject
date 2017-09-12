@@ -6,14 +6,6 @@ namespace MyContractsGenerator.WebUI.Models.CollaboratorFormModels
     public class CollaboratorFormMainModel
     {
         /// <summary>
-        ///     Gets or sets the hashed mail.
-        /// </summary>
-        /// <value>
-        ///     The hashed mail.
-        /// </value>
-        public string c { get; set; }
-
-        /// <summary>
         ///     Gets or sets the fa.
         /// </summary>
         /// <value>

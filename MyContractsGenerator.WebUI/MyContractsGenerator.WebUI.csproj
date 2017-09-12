@@ -180,22 +180,26 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Common\AppSession.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AdministratorController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CollaboratorController.cs" />
     <Compile Include="Controllers\CollaboratorFormController.cs" />
     <Compile Include="Controllers\FormController.cs" />
-    <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Controllers\CollaboratorController.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
+    <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mapping\AnswerMap.cs" />
     <Compile Include="Mapping\AdministratorMap.cs" />
+    <Compile Include="Mapping\CollaboratorMap.cs" />
     <Compile Include="Mapping\FormAnswerMap.cs" />
     <Compile Include="Mapping\QuestionMap.cs" />
     <Compile Include="Mapping\RoleMap.cs" />
-    <Compile Include="Mapping\CollaboratorMap.cs" />
+    <Compile Include="Mapping\OrganizationMap.cs" />
+    <Compile Include="Models\OrganizationModels\OrganizationMainModel.cs" />
+    <Compile Include="Models\OrganizationModels\OrganizationModel.cs" />
     <Compile Include="Models\AdministratorModels\AdministratorEditPasswordModel.cs" />
     <Compile Include="Models\AdministratorModels\AdministratorLoginModel.cs" />
     <Compile Include="Models\AnswerModels\AnswerModel.cs" />
@@ -355,6 +359,10 @@
     <Content Include="Views\Administrator\Index.cshtml" />
     <Content Include="Views\Administrator\MyProfile.cshtml" />
     <Content Include="Views\Administrator\_LayoutLimitedAdministrator.cshtml" />
+    <Content Include="Views\Organization\_LayoutOrganization.cshtml" />
+    <Content Include="Views\Organization\Create.cshtml" />
+    <Content Include="Views\Organization\Edit.cshtml" />
+    <Content Include="Views\Organization\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

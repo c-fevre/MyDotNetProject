@@ -98,5 +98,13 @@ namespace MyContractsGenerator.WebUI.Models.AdministratorModels
         [StringLength(40, MinimumLength = 4, ErrorMessageResourceName = "Shared_MessageError_MinAndMaxLength",
             ErrorMessageResourceType = typeof(Resources))]
         public string NewPasswordConfirmation { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is removable.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is removable; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsRemovable{ get; set; }
     }
 }

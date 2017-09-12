@@ -39,7 +39,8 @@ namespace MyContractsGenerator.Core.Unity
             container.RegisterType<IFormAnswerRepository, FormAnswerRepository>();
             container.RegisterType<IFormRepository, FormRepository>();
             container.RegisterType<IQuestionRepository, QuestionRepository>();
-            container.RegisterType<IQuestionTypeRepository, IQuestionTypeRepository>();
+            container.RegisterType<IQuestionTypeRepository, QuestionTypeRepository>();
+            container.RegisterType<IOrganizationRepository, OrganizationRepository>();
 
             container.RegisterType<IAdministratorService, AdministratorService>();
             container.RegisterType<ICollaboratorService, CollaboratorService>();
@@ -49,6 +50,7 @@ namespace MyContractsGenerator.Core.Unity
             container.RegisterType<IFormService, FormService>();
             container.RegisterType<IQuestionService, QuestionService>();
             container.RegisterType<IQuestionTypeService, QuestionTypeService>();
+            container.RegisterType<IOrganizationService, OrganizationService>();
 
             container.RegisterType<IMailService, MailService>();
 

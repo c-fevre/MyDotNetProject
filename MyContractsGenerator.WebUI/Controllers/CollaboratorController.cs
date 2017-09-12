@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using MyContractsGenerator.Common.I18N;
 using MyContractsGenerator.Common.Validation;
 using MyContractsGenerator.Domain;
@@ -25,13 +26,34 @@ namespace MyContractsGenerator.WebUI.Controllers
         private readonly IRoleService roleService;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="CollaboratorController" /> class.
+        /// The administrator service
+        /// </summary>
+        private readonly IAdministratorService administratorService;
+
+        /// <summary>
+        /// The current administrator identifier
+        /// </summary>
+        private readonly int currentAdministratorId;
+
+        /// <summary>
+        /// The current organization identifier
+        /// </summary>
+        private readonly int currentOrganizationId;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CollaboratorController"/> class.
         /// </summary>
         /// <param name="collaboratorService">The collaborator service.</param>
-        public CollaboratorController(ICollaboratorService collaboratorService, IRoleService roleService)
+        /// <param name="roleService">The role service.</param>
+        /// <param name="administratorService">The administrator service.</param>
+        public CollaboratorController(ICollaboratorService collaboratorService, IRoleService roleService, IAdministratorService administratorService)
         {
             this.collaboratorService = collaboratorService;
             this.roleService = roleService;
+            this.administratorService = administratorService;
+
+            this.currentAdministratorId = int.Parse(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            this.currentOrganizationId = administratorService.GetAdministratorById(this.currentAdministratorId).organization_id;
         }
 
         /// <summary>
@@ -50,7 +72,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             collaborator deleteCollaborator =
-                this.collaboratorService.GetById((int) this.TempData["DeleteCollaboratorId"]);
+                this.collaboratorService.GetById((int) this.TempData["DeleteCollaboratorId"], this.currentOrganizationId);
             NotificationModel notificationModel = new NotificationModel
             {
                 Title =
@@ -71,7 +93,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             //select by default the element of the list
             if (id == 0)
             {
-                collaborator defaultSelectedCollaborator = this.collaboratorService.GetAllActive().FirstOrDefault();
+                collaborator defaultSelectedCollaborator = this.collaboratorService.GetAllActive(this.currentOrganizationId).FirstOrDefault();
                 return defaultSelectedCollaborator == null
                     ? this.RedirectToAction("Index")
                     : this.RedirectToAction("Edit", new { defaultSelectedCollaborator.id });
@@ -80,7 +102,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             CollaboratorMainModel model = new CollaboratorMainModel();
             this.PopulateCollaboratorMainModel(model);
 
-            collaborator collaborator = this.collaboratorService.GetById(id);
+            collaborator collaborator = this.collaboratorService.GetById(id, this.currentOrganizationId);
             model.EditedCollaborator = CollaboratorMap.MapItem(collaborator);
 
             //display a notification if an administrator has been deleted
@@ -108,7 +130,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return this.ErrorOnEdit(model);
             }
 
-            collaborator existingCollaborator = this.collaboratorService.GetById(model.EditedCollaborator.Id);
+            collaborator existingCollaborator = this.collaboratorService.GetById(model.EditedCollaborator.Id, this.currentOrganizationId);
             if (existingCollaborator == null)
             {
                 return this.ErrorOnEdit(model);
@@ -137,15 +159,10 @@ namespace MyContractsGenerator.WebUI.Controllers
             existingCollaborator.firstname = model.EditedCollaborator.FirstName;
             existingCollaborator.lastname = model.EditedCollaborator.LastName;
 
-            // TODO Multilingue
-            //existingCollaborator.isadministrator = model.EditedAdministrator.Administrator;
-            //existingCollaborator.applicationlanguage =
-            //this.applicationLangageService.GetById(model.EditedAdministrator.ApplicationLangageId);
-
-            this.collaboratorService.UpdateCollaborator(existingCollaborator);
+            this.collaboratorService.UpdateCollaborator(existingCollaborator, this.currentOrganizationId);
 
             this.roleService.AffectToRole(model.EditedCollaborator.LinkedRolesIds,
-                                          model.EditedCollaborator.Id);
+                                          model.EditedCollaborator.Id, this.currentOrganizationId);
 
             this.PopulateCollaboratorMainModel(model);
 
@@ -168,10 +185,6 @@ namespace MyContractsGenerator.WebUI.Controllers
             this.PopulateCollaboratorMainModel(model);
             model.EditedCollaborator = new CollaboratorModel();
 
-            //TODO Multilingue
-            // model.EditedCollaborator.Administrator = false;
-            // model.EditedCollaborator.ApplicationLangageId = Constants.StaticIdDefaultApplicationLangage;
-
             return this.View(model);
         }
 
@@ -190,7 +203,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             //Verify if the email is already used
-            if (this.collaboratorService.IsThisEmailAlreadyExists(model.EditedCollaborator.Email))
+            if (this.collaboratorService.IsThisEmailAlreadyExists(model.EditedCollaborator.Email, this.currentOrganizationId))
             {
                 this.ModelState.AddModelError("EditedCollaborator.Email",
                                               Resources.Administrator_ErrorIncorrectEmailAlreadyUsed);
@@ -204,15 +217,10 @@ namespace MyContractsGenerator.WebUI.Controllers
                 lastname = model.EditedCollaborator.LastName
             };
 
-            // TODO Multilingue
-            //newCollaborator.isadministrator = model.EditedAdministrator.Administrator;
-            //newCollaborator.applicationlanguage =
-            //this.applicationLangageService.GetById(model.EditedAdministrator.ApplicationLangageId);
-
-            collaborator dbCollab = this.collaboratorService.AddCollaborator(newCollaborator);
+            collaborator dbCollab = this.collaboratorService.AddCollaborator(newCollaborator, this.currentOrganizationId);
 
             this.roleService.AffectToRole(model.EditedCollaborator.LinkedRolesIds,
-                                          dbCollab.id);
+                                          dbCollab.id, this.currentOrganizationId);
 
             this.PopulateCollaboratorMainModel(model);
 
@@ -229,7 +237,7 @@ namespace MyContractsGenerator.WebUI.Controllers
         public ActionResult Remove(int id)
         {
             Requires.ArgumentGreaterThanZero(id, "collaborator id");
-            this.collaboratorService.DeleteCollaborator(id);
+            this.collaboratorService.DeleteCollaborator(id, this.currentOrganizationId);
 
             this.TempData["DeleteCollaboratorId"] = id;
 
@@ -242,24 +250,11 @@ namespace MyContractsGenerator.WebUI.Controllers
         private void PopulateCollaboratorMainModel(CollaboratorMainModel model)
         {
             //Populate the active collaborators
-            IList<collaborator> collaborators = this.collaboratorService.GetAllActive();
-            IList<role> roles = this.roleService.GetAllActive();
+            IList<collaborator> collaborators = this.collaboratorService.GetAllActive(this.currentOrganizationId);
+            IList<role> roles = this.roleService.GetAllActive(this.currentOrganizationId);
 
             model.Collaborators = CollaboratorMap.MapItems(collaborators);
             model.AvailableRoles = RoleMap.MapItemsToSelectListItems(roles);
-
-            //populate the available application langages
-            //TODO Multilingue
-            //model.AvailableApplicationLangage = new List<SelectListItem>();
-            /*IList<applicationlanguage> applicationLangages = this.applicationLangageService.GetAll();
-            foreach (var applicationLangage in applicationLangages)
-            {
-                model.AvailableApplicationLangage.Add(new SelectListItem
-                {
-                    Text = applicationLangage.label,
-                    Value = applicationLangage.id.ToString()
-                });
-            }*/
         }
 
         /// <summary>

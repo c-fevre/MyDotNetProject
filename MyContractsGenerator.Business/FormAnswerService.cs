@@ -29,19 +29,20 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        ///     Gets formAnswer by Id
+        /// Gets the by identifier.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        public form_answer GetById(int id)
+        public form_answer GetById(int id, int organizationId)
         {
-            return this.formAnswerRepository.GetById(id);
+            return this.formAnswerRepository.GetById(id, organizationId);
         }
 
         /// <summary>
-        ///     delete logically the formAnswer
+        /// Deletes the form answer.
         /// </summary>
-        /// <param name="formAnswerId"></param>
+        /// <param name="formAnswerId">The form answer identifier.</param>
         public void DeleteFormAnswer(int formAnswerId)
         {
             Requires.ArgumentGreaterThanZero(formAnswerId, "Form Answer Id");
@@ -51,14 +52,17 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        ///     Adds the formAnswer.
+        /// Adds the form answer.
         /// </summary>
-        /// <param name="formAnswerToCreate">The formAnswer to create.</param>
+        /// <param name="formAnswerToCreate">The form answer to create.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public form_answer AddFormAnswer(form_answer formAnswerToCreate)
+        public form_answer AddFormAnswer(form_answer formAnswerToCreate, int organizationId)
         {
             Requires.ArgumentNotNull(formAnswerToCreate, "formAnswerToCreate");
+            Requires.ArgumentNotNull(organizationId, "organizationId");
+
+            formAnswerToCreate.collaborator_id = organizationId;
 
             form_answer dbFormAnswer = this.formAnswerRepository.Add(formAnswerToCreate);
             this.formAnswerRepository.SaveChanges();
@@ -67,12 +71,13 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        ///     Updates the formAnswer.
+        /// Updates the form answer.
         /// </summary>
-        /// <param name="formAnswerToUpdate">The formAnswer to update.</param>
-        public void UpdateFormAnswer(form_answer formAnswerToUpdate)
+        /// <param name="formAnswerToUpdate">The form answer to update.</param>
+        /// <param name="organizationId">The organization identifier.</param>
+        public void UpdateFormAnswer(form_answer formAnswerToUpdate, int organizationId)
         {
-            var dbFormAnswer = this.formAnswerRepository.GetById(formAnswerToUpdate.id);
+            var dbFormAnswer = this.formAnswerRepository.GetById(formAnswerToUpdate.id, organizationId);
             if (dbFormAnswer == null)
             {
                 return;
@@ -81,30 +86,42 @@ namespace MyContractsGenerator.Business
             //TODO Bindings ?
             dbFormAnswer.last_update = DateTime.Now;
             dbFormAnswer.replied = formAnswerToUpdate.replied;
+            dbFormAnswer.organization_id = organizationId;
 
             this.formAnswerRepository.Update(dbFormAnswer);
             this.formAnswerRepository.SaveChanges();
         }
 
         /// <summary>
-        ///     Gets all.
+        /// Gets all.
         /// </summary>
+        /// <param name="organizationId">The organizationId.</param>
         /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public IList<form_answer> GetAll()
+        public IList<form_answer> GetAll(int organizationId)
         {
-            return this.formAnswerRepository.GetAll().ToList();
+            return this.formAnswerRepository.GetAll(organizationId).ToList();
         }
 
         /// <summary>
-        ///     Gets all for collaborator and role.
+        /// Gets all for collaborator and role.
         /// </summary>
         /// <param name="collaboratorId">The collaborator identifier.</param>
         /// <param name="roleId">The role identifier.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        public IList<form_answer> GetAllForCollaboratorAndRole(int collaboratorId, int roleId)
+        public IList<form_answer> GetAllForCollaboratorAndRole(int collaboratorId, int roleId, int organizationId)
         {
-            return this.formAnswerRepository.GetAllForCollaboratorAndRole(collaboratorId, roleId).ToList();
+            return this.formAnswerRepository.GetAllForCollaboratorAndRole(collaboratorId, roleId, organizationId).ToList();
+        }
+        
+        /// <summary>
+        /// Gets all active.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public IList<form_answer> GetAllActive()
+        {
+            return this.formAnswerRepository.GetAll().Where(fa => !fa.replied).ToList();
         }
     }
 }

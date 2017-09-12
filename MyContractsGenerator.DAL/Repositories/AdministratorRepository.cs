@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.Interfaces.InterfacesRepo;
@@ -24,34 +25,62 @@ namespace MyContractsGenerator.DAL.Repositories
         administrator IBaseRepository<administrator>.GetById(int id)
         {
             return this.Table
-
+                       .Include(a => a.organization)
+                       .Include(a => a.organization.collaborators)
+                       .Include(a => a.organization.roles)
+                       .Include(a => a.organization.form_answer)
                        //.Include(d => d.applicationlanguage)
                        .Where(d => d.active)
                        .SingleOrDefault(d => d.id == id);
         }
 
         /// <summary>
-        ///     Gets administrator by Email
+        /// Gets the by email.
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="email">The email.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
         public administrator GetByEmail(string email)
         {
             return this.Table
-
+                       .Include(a => a.organization)
+                       .Include(a => a.organization.collaborators)
+                       .Include(a => a.organization.roles)
+                       .Include(a => a.organization.form_answer)
                        //.Include(d => d.applicationlanguage)
                        .Where(u => u.email == email)
+                       .Where(u => u.organization.active)
                        .Where(d => d.active)
                        .SingleOrDefault(u => u.active);
         }
-
+        
         /// <summary>
-        ///     Gets all administrators order by lastName
+        /// Gets the active administrators.
         /// </summary>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        public IList<administrator> GetActiveAdministrators()
+        public IEnumerable<administrator> GetActiveAdministrators(int organizationId)
         {
             return this.Table
+                       .Include(a => a.organization)
+                       .Include(a => a.organization.collaborators)
+                       .Include(a => a.organization.roles)
+                       .Include(a => a.organization.form_answer)
+                       .Where(u => u.organization_id == organizationId)
+                       .Where(u => u.organization.active)
+                       .Where(u => u.active)
+                       .OrderBy(u => u.email)
+                       .ToList();
+        }
+
+        public IEnumerable<administrator> GetActiveAdministrators()
+        {
+            return this.Table
+                       .Include(a => a.organization)
+                       .Include(a => a.organization.collaborators)
+                       .Include(a => a.organization.roles)
+                       .Include(a => a.organization.form_answer)
+                       .Where(u => u.organization.active)
                        .Where(u => u.active)
                        .OrderBy(u => u.email)
                        .ToList();

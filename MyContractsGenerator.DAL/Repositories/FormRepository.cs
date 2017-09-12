@@ -29,7 +29,7 @@ namespace MyContractsGenerator.DAL.Repositories
                        .Include(d => d.form_answer.Select(fa => fa.role))
                        .Include(d => d.form_answer.Select(fa => fa.collaborator))
                        .Include(d => d.form_answer.Select(fa => fa.collaborator).Select(c => c.roles))
-                       .Include(d => d.form_answer.Select(fa => fa.administrator))
+                       .Include(d => d.form_answer.Select(fa => fa.organization))
                        .Include(d => d.questions)
                        .Include(d => d.questions.Select(q => q.question_type))
                        .SingleOrDefault(d => d.id.Equals(id));

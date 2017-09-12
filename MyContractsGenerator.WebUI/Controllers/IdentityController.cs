@@ -17,9 +17,12 @@ namespace MyContractsGenerator.WebUI.Controllers
     {
         private readonly IAdministratorService administratorService;
 
-        public IdentityController(IAdministratorService administratorService)
+        private readonly IOrganizationService organizationService;
+
+        public IdentityController(IAdministratorService administratorService, IOrganizationService organizationService)
         {
             this.administratorService = administratorService;
+            this.organizationService = organizationService;
         }
 
         /// <summary>
@@ -34,17 +37,16 @@ namespace MyContractsGenerator.WebUI.Controllers
         }
 
         /// <summary>
-        ///     Login Action
+        /// Logins the specified email.
         /// </summary>
-        /// <param name="email"></param>
-        /// <param name="password"></param>
+        /// <param name="email">The email.</param>
+        /// <param name="password">The password.</param>
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(string email, string password)
         {
-            //Model validation
             if (email.IsNullOrWhiteSpace())
             {
                 this.ModelState.AddModelError("Email",
@@ -98,16 +100,16 @@ namespace MyContractsGenerator.WebUI.Controllers
         }
 
         /// <summary>
-        ///     Forgot Password Action
+        /// Forgots the password.
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="email">The email.</param>
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult ForgotPassword(string email)
         {
-            AdministratorLoginModel model = new AdministratorLoginModel { Email = email };
+            AdministratorLoginModel model = new AdministratorLoginModel { Email = email};
 
             if (string.IsNullOrEmpty(email))
             {
@@ -127,7 +129,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             administrator administrator = this.administratorService.GetByEmail(email);
-            this.administratorService.ResetPassword(administrator.id);
+            this.administratorService.ResetPassword(administrator.id, administrator.organization_id);
             model.Email = administrator.email;
 
             this.AddNotification(string.Format(Resources.Login_PasswordChangeSuccess, administrator.email), "success");

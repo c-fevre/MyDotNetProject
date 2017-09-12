@@ -8,8 +8,6 @@
 @using (Html.BeginForm("Checkin", "CollaboratorForm", FormMethod.Post, new { id = "email-check-form" }))
 {
     @Html.AntiForgeryToken()
-
-    @Html.HiddenFor(m => m.c)
     @Html.HiddenFor(m => m.fa)
 
     <div class="row">

@@ -13,16 +13,23 @@ namespace MyContractsGenerator.Interfaces.InterfacesRepo
         new administrator GetById(int id);
 
         /// <summary>
-        ///     Gets administrator by Email
+        /// Gets the by email.
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="email">The email.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
         administrator GetByEmail(string email);
 
         /// <summary>
-        ///     Gets all administrators order by lastName
+        /// Gets the active administrators.
+        /// </summary>
+        /// <param name="organizationId">The organization identifier.</param>
+        /// <returns></returns>
+        IEnumerable<administrator> GetActiveAdministrators(int organizationId);
+        /// <summary>
+        /// Gets the active administrators.
         /// </summary>
         /// <returns></returns>
-        IList<administrator> GetActiveAdministrators();
+        IEnumerable<administrator> GetActiveAdministrators();
     }
 }

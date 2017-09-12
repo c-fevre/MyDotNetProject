@@ -23,9 +23,9 @@
                 <span class="text-capitalize">@( (item as CollaboratorModel).FirstName)</span>
             </div>,
         newItemUrl: Url.Action("Create", "Collaborator"),
-        newItemText: Resources.Administrator_New,
+        newItemText: Resources.Collaborator_New,
         userCanDeleteItem: (currentUserId, item) => true,
-        deleteTooltipText: Resources.Administrator_Tooltip_RemoveUser
+        deleteTooltipText: Resources.Collaborator_Tooltip_RemoveUser
          )
 }
 

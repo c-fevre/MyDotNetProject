@@ -76,6 +76,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyContractsGeneratorModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\OrganizationRepository.cs" />
     <Compile Include="Repositories\QuestionTypeRepository.cs" />
     <Compile Include="Repositories\QuestionRepository.cs" />
     <Compile Include="Repositories\FormRepository.cs" />

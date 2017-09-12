@@ -43,49 +43,52 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        ///     Gets administrator by login
+        /// Gets the by email.
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="email">The email.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        public collaborator GetByEmail(string email)
+        public collaborator GetByEmail(string email, int organizationId)
         {
-            return this.collaboratorRepository.GetByEmail(email);
+            return this.collaboratorRepository.GetByEmail(email, organizationId);
         }
 
         /// <summary>
-        ///     Gets administrator by Id
+        /// Gets the by identifier.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        public collaborator GetById(int id)
+        public collaborator GetById(int id, int organizationId)
         {
-            return this.collaboratorRepository.GetById(id);
+            return this.collaboratorRepository.GetById(id, organizationId);
         }
 
         /// <summary>
-        ///     Check if this email is already used be an active administrator
+        /// Determines whether [is this email already exists] [the specified email].
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="email">The email.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns>
-        ///     true: this email is already used be an active administrator
+        /// <c>true</c> if [is this email already exists] [the specified email]; otherwise, <c>false</c>.
         /// </returns>
-        public bool IsThisEmailAlreadyExists(string email)
+        public bool IsThisEmailAlreadyExists(string email, int organizationId)
         {
-            return this.collaboratorRepository.GetByEmail(email) != null;
+            return this.collaboratorRepository.GetByEmail(email, organizationId) != null;
         }
 
         /// <summary>
-        ///     Determines whether [is this email already exists] [the specified email address].
+        /// Determines whether [is this email already exists] [the specified email].
         /// </summary>
-        /// <param name="email">The email address.</param>
-        /// <param name="currentCollaboratorId">The identifier.</param>
+        /// <param name="email">The email.</param>
+        /// <param name="currentCollaboratorId">The current collaborator identifier.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns>
-        ///     <c>true</c> if [is this email already exists] [the specified email address]; otherwise, <c>false</c>.
+        ///   <c>true</c> if [is this email already exists] [the specified email]; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public bool IsThisEmailAlreadyExists(string email, int currentCollaboratorId)
+        public bool IsThisEmailAlreadyExists(string email, int currentCollaboratorId, int organizationId)
         {
-            collaborator result = this.collaboratorRepository.GetByEmail(email);
+            collaborator result = this.collaboratorRepository.GetByEmail(email, organizationId);
 
             if (result == null)
             {
@@ -95,40 +98,47 @@ namespace MyContractsGenerator.Business
             return !result.id.Equals(currentCollaboratorId);
         }
 
-        public IList<collaborator> GetAllActive()
+        /// <summary>
+        /// Gets all active.
+        /// </summary>
+        /// <param name="organizationId">The organization identifier.</param>
+        /// <returns></returns>
+        public IList<collaborator> GetAllActive(int organizationId)
         {
-            return this.collaboratorRepository.GetAllActive().ToList();
+            return this.collaboratorRepository.GetAllActive(organizationId).ToList();
         }
 
         /// <summary>
-        ///     delete logically the user
+        /// Deletes the collaborator.
         /// </summary>
-        /// <param name="collaboratorId"></param>
-        public void DeleteCollaborator(int collaboratorId)
+        /// <param name="collaboratorId">The collaborator identifier.</param>
+        /// <param name="organizationId">The organization identifier.</param>
+        public void DeleteCollaborator(int collaboratorId, int organizationId)
         {
             Requires.ArgumentGreaterThanZero(collaboratorId, "Collaborateur Id");
 
-            collaborator dbCollaborator = this.collaboratorRepository.GetById(collaboratorId);
+            collaborator dbCollaborator = this.collaboratorRepository.GetById(collaboratorId, organizationId);
             dbCollaborator.active = false;
 
             //Desaffect all collaborators
             IEnumerable<int> emptyRoleList = new List<int>();
-            this.roleService.AffectToRole(emptyRoleList, dbCollaborator.id);
+            this.roleService.AffectToRole(emptyRoleList, dbCollaborator.id, organizationId);
 
             this.collaboratorRepository.SaveChanges();
         }
 
         /// <summary>
-        ///     Adds the collaborator.
+        /// Adds the collaborator.
         /// </summary>
         /// <param name="collaboratorToCreate">The collaborator to create.</param>
+        /// <param name="organizationId"></param>
         /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public collaborator AddCollaborator(collaborator collaboratorToCreate)
+        public collaborator AddCollaborator(collaborator collaboratorToCreate, int organizationId)
         {
             Requires.ArgumentNotNull(collaboratorToCreate, "collaboratorToCreate");
 
             collaboratorToCreate.active = true;
+            collaboratorToCreate.organization_id = organizationId;
 
             collaborator dbUser = this.collaboratorRepository.Add(collaboratorToCreate);
             this.collaboratorRepository.SaveChanges();
@@ -137,10 +147,11 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        ///     Updates the collaborator.
+        /// Updates the collaborator.
         /// </summary>
         /// <param name="collaboratorToUpdate">The collaborator to update.</param>
-        public void UpdateCollaborator(collaborator collaboratorToUpdate)
+        /// <param name="organizationId"></param>
+        public void UpdateCollaborator(collaborator collaboratorToUpdate, int organizationId)
         {
             var dbUser = this.collaboratorRepository.GetById(collaboratorToUpdate.id);
             if (dbUser == null)
@@ -151,6 +162,7 @@ namespace MyContractsGenerator.Business
             dbUser.email = collaboratorToUpdate.email;
             dbUser.firstname = collaboratorToUpdate.firstname;
             dbUser.lastname = collaboratorToUpdate.lastname;
+            dbUser.organization_id = organizationId;
 
             this.collaboratorRepository.Update(dbUser);
             this.collaboratorRepository.SaveChanges();

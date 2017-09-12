@@ -12,32 +12,33 @@ namespace MyContractsGenerator.DAL.Repositories
         }
 
         /// <summary>
-        ///     Get an entity by identifier
+        /// Gets the by identifier.
         /// </summary>
-        /// <param name="id">the identifier</param>
-        /// <returns>
-        ///     the entity or null
-        /// </returns>
-        public override role GetById(int id)
+        /// <param name="id">The identifier.</param>
+        /// <param name="organizationId">The organization identifier.</param>
+        /// <returns></returns>
+        public role GetById(int id, int organizationId)
         {
             return this.Table
                        .Include(r => r.collaborators)
                        .Include(r => r.form_answer)
                        .Include(r => r.form_answer.Select(c => c.collaborator))
+                       .Where(r => r.organization_id.Equals(organizationId))
                        .SingleOrDefault(d => d.id == id);
         }
 
         /// <summary>
-        ///     Gets all active.
+        /// Gets all active.
         /// </summary>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public IEnumerable<role> GetAllActive()
+        public IEnumerable<role> GetAllActive(int organizationId)
         {
             return this.Table
                        .Include(r => r.collaborators)
                        .Include(r => r.form_answer)
                        .Include(r => r.form_answer.Select(c => c.collaborator))
+                       .Where(r => r.organization_id.Equals(organizationId))
                        .Where(d => d.active);
         }
     }

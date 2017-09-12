@@ -6,19 +6,26 @@ namespace MyContractsGenerator.Interfaces.InterfacesRepo
     public interface ICollaboratorRepository : IBaseRepository<collaborator>
     {
         /// <summary>
-        ///     Gets Administrator by Id
+        /// Gets the by identifier.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        new collaborator GetById(int id);
+        new collaborator GetById(int id, int organizationId);
 
         /// <summary>
-        ///     Gets administrator by Email
+        /// Gets the by email.
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="email">The email.</param>
+        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        collaborator GetByEmail(string email);
+        collaborator GetByEmail(string email, int organizationId);
 
-        IEnumerable<collaborator> GetAllActive();
+        /// <summary>
+        /// Gets all active.
+        /// </summary>
+        /// <param name="organizationId">The organization identifier.</param>
+        /// <returns></returns>
+        IEnumerable<collaborator> GetAllActive(int organizationId);
     }
 }

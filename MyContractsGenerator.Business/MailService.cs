@@ -148,7 +148,7 @@ namespace MyContractsGenerator.Business
             string collaboratorIdentity = $"{formAnswer.collaborator.firstname} {formAnswer.collaborator.lastname}";
 
             this.SendEmail(
-                new List<string> { formAnswer.administrator.email },
+                formAnswer.organization.administrators.Select(a => a.email),
                 Resources.Form_CollaboratorAnswerMailSubject,
                 string.Format(Resources.Form_CollaboratorAnswerMailBody, collaboratorIdentity, formAnswer.role.label,
                               answersString)
@@ -239,8 +239,8 @@ namespace MyContractsGenerator.Business
 
             this.SendEmail(
                 new List<string> { administrator.email },
-                Resources.Administrator_NewAdministratorPasswordTitle,
-                string.Format(Resources.Administrator_NewAdministratorPasswordBody, administratorIdentity,
+                Resources.Administrator_WelcomeNewAdministratorTitle,
+                string.Format(Resources.Administrator_WelcomeNewAdministratorBody, administratorIdentity,
                               GlobalAppSettings.ApplicationBaseUrl, administrator.email, password)
             );
 
