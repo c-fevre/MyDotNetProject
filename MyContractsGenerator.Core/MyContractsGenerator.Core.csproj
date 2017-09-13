@@ -118,6 +118,9 @@
   <ItemGroup>
     <Compile Include="Enum\EnumEx.cs" />
     <Compile Include="Enum\QuestionTypeEnum.cs" />
+    <Compile Include="Exceptions\BusinessException.cs" />
+    <Compile Include="Exceptions\ModelException.cs" />
+    <Compile Include="Exceptions\SendMailException.cs" />
     <Compile Include="Unity\UnityConfig.cs" />
     <Compile Include="Unity\UnityMvcActivator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

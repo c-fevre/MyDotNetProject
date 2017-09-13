@@ -22,13 +22,12 @@ namespace MyContractsGenerator.DAL.Repositories
         /// <returns>
         ///     the entity or null
         /// </returns>
-        organization IBaseRepository<organization>.GetById(int id)
+        public new organization GetById(int id)
         {
             return this.Table
-                       .Include(d => d.administrators)
+                       .Where(d => d.active)
                        .Include(d => d.collaborators)
-                       .Include(d => d.roles)
-                       .Where(o => o.active)
+                       .Include(d => d.administrators)
                        .SingleOrDefault(d => d.id == id);
         }
 
@@ -39,10 +38,9 @@ namespace MyContractsGenerator.DAL.Repositories
         public IEnumerable<organization> GetAll()
         {
             return this.Table
+                       .Where(d => d.active)
                        .Include(d => d.administrators)
-                       .Include(d => d.collaborators)
-                       .Include(d => d.roles)
-                       .Where(o => o.active);
+                       .Include(d => d.collaborators);
         }
     }
 }

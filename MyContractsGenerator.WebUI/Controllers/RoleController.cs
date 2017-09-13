@@ -26,32 +26,14 @@ namespace MyContractsGenerator.WebUI.Controllers
         private readonly IAdministratorService administratorService;
 
         /// <summary>
-        /// The current administrator identifier
-        /// </summary>
-        private readonly int currentAdministratorId;
-
-        /// <summary>
-        /// The current organization identifier
-        /// </summary>
-        private readonly int currentOrganizationId;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="RoleController"/> class.
         /// </summary>
         /// <param name="roleService">The role service.</param>
         /// <param name="administratorService">The administrator service.</param>
-        public RoleController(IRoleService roleService, IAdministratorService administratorService)
+        public RoleController(IRoleService roleService, IAdministratorService administratorService) : base(administratorService)
         {
             this.roleService = roleService;
             this.administratorService = administratorService;
-
-            if (this.User == null)
-            {
-                return;
-            }
-
-            this.currentAdministratorId = int.Parse(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            this.currentOrganizationId = administratorService.GetAdministratorById(this.currentAdministratorId).organization_id;
         }
 
         /// <summary>
@@ -69,7 +51,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return this.View(model);
             }
 
-            role deleteRole = this.roleService.GetById((int) this.TempData["DeleteRoleId"], this.currentOrganizationId);
+            role deleteRole = this.roleService.GetById((int) this.TempData["DeleteRoleId"], this.CurrentOrganizationId);
             NotificationModel notificationModel = new NotificationModel
             {
                 Title =
@@ -89,7 +71,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             //select by default the element of the list
             if (id == 0)
             {
-                role defaultSelectedRole = this.roleService.GetAllActive(this.currentOrganizationId).FirstOrDefault();
+                role defaultSelectedRole = this.roleService.GetAllActive(this.CurrentOrganizationId).FirstOrDefault();
                 return defaultSelectedRole == null
                     ? this.RedirectToAction("Index")
                     : this.RedirectToAction("Edit", new { defaultSelectedRole.id });
@@ -98,7 +80,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             RoleMainModel model = new RoleMainModel();
             this.PopulateRoleMainModel(model);
 
-            role dbRole = this.roleService.GetById(id, this.currentOrganizationId);
+            role dbRole = this.roleService.GetById(id, this.CurrentOrganizationId);
             model.EditedRole = RoleMap.MapItem(dbRole);
 
             //display a notification if an administrator has been deleted
@@ -125,14 +107,14 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return this.ErrorOnEdit(model);
             }
 
-            role existingRole = this.roleService.GetById(model.EditedRole.Id, this.currentOrganizationId);
+            role existingRole = this.roleService.GetById(model.EditedRole.Id, this.CurrentOrganizationId);
             if (existingRole == null)
             {
                 return this.ErrorOnEdit(model);
             }
 
             //Verify if the label is already used
-            if (this.roleService.IsThisLabelAlreadyExists(model.EditedRole.Label, model.EditedRole.Id, this.currentOrganizationId))
+            if (this.roleService.IsThisLabelAlreadyExists(model.EditedRole.Label, model.EditedRole.Id, this.CurrentOrganizationId))
             {
                 this.ModelState.AddModelError("EditedRole.Label",
                                               Resources.Role_ErrorIncorrectLabelAlreadyUsed);
@@ -146,7 +128,7 @@ namespace MyContractsGenerator.WebUI.Controllers
 
             existingRole.label = model.EditedRole.Label;
 
-            this.roleService.UpdateRole(existingRole, this.currentOrganizationId);
+            this.roleService.UpdateRole(existingRole, this.CurrentOrganizationId);
 
             this.PopulateRoleMainModel(model);
 
@@ -189,7 +171,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             //Verify if the email is already used
-            if (this.roleService.IsThisLabelAlreadyExists(model.EditedRole.Label, this.currentOrganizationId))
+            if (this.roleService.IsThisLabelAlreadyExists(model.EditedRole.Label, this.CurrentOrganizationId))
             {
                 this.ModelState.AddModelError("EditedRole.Label",
                                               Resources.Role_ErrorIncorrectLabelAlreadyUsed);
@@ -205,7 +187,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             //newRole.applicationlanguage =
             //this.applicationLangageService.GetById(model.EditedRole.ApplicationLangageId);
 
-            role dbCollab = this.roleService.AddRole(newRole, this.currentOrganizationId);
+            role dbCollab = this.roleService.AddRole(newRole, this.CurrentOrganizationId);
 
             this.PopulateRoleMainModel(model);
 
@@ -236,7 +218,7 @@ namespace MyContractsGenerator.WebUI.Controllers
         private void PopulateRoleMainModel(RoleMainModel model)
         {
             //Populate the active roles
-            IList<role> roles = this.roleService.GetAllActive(this.currentOrganizationId);
+            IList<role> roles = this.roleService.GetAllActive(this.CurrentOrganizationId);
             model.Roles = RoleMap.MapItems(roles);
 
             //populate the available application langages

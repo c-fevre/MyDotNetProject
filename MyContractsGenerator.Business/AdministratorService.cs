@@ -38,9 +38,9 @@ namespace MyContractsGenerator.Business
         ///     Gets all administrators
         /// </summary>
         /// <returns></returns>
-        public IList<administrator> GetActiveAdministrators(int organizationId)
+        public IList<administrator> GetActiveAdministrators()
         {
-            return this.administratorRepository.GetActiveAdministrators(organizationId).ToList();
+            return this.administratorRepository.GetActiveAdministrators().ToList();
         }
 
         /// <summary>
@@ -58,8 +58,7 @@ namespace MyContractsGenerator.Business
         /// Updates the administrator.
         /// </summary>
         /// <param name="administratorToUpdate">The administrator to update.</param>
-        /// <param name="organizationId">The organization identifier.</param>
-        public void Update(administrator administratorToUpdate, int organizationId)
+        public void Update(administrator administratorToUpdate)
         {
             Requires.ArgumentNotNull(administratorToUpdate, "administratorToUpdate");
 
@@ -73,7 +72,6 @@ namespace MyContractsGenerator.Business
             dbadministrator.firstname = administratorToUpdate.firstname;
             dbadministrator.lastname = administratorToUpdate.lastname;
             dbadministrator.active = administratorToUpdate.active;
-            dbadministrator.organization_id = organizationId;
 
             if (!string.IsNullOrEmpty(administratorToUpdate.password))
             {
@@ -88,14 +86,12 @@ namespace MyContractsGenerator.Business
         /// Adds the specified administrator to create.
         /// </summary>
         /// <param name="administratorToCreate">The administrator to create.</param>
-        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        public administrator Add(administrator administratorToCreate, int organizationId)
+        public administrator Add(administrator administratorToCreate)
         {
             Requires.ArgumentNotNull(administratorToCreate, "administratorToCreate");
 
             administratorToCreate.active = true;
-            administratorToCreate.organization_id = organizationId;
 
             administrator dbadministrator = this.administratorRepository.Add(administratorToCreate);
             this.administratorRepository.SaveChanges();
@@ -150,8 +146,7 @@ namespace MyContractsGenerator.Business
         /// Reset administrator password and send the generated password by mail
         /// </summary>
         /// <param name="passwordOwneradministratorId"></param>
-        /// <param name="organizationId">The organization identifier.</param>
-        public void ResetPassword(int passwordOwneradministratorId, int organizationId)
+        public void ResetPassword(int passwordOwneradministratorId)
         {
             //Requires
             Requires.ArgumentGreaterThanZero(passwordOwneradministratorId, "passwordOwneradministratorId");
@@ -161,7 +156,7 @@ namespace MyContractsGenerator.Business
             //new password generation
             string clearPassword = PasswordGenerator.GeneratePassword(8, 4);
             administrator.password = ShaHashPassword.GetSha256ResultString(clearPassword);
-            this.Update(administrator, organizationId);
+            this.Update(administrator);
 
             //Send mail
             this.mailService.SendGeneratedPasswordAdministrator(administrator, clearPassword);

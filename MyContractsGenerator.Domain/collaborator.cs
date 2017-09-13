@@ -17,8 +17,8 @@ namespace MyContractsGenerator.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public collaborator()
         {
-            this.roles = new HashSet<role>();
             this.form_answer = new HashSet<form_answer>();
+            this.roles = new HashSet<role>();
         }
     
         public int id { get; set; }
@@ -29,9 +29,9 @@ namespace MyContractsGenerator.Domain
         public bool active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<role> roles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<form_answer> form_answer { get; set; }
         public virtual organization organization { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<role> roles { get; set; }
     }
 }

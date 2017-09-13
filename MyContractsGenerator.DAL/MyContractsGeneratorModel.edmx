@@ -397,8 +397,8 @@
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="label" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="questions" Relationship="MyContractsGeneratorModel.form_has_question" FromRole="form" ToRole="question" />
-          <NavigationProperty Name="roles" Relationship="MyContractsGeneratorModel.role_has_form" FromRole="form" ToRole="role" />
           <NavigationProperty Name="form_answer" Relationship="MyContractsGeneratorModel.form_answer_ibfk_1" FromRole="form" ToRole="form_answer" />
+          <NavigationProperty Name="roles" Relationship="MyContractsGeneratorModel.role_has_form" FromRole="form" ToRole="role" />
         </EntityType>
         <EntityType Name="question_type">
           <Key>
@@ -426,15 +426,6 @@
             <End Role="question" EntitySet="questions" />
           </AssociationSet>
           <EntitySet Name="collaborators" EntityType="MyContractsGeneratorModel.collaborator" />
-          <EntitySet Name="roles" EntityType="MyContractsGeneratorModel.role" />
-          <AssociationSet Name="collaborator_has_role" Association="MyContractsGeneratorModel.collaborator_has_role">
-            <End Role="collaborator" EntitySet="collaborators" />
-            <End Role="role" EntitySet="roles" />
-          </AssociationSet>
-          <AssociationSet Name="role_has_form" Association="MyContractsGeneratorModel.role_has_form">
-            <End Role="role" EntitySet="roles" />
-            <End Role="form" EntitySet="forms" />
-          </AssociationSet>
           <EntitySet Name="administrators" EntityType="MyContractsGeneratorModel.administrator" />
           <EntitySet Name="form_answer" EntityType="MyContractsGeneratorModel.form_answer" />
           <AssociationSet Name="answer_ibfk_1" Association="MyContractsGeneratorModel.answer_ibfk_1">
@@ -449,11 +440,8 @@
             <End Role="form" EntitySet="forms" />
             <End Role="form_answer" EntitySet="form_answer" />
           </AssociationSet>
-          <AssociationSet Name="form_answer_ibfk_4" Association="MyContractsGeneratorModel.form_answer_ibfk_4">
-            <End Role="role" EntitySet="roles" />
-            <End Role="form_answer" EntitySet="form_answer" />
-          </AssociationSet>
           <EntitySet Name="organizations" EntityType="MyContractsGeneratorModel.organization" />
+          <EntitySet Name="roles" EntityType="MyContractsGeneratorModel.role" />
           <AssociationSet Name="administrator_ibfk_1" Association="MyContractsGeneratorModel.administrator_ibfk_1">
             <End Role="organization" EntitySet="organizations" />
             <End Role="administrator" EntitySet="administrators" />
@@ -462,6 +450,10 @@
             <End Role="organization" EntitySet="organizations" />
             <End Role="collaborator" EntitySet="collaborators" />
           </AssociationSet>
+          <AssociationSet Name="form_answer_ibfk_4" Association="MyContractsGeneratorModel.form_answer_ibfk_4">
+            <End Role="role" EntitySet="roles" />
+            <End Role="form_answer" EntitySet="form_answer" />
+          </AssociationSet>
           <AssociationSet Name="form_answer_ibfk_6" Association="MyContractsGeneratorModel.form_answer_ibfk_6">
             <End Role="organization" EntitySet="organizations" />
             <End Role="form_answer" EntitySet="form_answer" />
@@ -469,6 +461,14 @@
           <AssociationSet Name="role_ibfk_1" Association="MyContractsGeneratorModel.role_ibfk_1">
             <End Role="organization" EntitySet="organizations" />
             <End Role="role" EntitySet="roles" />
+          </AssociationSet>
+          <AssociationSet Name="collaborator_has_role" Association="MyContractsGeneratorModel.collaborator_has_role">
+            <End Role="collaborator" EntitySet="collaborators" />
+            <End Role="role" EntitySet="roles" />
+          </AssociationSet>
+          <AssociationSet Name="role_has_form" Association="MyContractsGeneratorModel.role_has_form">
+            <End Role="role" EntitySet="roles" />
+            <End Role="form" EntitySet="forms" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="answer">
@@ -532,31 +532,10 @@
           <Property Name="lastname" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="roles" Relationship="MyContractsGeneratorModel.collaborator_has_role" FromRole="collaborator" ToRole="role" />
           <NavigationProperty Name="form_answer" Relationship="MyContractsGeneratorModel.form_answer_ibfk_5" FromRole="collaborator" ToRole="form_answer" />
           <NavigationProperty Name="organization" Relationship="MyContractsGeneratorModel.collaborator_ibfk_1" FromRole="collaborator" ToRole="organization" />
+          <NavigationProperty Name="roles" Relationship="MyContractsGeneratorModel.collaborator_has_role" FromRole="collaborator" ToRole="role" />
         </EntityType>
-        <EntityType Name="role">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="organization_id" Type="Int32" Nullable="false" />
-          <Property Name="label" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="collaborators" Relationship="MyContractsGeneratorModel.collaborator_has_role" FromRole="role" ToRole="collaborator" />
-          <NavigationProperty Name="forms" Relationship="MyContractsGeneratorModel.role_has_form" FromRole="role" ToRole="form" />
-          <NavigationProperty Name="form_answer" Relationship="MyContractsGeneratorModel.form_answer_ibfk_4" FromRole="role" ToRole="form_answer" />
-          <NavigationProperty Name="organization" Relationship="MyContractsGeneratorModel.role_ibfk_1" FromRole="role" ToRole="organization" />
-        </EntityType>
-        <Association Name="collaborator_has_role">
-          <End Type="MyContractsGeneratorModel.collaborator" Role="collaborator" Multiplicity="*" />
-          <End Type="MyContractsGeneratorModel.role" Role="role" Multiplicity="*" />
-        </Association>
-        <Association Name="role_has_form">
-          <End Type="MyContractsGeneratorModel.role" Role="role" Multiplicity="*" />
-          <End Type="MyContractsGeneratorModel.form" Role="form" Multiplicity="*" />
-        </Association>
         <EntityType Name="administrator">
           <Key>
             <PropertyRef Name="id" />
@@ -626,18 +605,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="form_answer_ibfk_4">
-          <End Type="MyContractsGeneratorModel.role" Role="role" Multiplicity="1" />
-          <End Type="MyContractsGeneratorModel.form_answer" Role="form_answer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="role">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="form_answer">
-              <PropertyRef Name="role_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="organization">
           <Key>
             <PropertyRef Name="id" />
@@ -649,6 +616,19 @@
           <NavigationProperty Name="collaborators" Relationship="MyContractsGeneratorModel.collaborator_ibfk_1" FromRole="organization" ToRole="collaborator" />
           <NavigationProperty Name="form_answer" Relationship="MyContractsGeneratorModel.form_answer_ibfk_6" FromRole="organization" ToRole="form_answer" />
           <NavigationProperty Name="roles" Relationship="MyContractsGeneratorModel.role_ibfk_1" FromRole="organization" ToRole="role" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="organization_id" Type="Int32" Nullable="false" />
+          <Property Name="label" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="form_answer" Relationship="MyContractsGeneratorModel.form_answer_ibfk_4" FromRole="role" ToRole="form_answer" />
+          <NavigationProperty Name="organization" Relationship="MyContractsGeneratorModel.role_ibfk_1" FromRole="role" ToRole="organization" />
+          <NavigationProperty Name="collaborators" Relationship="MyContractsGeneratorModel.collaborator_has_role" FromRole="role" ToRole="collaborator" />
+          <NavigationProperty Name="forms" Relationship="MyContractsGeneratorModel.role_has_form" FromRole="role" ToRole="form" />
         </EntityType>
         <Association Name="administrator_ibfk_1">
           <End Type="MyContractsGeneratorModel.organization" Role="organization" Multiplicity="1" />
@@ -671,6 +651,18 @@
             </Principal>
             <Dependent Role="collaborator">
               <PropertyRef Name="organization_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="form_answer_ibfk_4">
+          <End Type="MyContractsGeneratorModel.role" Role="role" Multiplicity="1" />
+          <End Type="MyContractsGeneratorModel.form_answer" Role="form_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="form_answer">
+              <PropertyRef Name="role_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -697,6 +689,14 @@
               <PropertyRef Name="organization_id" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="collaborator_has_role">
+          <End Type="MyContractsGeneratorModel.collaborator" Role="collaborator" Multiplicity="*" />
+          <End Type="MyContractsGeneratorModel.role" Role="role" Multiplicity="*" />
+        </Association>
+        <Association Name="role_has_form">
+          <End Type="MyContractsGeneratorModel.role" Role="role" Multiplicity="*" />
+          <End Type="MyContractsGeneratorModel.form" Role="form" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -760,32 +760,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="roles">
-            <EntityTypeMapping TypeName="MyContractsGeneratorModel.role">
-              <MappingFragment StoreEntitySet="role">
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="label" ColumnName="label" />
-                <ScalarProperty Name="organization_id" ColumnName="organization_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="collaborator_has_role" TypeName="MyContractsGeneratorModel.collaborator_has_role" StoreEntitySet="collaborator_has_role">
-            <EndProperty Name="role">
-              <ScalarProperty Name="id" ColumnName="id_role" />
-            </EndProperty>
-            <EndProperty Name="collaborator">
-              <ScalarProperty Name="id" ColumnName="id_collaborator" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="role_has_form" TypeName="MyContractsGeneratorModel.role_has_form" StoreEntitySet="role_has_form">
-            <EndProperty Name="form">
-              <ScalarProperty Name="id" ColumnName="id_form" />
-            </EndProperty>
-            <EndProperty Name="role">
-              <ScalarProperty Name="id" ColumnName="id_role" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="administrators">
             <EntityTypeMapping TypeName="MyContractsGeneratorModel.administrator">
               <MappingFragment StoreEntitySet="administrator">
@@ -824,6 +798,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="MyContractsGeneratorModel.role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="label" ColumnName="label" />
+                <ScalarProperty Name="organization_id" ColumnName="organization_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="collaborator_has_role" TypeName="MyContractsGeneratorModel.collaborator_has_role" StoreEntitySet="collaborator_has_role">
+            <EndProperty Name="role">
+              <ScalarProperty Name="id" ColumnName="id_role" />
+            </EndProperty>
+            <EndProperty Name="collaborator">
+              <ScalarProperty Name="id" ColumnName="id_collaborator" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="role_has_form" TypeName="MyContractsGeneratorModel.role_has_form" StoreEntitySet="role_has_form">
+            <EndProperty Name="form">
+              <ScalarProperty Name="id" ColumnName="id_form" />
+            </EndProperty>
+            <EndProperty Name="role">
+              <ScalarProperty Name="id" ColumnName="id_role" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

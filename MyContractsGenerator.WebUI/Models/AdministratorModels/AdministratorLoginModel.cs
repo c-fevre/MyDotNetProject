@@ -15,7 +15,6 @@ namespace MyContractsGenerator.WebUI.Models.administratorModels
         public string Email { get; set; }
 
         [DataType(DataType.Password)]
-        [Required(ErrorMessageResourceName = "Shared_RequiredField", ErrorMessageResourceType = typeof(Resources))]
         [StringLength(100, ErrorMessageResourceName = "Shared_MessageError_MinAndMaxLength",
             ErrorMessageResourceType = typeof(Resources))]
         [Display(Name = "Login_Password", ResourceType = typeof(Resources))]

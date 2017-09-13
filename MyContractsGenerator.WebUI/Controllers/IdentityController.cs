@@ -15,11 +15,17 @@ namespace MyContractsGenerator.WebUI.Controllers
 {
     public class IdentityController : BaseController
     {
+        /// <summary>
+        /// The administrator service
+        /// </summary>
         private readonly IAdministratorService administratorService;
 
+        /// <summary>
+        /// The organization service
+        /// </summary>
         private readonly IOrganizationService organizationService;
 
-        public IdentityController(IAdministratorService administratorService, IOrganizationService organizationService)
+        public IdentityController(IAdministratorService administratorService, IOrganizationService organizationService) : base(administratorService)
         {
             this.administratorService = administratorService;
             this.organizationService = organizationService;
@@ -69,7 +75,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return this.View();
             }
 
-            if (connectedUser.password != ShaHashPassword.GetSha256ResultString(password))
+            if (connectedUser.password != ShaHashPassword.GetSha256ResultString(password.Trim()))
             {
                 this.ModelState.AddModelError("Password", Resources.Login_InvalidUserNameOrPassword);
                 return this.View();
@@ -129,7 +135,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             administrator administrator = this.administratorService.GetByEmail(email);
-            this.administratorService.ResetPassword(administrator.id, administrator.organization_id);
+            this.administratorService.ResetPassword(administrator.id);
             model.Email = administrator.email;
 
             this.AddNotification(string.Format(Resources.Login_PasswordChangeSuccess, administrator.email), "success");

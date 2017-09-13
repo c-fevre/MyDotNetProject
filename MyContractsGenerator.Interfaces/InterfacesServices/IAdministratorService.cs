@@ -24,9 +24,8 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         /// <summary>
         /// Gets the active administrators.
         /// </summary>
-        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        IList<administrator> GetActiveAdministrators(int organizationId);
+        IList<administrator> GetActiveAdministrators();
 
         /// <summary>
         /// Determines whether [is this email already exists] [the specified email].
@@ -53,15 +52,13 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         ///     Reset administrator password and send the generated password by mail
         /// </summary>
         /// <param name="passwordOwneradministratorId"></param>
-        /// <param name="organizationId">The organization identifier.</param>
-        void ResetPassword(int passwordOwneradministratorId, int organizationId);
+        void ResetPassword(int passwordOwneradministratorId);
 
         /// <summary>
         ///     Updates the administrator.
         /// </summary>
         /// <param name="administratorToUpdate">The administrator to update.</param>
-        /// <param name="organizationId">The organization identifier.</param>
-        void Update(administrator administratorToUpdate, int organizationId);
+        void Update(administrator administratorToUpdate);
 
         /// <summary>
         ///     Deletes the specified administrator identifier.
@@ -74,8 +71,7 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         /// Adds the specified administrator to create.
         /// </summary>
         /// <param name="administratorToCreate">The administrator to create.</param>
-        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
-        administrator Add(administrator administratorToCreate, int organizationId);
+        administrator Add(administrator administratorToCreate);
     }
 }

@@ -410,9 +410,9 @@ You haven't created any jobs, please create some job to be able to bind them to 
   </data>
   <data name="Form_CollaboratorMailBody" xml:space="preserve">
     <value>Hello,&lt;br/&gt;&lt;br/&gt;
-{0} created a form for you, we need this information to complete the contract.&lt;br/&gt;
-Please fill this form : {1}&lt;br/&gt;&lt;br/&gt;
-We have generated a password : &lt;b&gt;{2}&lt;/b&gt;&lt;br/&gt;
+{0} created a form for you, we need this information to complete the contract related to the company : "{1}").&lt;br/&gt;
+Please fill this form : {2}&lt;br/&gt;&lt;br/&gt;
+We have generated a password : &lt;b&gt;{3}&lt;/b&gt;&lt;br/&gt;
 Do not share it, and use it to see your form.&lt;br/&gt;&lt;br/&gt;
 &lt;br/&gt;&lt;br/&gt;
 Kind regards,&lt;br/&gt;
@@ -462,8 +462,9 @@ MyContractsGenerator Team</value>
   </data>
   <data name="Form_CollaboratorAnswerMailBody" xml:space="preserve">
     <value>Hello,&lt;br/&gt;&lt;br/&gt;
-{0} - {1} responded to your form request.&lt;br/&gt;&lt;br/&gt;
-Form reponses : &lt;br/&gt; {2}&lt;br/&gt;&lt;br/&gt;
+Your company : {0}&lt;br/&gt;
+{1} - {2} responded to your form request.&lt;br/&gt;&lt;br/&gt;
+Form reponses : &lt;br/&gt; {3}&lt;br/&gt;&lt;br/&gt;
 Kind regards,&lt;br/&gt;
 MyContractsGenerator Team</value>
   </data>
@@ -537,7 +538,7 @@ MyContractsGenerator Team</value>
     <value>The new and old password cannot be the same.</value>
   </data>
   <data name="Administrator_GeneratedAdministratorPasswordBody" xml:space="preserve">
-    <value>Dear {0}, &lt;br/&gt;&lt;br/&gt; This email notify you that a password has been generated for your MyContractsGenerator account ({1}). &lt;br/&gt;Your email (login) : {2} &lt;br/&gt;Your new password : &lt;b&gt;{3}&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Don't forget to change your password after your first login ("My profile" section)&lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team.</value>
+    <value>Dear {0}, &lt;br/&gt;&lt;br/&gt; This email notify you that a password has been generated for your MyContractsGenerator account ({1}). &lt;br/&gt;&lt;br/&gt;Company : {2}&lt;br/&gt;Your email (login) : {3} &lt;br/&gt;Your new password : &lt;b&gt;{4}&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Don't forget to change your password after your first login ("My profile" section)&lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team.</value>
   </data>
   <data name="Administrator_GeneratedAdministratorPasswordTitle" xml:space="preserve">
     <value>MyContractsGenerator - A new password has been generated for you.</value>
@@ -546,7 +547,7 @@ MyContractsGenerator Team</value>
     <value>Generate a new password</value>
   </data>
   <data name="Administrator_NewAdministratorPasswordBody" xml:space="preserve">
-    <value>Dear {0}, &lt;br/&gt;&lt;br/&gt; This email notify you a password change related to your MyContractsGenerator account ({1}). &lt;br/&gt;Your email (login) : {2} &lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team.</value>
+    <value>Dear {0}, &lt;br/&gt;&lt;br/&gt; This email notify you a password change related to your MyContractsGenerator account ({1}). &lt;br/&gt;&lt;br/&gt;Your company : {2}&lt;br/&gt;Your email (login) : {3} &lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team.</value>
   </data>
   <data name="Administrator_NewAdministratorPasswordTitle" xml:space="preserve">
     <value>MyContractsGenerator - Password Changed</value>
@@ -558,7 +559,7 @@ MyContractsGenerator Team</value>
     <value>Change administrator password (optionnal)</value>
   </data>
   <data name="Administrator_WelcomeNewAdministratorBody" xml:space="preserve">
-    <value>Welcome {0} ! &lt;br/&gt;&lt;br/&gt; You can now acces to the "MyContractsGenerator" application.&lt;br/&gt;URL : {1} &lt;br/&gt;Here are your credentials : &lt;br/&gt; Email (login) : {2}&lt;br/&gt;Password : &lt;b&gt;{3}&lt;/b&gt; &lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team.</value>
+    <value>Welcome {0} ! &lt;br/&gt;&lt;br/&gt; You can now acces to the "MyContractsGenerator" application via your company "{1}".&lt;br/&gt;URL : {2} &lt;br/&gt;Here are your credentials : &lt;br/&gt; Email (login) : {3}&lt;br/&gt;Password : &lt;b&gt;{4}&lt;/b&gt; &lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team.</value>
   </data>
   <data name="Administrator_WelcomeNewAdministratorTitle" xml:space="preserve">
     <value>MyContractsGenerator - Welcome !</value>
@@ -625,5 +626,11 @@ MyContractsGenerator Team</value>
   </data>
   <data name="Collaborator_Tooltip_RemoveUser" xml:space="preserve">
     <value>Remove collaborator</value>
+  </data>
+  <data name="HttpRequestValidationException" xml:space="preserve">
+    <value>You seized forbidden characters which prevent the validation.</value>
+  </data>
+  <data name="SendMailExceptionMessage" xml:space="preserve">
+    <value>Email send failed : {0}</value>
   </data>
 </root>

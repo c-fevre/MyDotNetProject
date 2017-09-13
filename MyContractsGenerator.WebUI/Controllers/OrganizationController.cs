@@ -26,27 +26,14 @@ namespace MyContractsGenerator.WebUI.Controllers
         private readonly IAdministratorService administratorService;
 
         /// <summary>
-        /// The current administrator identifier
-        /// </summary>
-        private readonly int currentAdministratorId;
-
-        /// <summary>
-        /// The current organization identifier
-        /// </summary>
-        private readonly int currentOrganizationId;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="OrganizationController"/> class.
         /// </summary>
         /// <param name="organizationService">The organization service.</param>
-        /// <param name="administratorService">The administrator service.</param>
-        public OrganizationController(IOrganizationService organizationService, IAdministratorService administratorService)
+        /// <param name="administratorService"></param>
+        public OrganizationController(IOrganizationService organizationService, IAdministratorService administratorService) : base(administratorService)
         {
-            this.organizationService = organizationService;
             this.administratorService = administratorService;
-
-            this.currentAdministratorId = int.Parse(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            this.currentOrganizationId = administratorService.GetAdministratorById(this.currentAdministratorId).organization_id;
+            this.organizationService = organizationService;
         }
 
         /// <summary>

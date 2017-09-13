@@ -31,70 +31,6 @@ namespace MyContractsGenerator.Business
         }
 
         /// <summary>
-        ///     Send mail to new user with his id and password
-        /// </summary>
-        /// <param name="passwordOwnerUser"></param>
-        /// <param name="clearPassword"></param>
-        /// <param name="userDoingCreationId"></param>
-        public void SendNewUserEmail(administrator passwordOwnerUser, string clearPassword,
-                                     administrator userDoingCreation)
-        {
-            Requires.ArgumentNotNull(passwordOwnerUser, "user");
-            Requires.StringArgumentNotNullOrEmptyOrWhiteSpace(passwordOwnerUser.email, "user.emailaddress");
-            Requires.ArgumentNotNull(userDoingCreation, "userDoingCreation");
-
-            //change temporarily the cultureInfo to send the mail in the default application web language
-            CultureInfo currentUICulture = Thread.CurrentThread.CurrentUICulture;
-            CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(WebConfigurationManager.AppSettings["MailCulture"]);
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(WebConfigurationManager.AppSettings["MailCulture"]);
-
-            this.SendEmail(
-                new List<string> { passwordOwnerUser.email },
-                Resources.User_PasswordCreate_MailSubject,
-                string.Format(
-                    Resources.User_PasswordCreate_MailBody,
-                    WebConfigurationManager.AppSettings["ServerWebUiUrl"],
-                    DateTime.Now.ToShortDateString(),
-                    userDoingCreation.email,
-                    passwordOwnerUser.email,
-                    clearPassword
-                )
-            );
-
-            //Restore previous values
-            Thread.CurrentThread.CurrentUICulture = currentUICulture;
-            Thread.CurrentThread.CurrentCulture = currentCulture;
-        }
-
-        /// <summary>
-        ///     SendResetPasswordEmail
-        /// </summary>
-        /// <param name="administrator">password owner</param>
-        /// <param name="clearPassword">unhashed user password</param>
-        public void SendResetPasswordEmail(administrator administrator, string clearPassword)
-        {
-            Requires.ArgumentNotNull(administrator, "user");
-            Requires.StringArgumentNotNullOrEmptyOrWhiteSpace(administrator.email, "user.emailaddress");
-
-            //change temporarily the cultureInfo to send the mail in the default application web language
-            CultureInfo currentUICulture = Thread.CurrentThread.CurrentUICulture;
-            CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(WebConfigurationManager.AppSettings["MailCulture"]);
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(WebConfigurationManager.AppSettings["MailCulture"]);
-
-            this.SendEmail(
-                new List<string> { administrator.email },
-                Resources.User_PasswordChange_MailSubject,
-                string.Format(Resources.User_PasswordChange_MailBody, clearPassword)
-            );
-
-            //Restore previous values
-            Thread.CurrentThread.CurrentUICulture = currentUICulture;
-            Thread.CurrentThread.CurrentCulture = currentCulture;
-        }
-
-        /// <summary>
         ///     Sends the form to collaborator.
         /// </summary>
         /// <param name="collaborator">The collaborator.</param>
@@ -122,7 +58,7 @@ namespace MyContractsGenerator.Business
                 this.SendEmail(
                     new List<string> { collaborator.email },
                     Resources.Form_CollaboratorMailSubject,
-                    string.Format(Resources.Form_CollaboratorMailBody, currentAdministrator.email, formUrl, tempPassword));
+                    string.Format(Resources.Form_CollaboratorMailBody, currentAdministrator.email, currentAdministrator.organization.label, formUrl, tempPassword));
             }
 
             //Restore previous values
@@ -130,6 +66,11 @@ namespace MyContractsGenerator.Business
             Thread.CurrentThread.CurrentCulture = currentCulture;
         }
 
+        /// <summary>
+        /// Sends the form result to administrator.
+        /// </summary>
+        /// <param name="formAnswer">The form answer.</param>
+        /// <param name="answers">The answers.</param>
         public void SendFormResultToAdministrator(form_answer formAnswer, IList<answer> answers)
         {
             Requires.ArgumentNotNull(formAnswer, "dbFormAnswer");
@@ -145,12 +86,12 @@ namespace MyContractsGenerator.Business
             answers.OrderBy(a => a.question.order).ToList().ForEach(
                 a => { answersString += $"<b>{a.question.label}</b> : {a.answer_value}<br/>"; });
 
-            string collaboratorIdentity = $"{formAnswer.collaborator.firstname} {formAnswer.collaborator.lastname}";
+            string collaboratorIdentity = $"{formAnswer.collaborator.lastname} {formAnswer.collaborator.firstname}";
 
             this.SendEmail(
                 formAnswer.organization.administrators.Select(a => a.email),
                 Resources.Form_CollaboratorAnswerMailSubject,
-                string.Format(Resources.Form_CollaboratorAnswerMailBody, collaboratorIdentity, formAnswer.role.label,
+                string.Format(Resources.Form_CollaboratorAnswerMailBody, formAnswer.organization.label, collaboratorIdentity, formAnswer.role.label,
                               answersString)
             );
 
@@ -175,13 +116,13 @@ namespace MyContractsGenerator.Business
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(WebConfigurationManager.AppSettings["MailCulture"]);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(WebConfigurationManager.AppSettings["MailCulture"]);
 
-            string administratorIdentity = $"{administrator.firstname} {administrator.lastname}";
+            string administratorIdentity = $"{administrator.lastname} {administrator.firstname}";
 
             this.SendEmail(
                 new List<string> { administrator.email },
                 Resources.Administrator_GeneratedAdministratorPasswordTitle,
                 string.Format(Resources.Administrator_GeneratedAdministratorPasswordBody, administratorIdentity,
-                              GlobalAppSettings.ApplicationBaseUrl, administrator.email, generatedPassword)
+                              GlobalAppSettings.ApplicationBaseUrl, administrator.organization.label, administrator.email, generatedPassword)
             );
 
             //Restore previous values
@@ -205,13 +146,13 @@ namespace MyContractsGenerator.Business
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(WebConfigurationManager.AppSettings["MailCulture"]);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(WebConfigurationManager.AppSettings["MailCulture"]);
 
-            string administratorIdentity = $"{administrator.firstname} {administrator.lastname}";
+            string administratorIdentity = $"{administrator.lastname} {administrator.firstname}";
 
             this.SendEmail(
                 new List<string> { administrator.email },
                 Resources.Administrator_NewAdministratorPasswordTitle,
                 string.Format(Resources.Administrator_NewAdministratorPasswordBody, administratorIdentity,
-                              GlobalAppSettings.ApplicationBaseUrl, administrator.email)
+                              GlobalAppSettings.ApplicationBaseUrl, administrator.organization.label, administrator.email)
             );
 
             //Restore previous values
@@ -235,12 +176,12 @@ namespace MyContractsGenerator.Business
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(WebConfigurationManager.AppSettings["MailCulture"]);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(WebConfigurationManager.AppSettings["MailCulture"]);
 
-            string administratorIdentity = $"{administrator.firstname} {administrator.lastname}";
+            string administratorIdentity = $"{administrator.lastname} {administrator.firstname}";
 
             this.SendEmail(
                 new List<string> { administrator.email },
                 Resources.Administrator_WelcomeNewAdministratorTitle,
-                string.Format(Resources.Administrator_WelcomeNewAdministratorBody, administratorIdentity,
+                string.Format(Resources.Administrator_WelcomeNewAdministratorBody, administratorIdentity, administrator.organization.label,
                               GlobalAppSettings.ApplicationBaseUrl, administrator.email, password)
             );
 

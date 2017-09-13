@@ -31,9 +31,9 @@ namespace MyContractsGenerator.DAL
         public virtual DbSet<answer> answers { get; set; }
         public virtual DbSet<question> questions { get; set; }
         public virtual DbSet<collaborator> collaborators { get; set; }
-        public virtual DbSet<role> roles { get; set; }
         public virtual DbSet<administrator> administrators { get; set; }
         public virtual DbSet<form_answer> form_answer { get; set; }
         public virtual DbSet<organization> organizations { get; set; }
+        public virtual DbSet<role> roles { get; set; }
     }
 }

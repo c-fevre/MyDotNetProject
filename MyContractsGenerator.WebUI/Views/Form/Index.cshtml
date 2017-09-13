@@ -35,7 +35,7 @@
                                 @foreach (var collaborator in role.Collaborators)
                                 {
                                     <tr>
-                                        <td>@($"{collaborator.FirstName} {collaborator.LastName}")</td>
+                                        <td>@($"{collaborator.LastName} {collaborator.FirstName}")</td>
                                         <td>@collaborator.Email</td>
                                         <td>
                                             @{

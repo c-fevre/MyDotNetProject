@@ -31,29 +31,17 @@ namespace MyContractsGenerator.WebUI.Controllers
         private readonly IAdministratorService administratorService;
 
         /// <summary>
-        /// The current administrator identifier
-        /// </summary>
-        private readonly int currentAdministratorId;
-
-        /// <summary>
-        /// The current organization identifier
-        /// </summary>
-        private readonly int currentOrganizationId;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="CollaboratorController"/> class.
         /// </summary>
         /// <param name="collaboratorService">The collaborator service.</param>
         /// <param name="roleService">The role service.</param>
         /// <param name="administratorService">The administrator service.</param>
-        public CollaboratorController(ICollaboratorService collaboratorService, IRoleService roleService, IAdministratorService administratorService)
+        public CollaboratorController(ICollaboratorService collaboratorService, IRoleService roleService, 
+                                           IAdministratorService administratorService) : base(administratorService)
         {
+            this.administratorService = administratorService;
             this.collaboratorService = collaboratorService;
             this.roleService = roleService;
-            this.administratorService = administratorService;
-
-            this.currentAdministratorId = int.Parse(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            this.currentOrganizationId = administratorService.GetAdministratorById(this.currentAdministratorId).organization_id;
         }
 
         /// <summary>
@@ -66,13 +54,13 @@ namespace MyContractsGenerator.WebUI.Controllers
             this.PopulateCollaboratorMainModel(model);
 
             //display a notification if an administrator has been deleted
-            if (this.TempData["DeleteCollaboratorId"] == null || (int) this.TempData["DeleteCollaboratorId"] <= 0)
+            if (this.TempData["DeleteCollaboratorId"] == null || (int)this.TempData["DeleteCollaboratorId"] <= 0)
             {
                 return this.View(model);
             }
 
             collaborator deleteCollaborator =
-                this.collaboratorService.GetById((int) this.TempData["DeleteCollaboratorId"], this.currentOrganizationId);
+                this.collaboratorService.GetById((int)this.TempData["DeleteCollaboratorId"], this.CurrentOrganizationId);
             NotificationModel notificationModel = new NotificationModel
             {
                 Title =
@@ -93,7 +81,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             //select by default the element of the list
             if (id == 0)
             {
-                collaborator defaultSelectedCollaborator = this.collaboratorService.GetAllActive(this.currentOrganizationId).FirstOrDefault();
+                collaborator defaultSelectedCollaborator = this.collaboratorService.GetAllActive(this.CurrentOrganizationId).FirstOrDefault();
                 return defaultSelectedCollaborator == null
                     ? this.RedirectToAction("Index")
                     : this.RedirectToAction("Edit", new { defaultSelectedCollaborator.id });
@@ -102,15 +90,15 @@ namespace MyContractsGenerator.WebUI.Controllers
             CollaboratorMainModel model = new CollaboratorMainModel();
             this.PopulateCollaboratorMainModel(model);
 
-            collaborator collaborator = this.collaboratorService.GetById(id, this.currentOrganizationId);
+            collaborator collaborator = this.collaboratorService.GetById(id, this.CurrentOrganizationId);
             model.EditedCollaborator = CollaboratorMap.MapItem(collaborator);
 
             //display a notification if an administrator has been deleted
-            if (this.TempData["CollaboratorCreated"] != null && (bool) this.TempData["CollaboratorCreated"])
+            if (this.TempData["CollaboratorCreated"] != null && (bool)this.TempData["CollaboratorCreated"])
             {
                 this.PushNotification(model,
                                       string.Format(Resources.Collaborator_Added,
-                                                    $"{collaborator.firstname} {collaborator.lastname}"),
+                                                    $"{collaborator.lastname} {collaborator.firstname}"),
                                       "success");
             }
 
@@ -130,7 +118,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return this.ErrorOnEdit(model);
             }
 
-            collaborator existingCollaborator = this.collaboratorService.GetById(model.EditedCollaborator.Id, this.currentOrganizationId);
+            collaborator existingCollaborator = this.collaboratorService.GetById(model.EditedCollaborator.Id, this.CurrentOrganizationId);
             if (existingCollaborator == null)
             {
                 return this.ErrorOnEdit(model);
@@ -138,7 +126,8 @@ namespace MyContractsGenerator.WebUI.Controllers
 
             //Verify if the email is already used
             if (this.collaboratorService.IsThisEmailAlreadyExists(model.EditedCollaborator.Email,
-                                                                  model.EditedCollaborator.Id))
+                                                                  model.EditedCollaborator.Id,
+                                                                  this.CurrentOrganizationId))
             {
                 this.ModelState.AddModelError("EditedCollaborator.Email",
                                               Resources.Administrator_ErrorIncorrectEmailAlreadyUsed);
@@ -159,16 +148,16 @@ namespace MyContractsGenerator.WebUI.Controllers
             existingCollaborator.firstname = model.EditedCollaborator.FirstName;
             existingCollaborator.lastname = model.EditedCollaborator.LastName;
 
-            this.collaboratorService.UpdateCollaborator(existingCollaborator, this.currentOrganizationId);
+            this.collaboratorService.UpdateCollaborator(existingCollaborator, this.CurrentOrganizationId);
 
             this.roleService.AffectToRole(model.EditedCollaborator.LinkedRolesIds,
-                                          model.EditedCollaborator.Id, this.currentOrganizationId);
+                                          model.EditedCollaborator.Id, this.CurrentOrganizationId);
 
             this.PopulateCollaboratorMainModel(model);
 
             this.PushNotification(model,
                                   string.Format(Resources.Collaborator_Edited,
-                                                $"{existingCollaborator.firstname} {existingCollaborator.lastname}"),
+                                                $"{existingCollaborator.lastname} {existingCollaborator.firstname}"),
                                   "success");
 
             return this.View(model);
@@ -203,7 +192,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             //Verify if the email is already used
-            if (this.collaboratorService.IsThisEmailAlreadyExists(model.EditedCollaborator.Email, this.currentOrganizationId))
+            if (this.collaboratorService.IsThisEmailAlreadyExists(model.EditedCollaborator.Email, this.CurrentOrganizationId))
             {
                 this.ModelState.AddModelError("EditedCollaborator.Email",
                                               Resources.Administrator_ErrorIncorrectEmailAlreadyUsed);
@@ -217,10 +206,10 @@ namespace MyContractsGenerator.WebUI.Controllers
                 lastname = model.EditedCollaborator.LastName
             };
 
-            collaborator dbCollab = this.collaboratorService.AddCollaborator(newCollaborator, this.currentOrganizationId);
+            collaborator dbCollab = this.collaboratorService.AddCollaborator(newCollaborator, this.CurrentOrganizationId);
 
             this.roleService.AffectToRole(model.EditedCollaborator.LinkedRolesIds,
-                                          dbCollab.id, this.currentOrganizationId);
+                                          dbCollab.id, this.CurrentOrganizationId);
 
             this.PopulateCollaboratorMainModel(model);
 
@@ -237,7 +226,7 @@ namespace MyContractsGenerator.WebUI.Controllers
         public ActionResult Remove(int id)
         {
             Requires.ArgumentGreaterThanZero(id, "collaborator id");
-            this.collaboratorService.DeleteCollaborator(id, this.currentOrganizationId);
+            this.collaboratorService.DeleteCollaborator(id, this.CurrentOrganizationId);
 
             this.TempData["DeleteCollaboratorId"] = id;
 
@@ -250,8 +239,8 @@ namespace MyContractsGenerator.WebUI.Controllers
         private void PopulateCollaboratorMainModel(CollaboratorMainModel model)
         {
             //Populate the active collaborators
-            IList<collaborator> collaborators = this.collaboratorService.GetAllActive(this.currentOrganizationId);
-            IList<role> roles = this.roleService.GetAllActive(this.currentOrganizationId);
+            IList<collaborator> collaborators = this.collaboratorService.GetAllActive(this.CurrentOrganizationId);
+            IList<role> roles = this.roleService.GetAllActive(this.CurrentOrganizationId);
 
             model.Collaborators = CollaboratorMap.MapItems(collaborators);
             model.AvailableRoles = RoleMap.MapItemsToSelectListItems(roles);

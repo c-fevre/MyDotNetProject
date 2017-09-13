@@ -8,6 +8,7 @@ using MyContractsGenerator.Common;
 using MyContractsGenerator.Common.I18N;
 using MyContractsGenerator.Common.PasswordHelper;
 using MyContractsGenerator.Common.Validation;
+using MyContractsGenerator.Core.Exceptions;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.Interfaces.InterfacesServices;
 using MyContractsGenerator.WebUI.Mapping;
@@ -269,11 +270,11 @@ namespace MyContractsGenerator.WebUI.Controllers
         /// or
         /// Error while deconding form model - Don't cheat please.
         /// </exception>
-        private static form_answer CheckFormDataIntegrity(form dbForm, string passwordHashed, string formAnswerHashedId)
+        private form_answer CheckFormDataIntegrity(form dbForm, string passwordHashed, string formAnswerHashedId)
         {
             if (dbForm == null || !dbForm.form_answer.Any())
             {
-                throw new InvalidCredentialException("Error while deconding form model - Don't cheat please.");
+                throw new BusinessException("Error while deconding form model - Don't cheat please.");
             }
 
             form_answer dbFormAnswer = dbForm.form_answer.Where(fa => !fa.replied)
@@ -284,13 +285,15 @@ namespace MyContractsGenerator.WebUI.Controllers
 
             if (dbFormAnswer == null || dbFormAnswer.password != passwordHashed)
             {
-                throw new InvalidCredentialException("Error while deconding form model - Don't cheat please.");
+                throw new BusinessException("Error while deconding form model - Don't cheat please.");
             }
 
             if (formAnswerHashedId != ShaHashPassword.GetSha256ResultString(dbFormAnswer.id.ToString()))
             {
-                throw new InvalidCredentialException("Error while deconding form model - Don't cheat please.");
+                throw new BusinessException("Error while deconding form model - Don't cheat please.");
             }
+
+            dbFormAnswer.organization.administrators = this.organizationService.GetById(dbFormAnswer.organization.id).administrators;
 
             return dbFormAnswer;
         }

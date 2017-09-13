@@ -205,7 +205,7 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Dear {0}, &lt;br/&gt;&lt;br/&gt; This email notify you that a password has been generated for your MyContractsGenerator account ({1}). &lt;br/&gt;Your email (login) : {2} &lt;br/&gt;Your new password : &lt;b&gt;{3}&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Don&apos;t forget to change your password after your first login (&quot;My profile&quot; section)&lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team..
+        ///   Recherche une chaîne localisée semblable à Dear {0}, &lt;br/&gt;&lt;br/&gt; This email notify you that a password has been generated for your MyContractsGenerator account ({1}). &lt;br/&gt;&lt;br/&gt;Company : {2}&lt;br/&gt;Your email (login) : {3} &lt;br/&gt;Your new password : &lt;b&gt;{4}&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Don&apos;t forget to change your password after your first login (&quot;My profile&quot; section)&lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team..
         /// </summary>
         public static string Administrator_GeneratedAdministratorPasswordBody {
             get {
@@ -286,7 +286,7 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Dear {0}, &lt;br/&gt;&lt;br/&gt; This email notify you a password change related to your MyContractsGenerator account ({1}). &lt;br/&gt;Your email (login) : {2} &lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team..
+        ///   Recherche une chaîne localisée semblable à Dear {0}, &lt;br/&gt;&lt;br/&gt; This email notify you a password change related to your MyContractsGenerator account ({1}). &lt;br/&gt;&lt;br/&gt;Your company : {2}&lt;br/&gt;Your email (login) : {3} &lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team..
         /// </summary>
         public static string Administrator_NewAdministratorPasswordBody {
             get {
@@ -394,7 +394,7 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Welcome {0} ! &lt;br/&gt;&lt;br/&gt; You can now acces to the &quot;MyContractsGenerator&quot; application.&lt;br/&gt;URL : {1} &lt;br/&gt;Here are your credentials : &lt;br/&gt; Email (login) : {2}&lt;br/&gt;Password : &lt;b&gt;{3}&lt;/b&gt; &lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team..
+        ///   Recherche une chaîne localisée semblable à Welcome {0} ! &lt;br/&gt;&lt;br/&gt; You can now acces to the &quot;MyContractsGenerator&quot; application via your company &quot;{1}&quot;.&lt;br/&gt;URL : {2} &lt;br/&gt;Here are your credentials : &lt;br/&gt; Email (login) : {3}&lt;br/&gt;Password : &lt;b&gt;{4}&lt;/b&gt; &lt;br/&gt;&lt;br/&gt;Have a good day,&lt;br/&gt;MyContractsGenerator Team..
         /// </summary>
         public static string Administrator_WelcomeNewAdministratorBody {
             get {
@@ -765,8 +765,9 @@ namespace MyContractsGenerator.Common.I18N {
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Hello,&lt;br/&gt;&lt;br/&gt;
-        ///{0} - {1} responded to your form request.&lt;br/&gt;&lt;br/&gt;
-        ///Form reponses : &lt;br/&gt; {2}&lt;br/&gt;&lt;br/&gt;
+        ///Your company : {0}&lt;br/&gt;
+        ///{1} - {2} responded to your form request.&lt;br/&gt;&lt;br/&gt;
+        ///Form reponses : &lt;br/&gt; {3}&lt;br/&gt;&lt;br/&gt;
         ///Kind regards,&lt;br/&gt;
         ///MyContractsGenerator Team.
         /// </summary>
@@ -787,9 +788,9 @@ namespace MyContractsGenerator.Common.I18N {
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Hello,&lt;br/&gt;&lt;br/&gt;
-        ///{0} created a form for you, we need this information to complete the contract.&lt;br/&gt;
-        ///Please fill this form : {1}&lt;br/&gt;&lt;br/&gt;
-        ///We have generated a password : &lt;b&gt;{2}&lt;/b&gt;&lt;br/&gt;
+        ///{0} created a form for you, we need this information to complete the contract related to the company : &quot;{1}&quot;).&lt;br/&gt;
+        ///Please fill this form : {2}&lt;br/&gt;&lt;br/&gt;
+        ///We have generated a password : &lt;b&gt;{3}&lt;/b&gt;&lt;br/&gt;
         ///Do not share it, and use it to see your form.&lt;br/&gt;&lt;br/&gt;
         ///&lt;br/&gt;&lt;br/&gt;
         ///Kind regards,&lt;br/&gt;
@@ -897,6 +898,15 @@ namespace MyContractsGenerator.Common.I18N {
         public static string FormMailing_label {
             get {
                 return ResourceManager.GetString("FormMailing_label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à You seized forbidden characters which prevent the validation..
+        /// </summary>
+        public static string HttpRequestValidationException {
+            get {
+                return ResourceManager.GetString("HttpRequestValidationException", resourceCulture);
             }
         }
         
@@ -1374,6 +1384,15 @@ namespace MyContractsGenerator.Common.I18N {
         public static string Roler_Tooltip_RemoveRole {
             get {
                 return ResourceManager.GetString("Roler_Tooltip_RemoveRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Email send failed : {0}.
+        /// </summary>
+        public static string SendMailExceptionMessage {
+            get {
+                return ResourceManager.GetString("SendMailExceptionMessage", resourceCulture);
             }
         }
         

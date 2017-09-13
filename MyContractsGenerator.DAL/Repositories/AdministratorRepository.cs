@@ -22,12 +22,11 @@ namespace MyContractsGenerator.DAL.Repositories
         /// <returns>
         ///     the entity or null
         /// </returns>
-        administrator IBaseRepository<administrator>.GetById(int id)
+        public new administrator GetById(int id)
         {
             return this.Table
                        .Include(a => a.organization)
                        .Include(a => a.organization.collaborators)
-                       .Include(a => a.organization.roles)
                        .Include(a => a.organization.form_answer)
                        //.Include(d => d.applicationlanguage)
                        .Where(d => d.active)
@@ -38,19 +37,16 @@ namespace MyContractsGenerator.DAL.Repositories
         /// Gets the by email.
         /// </summary>
         /// <param name="email">The email.</param>
-        /// <param name="organizationId">The organization identifier.</param>
         /// <returns></returns>
         public administrator GetByEmail(string email)
         {
             return this.Table
                        .Include(a => a.organization)
                        .Include(a => a.organization.collaborators)
-                       .Include(a => a.organization.roles)
                        .Include(a => a.organization.form_answer)
                        //.Include(d => d.applicationlanguage)
                        .Where(u => u.email == email)
                        .Where(u => u.organization.active)
-                       .Where(d => d.active)
                        .SingleOrDefault(u => u.active);
         }
         
@@ -64,7 +60,6 @@ namespace MyContractsGenerator.DAL.Repositories
             return this.Table
                        .Include(a => a.organization)
                        .Include(a => a.organization.collaborators)
-                       .Include(a => a.organization.roles)
                        .Include(a => a.organization.form_answer)
                        .Where(u => u.organization_id == organizationId)
                        .Where(u => u.organization.active)
@@ -78,7 +73,6 @@ namespace MyContractsGenerator.DAL.Repositories
             return this.Table
                        .Include(a => a.organization)
                        .Include(a => a.organization.collaborators)
-                       .Include(a => a.organization.roles)
                        .Include(a => a.organization.form_answer)
                        .Where(u => u.organization.active)
                        .Where(u => u.active)

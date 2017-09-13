@@ -29,27 +29,14 @@ namespace MyContractsGenerator.WebUI.Controllers
         private readonly IMailService mailService;
 
         /// <summary>
-        /// The current administrator identifier
-        /// </summary>
-        private readonly int currentAdministratorId;
-
-        /// <summary>
-        /// The current organization identifier
-        /// </summary>
-        private readonly int currentOrganizationId;
-
-        /// <summary>
         ///     Initializes a new instance of the <see cref="AdministratorController" /> class.
         /// </summary>
         /// <param name="administratorService">The administrator service.</param>
         /// <param name="mailService">The mail service.</param>
-        public AdministratorController(IAdministratorService administratorService, IMailService mailService)
+        public AdministratorController(IAdministratorService administratorService, IMailService mailService) : base(administratorService)
         {
             this.administratorService = administratorService;
             this.mailService = mailService;
-
-            this.currentAdministratorId = int.Parse(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            this.currentOrganizationId = administratorService.GetAdministratorById(this.currentAdministratorId).organization_id;
         }
 
         /// <summary>
@@ -101,7 +88,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             administrator dbAdmin;
             if (!this.User.IsInRole(AppConstants.SuperAdminRoleLabel))
             {
-                dbAdmin = this.administratorService.GetAdministratorById(this.currentAdministratorId);
+                dbAdmin = this.administratorService.GetAdministratorById(this.CurrentOrganizationId);
                 model.EditedAdministrator = AdministratorMap.MapItem(dbAdmin);
 
                 return this.View("MyProfile", model);
@@ -115,7 +102,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             {
                 this.PushNotification(model,
                                       string.Format(Resources.Administrator_Added,
-                                                    $"{dbAdmin.firstname} {dbAdmin.lastname}"),
+                                                    $"{dbAdmin.lastname} {dbAdmin.firstname}"),
                                       "success");
             }
             else if (this.TempData["NewAdministratorPasswordGenerated"] != null)
@@ -125,7 +112,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                         (int) this.TempData["NewAdministratorPasswordGenerated"]);
                 this.PushNotification(model,
                                       string.Format(Resources.Administrator_NewPasswordGenerated,
-                                                    $"{dbAdministrator.firstname} {dbAdministrator.lastname}"),
+                                                    $"{dbAdministrator.lastname} {dbAdministrator.firstname}"),
                                       "success");
             }
 
@@ -172,7 +159,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return actionResult;
             }
 
-            this.administratorService.Update(existingAdministrator, this.currentOrganizationId);
+            this.administratorService.Update(existingAdministrator);
             this.PopulateAdministratorMainModel(model);
 
             if (model.EditedAdministrator.NewPassword != null &&
@@ -189,7 +176,7 @@ namespace MyContractsGenerator.WebUI.Controllers
 
             this.PushNotification(model,
                                   string.Format(Resources.Administrator_Edited,
-                                                $"{existingAdministrator.firstname} {existingAdministrator.lastname}"),
+                                                $"{existingAdministrator.lastname} {existingAdministrator.firstname}"),
                                   "success");
 
             return this.View("MyProfile", model);
@@ -235,7 +222,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 return actionResult;
             }
 
-            this.administratorService.Update(existingAdministrator, this.currentOrganizationId);
+            this.administratorService.Update(existingAdministrator);
             this.PopulateAdministratorMainModel(model);
 
             if (model.EditedAdministrator.NewPassword != null &&
@@ -252,7 +239,7 @@ namespace MyContractsGenerator.WebUI.Controllers
 
             this.PushNotification(model,
                                   string.Format(Resources.Administrator_Edited,
-                                                $"{existingAdministrator.firstname} {existingAdministrator.lastname}"),
+                                                $"{existingAdministrator.lastname} {existingAdministrator.firstname}"),
                                   "success");
 
             return this.View(model);
@@ -283,7 +270,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             if (model.EditedAdministrator.CurrentPassword != null &&
-                ShaHashPassword.GetSha256ResultString(model.EditedAdministrator.CurrentPassword) !=
+                ShaHashPassword.GetSha256ResultString(model.EditedAdministrator.CurrentPassword.Trim()) !=
                 existingAdministrator.password)
             {
                 model.EditedAdministrator.NewPassword = null;
@@ -315,7 +302,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             existingAdministrator.password =
-                ShaHashPassword.GetSha256ResultString(model.EditedAdministrator.NewPassword);
+                ShaHashPassword.GetSha256ResultString(model.EditedAdministrator.NewPassword.Trim());
 
             return false;
         }
@@ -343,7 +330,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             Requires.ArgumentNotNull(model, "model");
             Requires.ArgumentNotNull(model.EditedAdministrator.Id, "administratorId");
 
-            this.administratorService.ResetPassword(model.EditedAdministrator.Id, this.currentOrganizationId);
+            this.administratorService.ResetPassword(model.EditedAdministrator.Id);
 
             this.TempData["NewAdministratorPasswordGenerated"] = model.EditedAdministrator.Id;
 
@@ -365,7 +352,7 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             //Verify if the email is already used
-            if (this.administratorService.IsThisEmailAlreadyExists(model.EditedAdministrator.Email, this.currentOrganizationId))
+            if (this.administratorService.IsThisEmailAlreadyExists(model.EditedAdministrator.Email, this.CurrentOrganizationId))
             {
                 this.ModelState.AddModelError("EditedAdministrator.Email",
                                               Resources.Administrator_ErrorIncorrectEmailAlreadyUsed);
@@ -378,13 +365,13 @@ namespace MyContractsGenerator.WebUI.Controllers
                 email = model.EditedAdministrator.Email,
                 firstname = model.EditedAdministrator.FirstName,
                 lastname = model.EditedAdministrator.LastName,
-                password = ShaHashPassword.GetSha256ResultString(password),
+                password = ShaHashPassword.GetSha256ResultString(password.Trim()),
                 active = true,
                 is_super_admin = false,
                 organization_id = 0
             };
 
-            administrator dbAdmin = this.administratorService.Add(newAdministrator, this.currentOrganizationId);
+            administrator dbAdmin = this.administratorService.Add(newAdministrator);
 
             this.PopulateAdministratorMainModel(model);
 
@@ -417,7 +404,7 @@ namespace MyContractsGenerator.WebUI.Controllers
         private void PopulateAdministratorMainModel(AdministratorMainModel model)
         {
             //Populate the active administrators
-            IList<administrator> administrators = this.administratorService.GetActiveAdministrators(this.currentOrganizationId);
+            IList<administrator> administrators = this.administratorService.GetActiveAdministrators();
 
             model.Administrators = AdministratorMap.MapItems(administrators);
         }

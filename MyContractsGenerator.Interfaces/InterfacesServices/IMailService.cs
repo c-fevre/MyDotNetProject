@@ -7,21 +7,6 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
     public interface IMailService
     {
         /// <summary>
-        ///     Send mail to new user with his id and password
-        /// </summary>
-        /// <param name="passwordOwnerUser"></param>
-        /// <param name="clearPassword"></param>
-        /// <param name="userDoingCreationId"></param>
-        void SendNewUserEmail(administrator passwordOwnerUser, string clearPassword, administrator userDoingCreation);
-
-        /// <summary>
-        ///     SendResetPasswordEmail
-        /// </summary>
-        /// <param name="user">password owner</param>
-        /// <param name="clearPassword">unhashed user password</param>
-        void SendResetPasswordEmail(administrator user, string clearPassword);
-
-        /// <summary>
         ///     Sends the form to collaborator.
         /// </summary>
         /// <param name="collaborator">The collaborator.</param>
