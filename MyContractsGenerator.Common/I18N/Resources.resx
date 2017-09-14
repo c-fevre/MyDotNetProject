@@ -568,7 +568,7 @@ MyContractsGenerator Team</value>
     <value>Email</value>
   </data>
   <data name="Organization_Label" xml:space="preserve">
-    <value>Compagny</value>
+    <value>Company</value>
   </data>
   <data name="Error_Message" xml:space="preserve">
     <value>An error occured, please try again or contact your administrator</value>
@@ -616,7 +616,7 @@ MyContractsGenerator Team</value>
     <value>Are you sure you want to delete the company "{0}" ? All linked administrator will be unbinded, all access revoked.</value>
   </data>
   <data name="Organization_Tooltip_Remove" xml:space="preserve">
-    <value>Remove compagny</value>
+    <value>Remove company</value>
   </data>
   <data name="Organization_ValidateButton" xml:space="preserve">
     <value>Validate</value>
@@ -632,5 +632,17 @@ MyContractsGenerator Team</value>
   </data>
   <data name="SendMailExceptionMessage" xml:space="preserve">
     <value>Email send failed : {0}</value>
+  </data>
+  <data name="Administrateur_Organization" xml:space="preserve">
+    <value>Administrator's organization : </value>
+  </data>
+  <data name="Organization_MultiSelect_NonSelectedText" xml:space="preserve">
+    <value>No organization selected</value>
+  </data>
+  <data name="Organization_AdministratorsList_Label" xml:space="preserve">
+    <value>Administrators</value>
+  </data>
+  <data name="Organization_No_Admin_Message" xml:space="preserve">
+    <value>No active administrator found for this organization</value>
   </data>
 </root>

@@ -5,7 +5,7 @@
     Layout = "~/Views/Organization/_LayoutOrganization.cshtml";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Organization", FormMethod.Post, new { id = "OrganizationForm" }))
 {
     @Html.AntiForgeryToken()
     <div class="row">
@@ -77,7 +77,7 @@
         var aspnet = {
             messages: {
                 beforeLeaveMessage: @Html.Raw(Json.Encode(Resources.Shared_BeforeLeave_Message))
-                }
+            }
         };
 
         $(document).ready(function() {
@@ -85,7 +85,7 @@
             MyContractsGenerator.changesManager.init(aspnet.messages.beforeLeaveMessage,
                 ":submit",
                 "#leavePage",
-                "form",
+                "#OrganizationForm",
                 inputsToExclude);
         });
     </script>

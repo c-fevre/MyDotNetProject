@@ -33,5 +33,14 @@ namespace MyContractsGenerator.WebUI.Models.OrganizationModels
         ///   <c>true</c> if this instance is removable; otherwise, <c>false</c>.
         /// </value>
         public bool IsRemovable { get; set; }
+
+        /// <summary>
+        /// Gets or sets the administrators list.
+        /// </summary>
+        /// <value>
+        /// The administrators list.
+        /// </value>
+        [Display(Name = "Organization_AdministratorsList_Label", ResourceType = typeof(Resources))]
+        public string AdministratorsList { get; set; }
     }
 }

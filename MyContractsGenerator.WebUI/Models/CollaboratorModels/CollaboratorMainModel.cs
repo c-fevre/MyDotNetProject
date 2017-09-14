@@ -29,9 +29,5 @@ namespace MyContractsGenerator.WebUI.Models.CollaboratorModels
         ///     The linked roles.
         /// </value>
         public IEnumerable<SelectListItem> AvailableRoles { get; set; }
-
-        //public List<SelectListItem> AvailableApplicationLangage { get; set; }
-
-        // TODO Multilinguage
     }
 }

@@ -33,7 +33,7 @@ namespace MyContractsGenerator.Business
         {
             return this.administratorRepository.GetByEmail(email);
         }
-        
+
         /// <summary>
         ///     Gets all administrators
         /// </summary>
@@ -160,6 +160,75 @@ namespace MyContractsGenerator.Business
 
             //Send mail
             this.mailService.SendGeneratedPasswordAdministrator(administrator, clearPassword);
+        }
+
+        /// <summary>
+        /// Affects to organization.
+        /// </summary>
+        /// <param name="editedAdministratorLinkedOrganization">The edited administrator linked organization.</param>
+        /// <param name="adminId">The admin identifier.</param>
+        /// <param name="currentOrganizationId">The current organization identifier.</param>
+        /// <exception cref="System.InvalidOperationException">Multi organization for administrator forbidden</exception>
+        public void AffectToOrganization(IList<int> editedAdministratorLinkedOrganization, int adminId, int currentOrganizationId)
+        {
+            Requires.ArgumentGreaterThanZero(adminId, "adminId");
+            Requires.ArgumentNotNull(editedAdministratorLinkedOrganization, "editedAdministratorLinkedOrganization");
+
+            if (!editedAdministratorLinkedOrganization.Any())
+            {
+                throw new InvalidOperationException("No organization for administrator is forbidden");
+            }
+
+            if (editedAdministratorLinkedOrganization.Any() && editedAdministratorLinkedOrganization.Count > 1)
+            {
+                throw new InvalidOperationException("Multi organization for administrator is forbidden");
+            }
+
+            this.AffectToOrganization(editedAdministratorLinkedOrganization.FirstOrDefault(), adminId);
+        }
+
+        /// <summary>
+        /// Affects to organization.
+        /// </summary>
+        /// <param name="organizationIdToAffect">The organization identifier to affect.</param>
+        /// <param name="adminId">The admin identifier.</param>
+        private void AffectToOrganization(int organizationIdToAffect, int adminId)
+        {
+            Requires.ArgumentGreaterThanZero(organizationIdToAffect, "roleIdToDesaffect");
+
+            administrator administratorToUpdate = this.administratorRepository.GetById(adminId);
+
+            if (administratorToUpdate != null)
+            {
+                administratorToUpdate.organization_id = organizationIdToAffect;
+            }
+
+            this.administratorRepository.Update(administratorToUpdate);
+            this.administratorRepository.SaveChanges();
+        }
+
+        /// <summary>
+        /// Gets the single organization identifier.
+        /// </summary>
+        /// <param name="editedAdministratorLinkedOrganization">The edited administrator linked organization.</param>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException">Multi organization for administrator forbidden</exception>
+        public int GetSingleOrganizationId(IList<int> editedAdministratorLinkedOrganization)
+        {
+            Requires.ArgumentNotNull(editedAdministratorLinkedOrganization, "editedAdministratorLinkedOrganization");
+
+            if (!editedAdministratorLinkedOrganization.Any())
+            {
+                throw new InvalidOperationException("No organization for administrator is forbidden");
+            }
+
+            if (editedAdministratorLinkedOrganization.Any() && editedAdministratorLinkedOrganization.Count > 1)
+            {
+                throw new InvalidOperationException("Multi organization for administrator is forbidden");
+            }
+
+            return editedAdministratorLinkedOrganization.FirstOrDefault();
+
         }
     }
 }

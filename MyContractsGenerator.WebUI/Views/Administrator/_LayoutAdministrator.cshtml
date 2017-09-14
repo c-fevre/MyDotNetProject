@@ -39,9 +39,34 @@
             var aspnet = {
                 messages: {
                     beforeLeave: @Html.Raw(Json.Encode(Resources.Shared_BeforeLeave_Message)),
-                    nonSelectedText: @Html.Raw(Json.Encode(Resources.Role_MultiSelect_NonSelectedText))
+                    nonSelectedText: @Html.Raw(Json.Encode(Resources.Organization_MultiSelect_NonSelectedText))
                 }
             };
+
+            $("#EditedAdministrator_LinkedOrganization")
+                .multiselect({
+                    numberDisplayed: 100,
+                    selectAllNumber: false,
+                    buttonText: function(options, select) {
+                        if (options.length === 0) return aspnet.messages.nonSelectedText;
+                        else return $.map(options, function(x) { return $(x).text() }).join(", ");
+                    },
+                    onChange: function(option, checked, select) {
+                        IsThisPageHasBeModified = true;
+                        
+                        // TODO : faire mieux, rustine qui transforme le multiselect en 
+                        $('.multiselect-container input:checkbox').each(function() {
+                            if ($(this).prop("checked") && option.val() !== $(this).val()) {
+                                $(this).click();
+                            }
+                        });
+                    }
+                });
+
+            $('.multiselect-container input:checkbox').each(function() {
+                $(this).css("display", "none");
+                $(this).closest("label").css("padding", "3px 10px 3px 10px");
+            });
         });
 
     </script>

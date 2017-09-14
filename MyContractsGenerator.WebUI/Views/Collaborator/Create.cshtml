@@ -5,7 +5,7 @@
     Layout = "~/Views/Collaborator/_LayoutCollaborator.cshtml";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Collaborator", FormMethod.Post, new { id = "CollaboratorForm" }))
 {
     @Html.AntiForgeryToken()
     <div class="row">
@@ -110,6 +110,7 @@
     </div>
 </div>
 
+
 @section PageChangeChecker{
     <script>
         var aspnet = {
@@ -123,7 +124,7 @@
             MyContractsGenerator.changesManager.init(aspnet.messages.beforeLeaveMessage,
                 ":submit",
                 "#leavePage",
-                "form",
+                "#CollaboratorForm",
                 inputsToExclude);
         });
     </script>

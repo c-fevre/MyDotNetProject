@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using MyContractsGenerator.Domain;
 using MyContractsGenerator.WebUI.Models.OrganizationModels;
 
@@ -21,11 +23,22 @@ namespace MyContractsGenerator.WebUI.Mapping
                 return null;
             }
 
+            string administratorsList = string.Empty;
+
+            if (organization.administrators.Any())
+            {
+                organization.administrators.Where(a => a.active).ToList().ForEach(a =>
+                  {
+                      administratorsList += $"{a.firstname} {a.lastname} <\"{a.email}\"> ";
+                  });
+            }
+
             OrganizationModel organizationModel = new OrganizationModel
             {
                 Id = organization.id,
                 Label = organization.label,
-                IsRemovable = !organization.administrators.Any(a => a.is_super_admin)
+                IsRemovable = !organization.administrators.Any(a => a.is_super_admin),
+                AdministratorsList = administratorsList
             };
 
             return organizationModel;
@@ -49,5 +62,26 @@ namespace MyContractsGenerator.WebUI.Mapping
         }
 
         #endregion
+
+        /// <summary>
+        /// Maps the items to select list items.
+        /// </summary>
+        /// <param name="organizations">The organizations.</param>
+        /// <returns></returns>
+        public static IList<SelectListItem> MapItemsToSelectListItems(IList<organization> organizations)
+        {
+            var models = new List<SelectListItem>();
+
+            foreach (var domain in organizations)
+            {
+                models.Add(new SelectListItem
+                {
+                    Value = domain.id.ToString(),
+                    Text = domain.label
+                });
+            }
+
+            return models;
+        }
     }
 }

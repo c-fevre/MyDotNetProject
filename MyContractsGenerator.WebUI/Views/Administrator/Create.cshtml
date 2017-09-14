@@ -5,7 +5,7 @@
     Layout = "~/Views/Administrator/_LayoutAdministrator.cshtml";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Administrator", FormMethod.Post, new { id = "AdministratorForm" }))
 {
     @Html.AntiForgeryToken()
     <div class="row">
@@ -31,6 +31,12 @@
                 @Html.LabelFor(model => model.EditedAdministrator.Email, new { @class = "control-label" })
                 @Html.EditorFor(model => model.EditedAdministrator.Email, new { htmlAttributes = new { @class = "form-control small-medium-input" } })
                 @Html.ValidationMessageFor(model => model.EditedAdministrator.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EditedAdministrator.LinkedOrganization, new { @class = "control-label" })
+                @Html.ListBoxFor(m => m.EditedAdministrator.LinkedOrganization, Model.AvailableOrganizations, new { @class = "" })
+                @Html.ValidationMessageFor(model => model.EditedAdministrator.LinkedOrganization, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
@@ -98,7 +104,7 @@
             MyContractsGenerator.changesManager.init(aspnet.messages.beforeLeaveMessage,
                 ":submit",
                 "#leavePage",
-                "form",
+                "#AdministratorForm",
                 inputsToExclude);
         });
     </script>

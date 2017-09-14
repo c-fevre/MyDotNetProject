@@ -26,7 +26,7 @@
 
     <footer id="footerMenu">
         <a role="button" class="btn btn-default" href="#" data-toggle="modal" data-target="#cancelModal">@Resources.Role_CancelButton</a>
-        <button type="submit" class="btn btn-info">@Resources.Role_ValidateButton</button>
+        <button type="submit" class="btn btn-info" >@Resources.Role_ValidateButton</button>
     </footer>
 
     <!-- Role suppression confirmation Modal -->
@@ -67,7 +67,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">@Resources.Shared_Button_No</button>
-                    <a class="btn btn-info" id="" href="@Url.Action("Edit", "Role", new { id = Model.EditedRole.Id })">
+                    <a class="btn btn-info" id="cancelButton" href="@Url.Action("Edit", "Role", new { id = Model.EditedRole.Id })">
                         @Resources.Shared_Button_Yes
                     </a>
                 </div>
@@ -88,8 +88,8 @@
             var inputsToExclude = ["#deleteRoleBtn"];
             MyContractsGenerator.changesManager.init(aspnet.messages.beforeLeaveMessage,
                 ":submit",
-                "#leavePage",
-                "form",
+                "#cancelButton",
+                "#RoleForm",
                 inputsToExclude);
         });
     </script>

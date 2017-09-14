@@ -1,6 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using MyContractsGenerator.Common.I18N;
 using MyContractsGenerator.WebUI.Models.BaseModels;
+using MyContractsGenerator.WebUI.Models.OrganizationModels;
 
 namespace MyContractsGenerator.WebUI.Models.AdministratorModels
 {
@@ -106,5 +108,16 @@ namespace MyContractsGenerator.WebUI.Models.AdministratorModels
         ///   <c>true</c> if this instance is removable; otherwise, <c>false</c>.
         /// </value>
         public bool IsRemovable{ get; set; }
+
+        /// <summary>
+        /// Gets or sets the linked organization.
+        /// </summary>
+        /// <value>
+        /// The linked organization.
+        /// </value>
+        [Display(Name = "Administrateur_Organization", ResourceType = typeof(Resources))]
+        [Required(ErrorMessageResourceName = "Shared_RequiredField", ErrorMessageResourceType = typeof(Resources))]
+        public IList<int> LinkedOrganization { get; set; }
+        
     }
 }

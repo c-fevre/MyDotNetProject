@@ -73,5 +73,20 @@ namespace MyContractsGenerator.Interfaces.InterfacesServices
         /// <param name="administratorToCreate">The administrator to create.</param>
         /// <returns></returns>
         administrator Add(administrator administratorToCreate);
+
+        /// <summary>
+        /// Affects to organization.
+        /// </summary>
+        /// <param name="editedAdministratorLinkedOrganization">The edited administrator linked organization.</param>
+        /// <param name="adminId">The admin identifier.</param>
+        /// <param name="currentOrganizationId">The current organization identifier.</param>
+        void AffectToOrganization(IList<int> editedAdministratorLinkedOrganization, int adminId, int currentOrganizationId);
+
+        /// <summary>
+        /// Gets the single organization identifier.
+        /// </summary>
+        /// <param name="editedAdministratorLinkedOrganization">The edited administrator linked organization.</param>
+        /// <returns></returns>
+        int GetSingleOrganizationId(IList<int> editedAdministratorLinkedOrganization);
     }
 }

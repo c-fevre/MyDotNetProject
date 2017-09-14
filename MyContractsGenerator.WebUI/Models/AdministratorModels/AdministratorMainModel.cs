@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using MyContractsGenerator.WebUI.Models.BaseModels;
 
 namespace MyContractsGenerator.WebUI.Models.AdministratorModels
@@ -20,5 +21,13 @@ namespace MyContractsGenerator.WebUI.Models.AdministratorModels
         ///     The edited administrator.
         /// </value>
         public AdministratorModel EditedAdministrator { get; set; }
+
+        /// <summary>
+        /// Gets or sets the available organizations.
+        /// </summary>
+        /// <value>
+        /// The available organizations.
+        /// </value>
+        public IList<SelectListItem> AvailableOrganizations { get; set; }
     }
 }

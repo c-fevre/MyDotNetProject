@@ -61,6 +61,7 @@ namespace MyContractsGenerator.WebUI.Controllers
 
             collaborator deleteCollaborator =
                 this.collaboratorService.GetById((int)this.TempData["DeleteCollaboratorId"], this.CurrentOrganizationId);
+
             NotificationModel notificationModel = new NotificationModel
             {
                 Title =

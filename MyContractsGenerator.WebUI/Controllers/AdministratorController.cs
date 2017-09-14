@@ -24,18 +24,25 @@ namespace MyContractsGenerator.WebUI.Controllers
         private readonly IAdministratorService administratorService;
 
         /// <summary>
+        /// The organization service
+        /// </summary>
+        private readonly IOrganizationService organizationService;
+
+        /// <summary>
         ///     The administrator service
         /// </summary>
         private readonly IMailService mailService;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AdministratorController" /> class.
+        /// Initializes a new instance of the <see cref="AdministratorController"/> class.
         /// </summary>
         /// <param name="administratorService">The administrator service.</param>
+        /// <param name="organizationService">The organization service.</param>
         /// <param name="mailService">The mail service.</param>
-        public AdministratorController(IAdministratorService administratorService, IMailService mailService) : base(administratorService)
+        public AdministratorController(IAdministratorService administratorService, IOrganizationService organizationService, IMailService mailService) : base(administratorService)
         {
             this.administratorService = administratorService;
+            this.organizationService = organizationService;
             this.mailService = mailService;
         }
 
@@ -215,6 +222,9 @@ namespace MyContractsGenerator.WebUI.Controllers
             existingAdministrator.firstname = model.EditedAdministrator.FirstName;
             existingAdministrator.lastname = model.EditedAdministrator.LastName;
 
+            int organizationId = this.administratorService.GetSingleOrganizationId(model.EditedAdministrator.LinkedOrganization);
+            existingAdministrator.organization_id = organizationId;
+
             //Check infos
             ActionResult actionResult;
             if (this.CheckAdministratorInformations(model, existingAdministrator, out actionResult))
@@ -360,6 +370,8 @@ namespace MyContractsGenerator.WebUI.Controllers
             }
 
             string password = PasswordGenerator.GeneratePassword(8, 4);
+            int organizationId = this.administratorService.GetSingleOrganizationId(model.EditedAdministrator.LinkedOrganization);
+
             administrator newAdministrator = new administrator
             {
                 email = model.EditedAdministrator.Email,
@@ -368,7 +380,7 @@ namespace MyContractsGenerator.WebUI.Controllers
                 password = ShaHashPassword.GetSha256ResultString(password.Trim()),
                 active = true,
                 is_super_admin = false,
-                organization_id = 0
+                organization_id = organizationId
             };
 
             administrator dbAdmin = this.administratorService.Add(newAdministrator);
@@ -405,8 +417,10 @@ namespace MyContractsGenerator.WebUI.Controllers
         {
             //Populate the active administrators
             IList<administrator> administrators = this.administratorService.GetActiveAdministrators();
+            IList<organization> organizations = this.organizationService.GetAll();
 
             model.Administrators = AdministratorMap.MapItems(administrators);
+            model.AvailableOrganizations = OrganizationMap.MapItemsToSelectListItems(organizations);
         }
 
         /// <summary>

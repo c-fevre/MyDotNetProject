@@ -29,8 +29,14 @@ namespace MyContractsGenerator.WebUI.Mapping
                 Email = administrator.email,
                 IsActive = administrator.active,
                 OrganizationId = administrator.organization_id,
-                IsRemovable = !administrator.is_super_admin
+                IsRemovable = !administrator.is_super_admin,
+                LinkedOrganization = new List<int>()
             };
+
+            if (administrator.organization != null)
+            {
+                administratorModel.LinkedOrganization.Add(administrator.organization.id);
+            }
 
             return administratorModel;
         }

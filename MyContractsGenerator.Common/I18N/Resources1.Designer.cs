@@ -61,6 +61,15 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Administrator&apos;s organization : .
+        /// </summary>
+        public static string Administrateur_Organization {
+            get {
+                return ResourceManager.GetString("Administrateur_Organization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à You are goin to add a new administrator to your project, do you want to continue ? An email with a generated password will be send to this administrator..
         /// </summary>
         public static string Administrator_AddConfirmationMessage {
@@ -1091,6 +1100,15 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Administrators.
+        /// </summary>
+        public static string Organization_AdministratorsList_Label {
+            get {
+                return ResourceManager.GetString("Organization_AdministratorsList_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Cancel.
         /// </summary>
         public static string Organization_CancelButton {
@@ -1127,7 +1145,7 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Compagny.
+        ///   Recherche une chaîne localisée semblable à Company.
         /// </summary>
         public static string Organization_Label {
             get {
@@ -1145,11 +1163,29 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à No organization selected.
+        /// </summary>
+        public static string Organization_MultiSelect_NonSelectedText {
+            get {
+                return ResourceManager.GetString("Organization_MultiSelect_NonSelectedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à New company.
         /// </summary>
         public static string Organization_New {
             get {
                 return ResourceManager.GetString("Organization_New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à No active administrator found for this organization.
+        /// </summary>
+        public static string Organization_No_Admin_Message {
+            get {
+                return ResourceManager.GetString("Organization_No_Admin_Message", resourceCulture);
             }
         }
         
@@ -1190,7 +1226,7 @@ namespace MyContractsGenerator.Common.I18N {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Remove compagny.
+        ///   Recherche une chaîne localisée semblable à Remove company.
         /// </summary>
         public static string Organization_Tooltip_Remove {
             get {

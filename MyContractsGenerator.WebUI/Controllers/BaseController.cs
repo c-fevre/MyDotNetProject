@@ -280,7 +280,7 @@ namespace MyContractsGenerator.WebUI.Controllers
         /// <summary>
         /// The log.
         /// </summary>
-        private static readonly ILog log =
+        public readonly ILog log =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
@@ -329,30 +329,30 @@ namespace MyContractsGenerator.WebUI.Controllers
             switch (gravite)
             {
                 case GraviteLog.Debug:
-                    if (log.IsDebugEnabled)
+                    if (this.log.IsDebugEnabled)
                     {
-                        log.Debug(messageAndUserAgent);
+                        this.log.Debug(messageAndUserAgent);
                     }
                     break;
 
                 case GraviteLog.Info:
-                    if (log.IsInfoEnabled)
+                    if (this.log.IsInfoEnabled)
                     {
-                        log.Info(messageAndUserAgent);
+                        this.log.Info(messageAndUserAgent);
                     }
                     break;
 
                 case GraviteLog.SystemError:
-                    if (log.IsFatalEnabled)
+                    if (this.log.IsFatalEnabled)
                     {
-                        log.Fatal(messageAndUserAgent);
+                        this.log.Fatal(messageAndUserAgent);
                     }
                     break;
 
                 case GraviteLog.UserError:
-                    if (log.IsErrorEnabled)
+                    if (this.log.IsErrorEnabled)
                     {
-                        log.Error(messageAndUserAgent);
+                        this.log.Error(messageAndUserAgent);
                     }
                     break;
             }
@@ -371,9 +371,9 @@ namespace MyContractsGenerator.WebUI.Controllers
                     return;
                 }
 
-                if (log.IsErrorEnabled)
+                if (this.log.IsErrorEnabled)
                 {
-                    log.Error(
+                    this.log.Error(
                         "Who: " + filterContext.HttpContext.User.Identity.Name + " - What: " +
                         filterContext.Exception.Message, filterContext.Exception);
                 }
